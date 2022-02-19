@@ -22,7 +22,6 @@ function sortEvents(a: any, b: any) {
 function processProject(project: any) {
   project.thumbnail = project.images[0]?.url;
 
-  // Augment images
   project.images = project.images.map((image: any) => {
     // Augment image data
     const imageData = {
@@ -75,7 +74,11 @@ export function useProjects() {
     return p.length ? p : null;
   });
 
-  return { projects, upcomingProjects };
+  const firstUpcomingProject = computed(() => {
+    return upcomingProjects.value ? upcomingProjects.value[0] : null;
+  });
+
+  return { projects, upcomingProjects, firstUpcomingProject };
 }
 
 export function useProjectBySlug(slug: string) {

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NavLive from "./NavLive.vue";
 type Props = {
   navItems: {
     name: string;
@@ -7,7 +8,7 @@ type Props = {
 };
 
 const { navItems } = defineProps<Props>();
-const menuItemsLength = navItems ? navItems.length : 0;
+const menuItemsLength = navItems ? navItems.length + 1 : 0;
 </script>
 
 <template>
@@ -15,6 +16,7 @@ const menuItemsLength = navItems ? navItems.length : 0;
     <RouterLink v-for="item in navItems" :key="item.name" :to="item.path">
       {{ item.name }}
     </RouterLink>
+    <NavLive />
   </nav>
 </template>
 
