@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { $fetch } from "ohmyfetch";
 import Parser from "rss-parser/dist/rss-parser.js";
-import { getPodcast, formatMarkdown } from "../utils";
+import { useProjectBySlug } from "../utils";
 
 // TODO move to /logic and use env variable
 
-const podcast = await getPodcast();
+const { project } = useProjectBySlug("signal");
 
 const rssUrl =
   "https://api.allorigins.win/get?url=https://elektronsignal.captivate.fm/rssfeed";
@@ -21,8 +21,8 @@ const rss = await parser.parseString(rssSource.contents);
       <ETitle size="lg">Elektron Signal</ETitle>
       <!-- TODO: Add susbcribe buttons -->
       <!-- https://github.com/elektronstudio/art/blob/master/src/pages/Signal.vue#L36 -->
-      <EContent v-html="formatMarkdown(podcast.description_estonian)" />
-      <EContent v-html="formatMarkdown(podcast.description_english)" />
+      <EContent v-html="project?.description_estonian" />
+      <EContent v-html="project?.description_english" />
     </EStack>
     <EStack>
       <ETitle>Latest episodes</ETitle>
