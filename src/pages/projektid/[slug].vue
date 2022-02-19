@@ -22,6 +22,7 @@ const { project } = useProjectBySlug(params.slug as string);
           <p>
             {{ event.formattedFromDatetime }} / {{ event.formattedDistance }}
           </p>
+          <a :href="event.liveUrl" target="_blank">{{ event.liveUrl }}</a>
         </template>
         <EImageSlider :images="project.images" />
       </EStack>

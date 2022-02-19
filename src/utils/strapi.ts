@@ -3,7 +3,7 @@ import { useRange } from "elektro";
 import { $fetch } from "ohmyfetch";
 import { compareDesc } from "date-fns";
 
-import { config, formatMarkdown } from ".";
+import { config, formatMarkdown, replaceTokens } from ".";
 
 // TODO: Add Event and Project typings
 
@@ -20,10 +20,8 @@ function sortEvents(a: any, b: any) {
 }
 
 function processProject(project: any) {
-  project.thumbnail = project.images[0]?.url;
-
+  // Augment image data
   project.images = project.images.map((image: any) => {
-    // Augment image data
     const imageData = {
       sizes: Object.values(image.formats),
       alt: image.alternativeText,
@@ -31,6 +29,8 @@ function processProject(project: any) {
     };
     return { ...image, ...imageData };
   });
+
+  project.thumbnail = project.images[0]?.url;
 
   // Convert Markdown to HTML
   project.description_intro = formatMarkdown(project.intro);
@@ -47,7 +47,11 @@ function processProject(project: any) {
         new Date(event.start_at),
         new Date(event.end_at),
       );
-      return { ...event, ...eventData };
+      const liveUrl = replaceTokens(config.liveUrl as string, {
+        projectSlug: project.slug,
+        eventSlug: event.slug,
+      });
+      return { ...event, ...eventData, liveUrl };
     })
     .sort(sortEvents);
 

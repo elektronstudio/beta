@@ -12,7 +12,9 @@ const event = computed(() => firstUpcomingProject.value?.upcomingEvents?.[0]);
     :class="{ isLive: event?.urgency === 'now' }"
     to="/"
   >
-    <div v-if="event">{{ event.title }} {{ event.formattedDistance }}</div>
+    <a :href="event.liveUrl" target="_blank" v-if="event">
+      {{ event.title }} {{ event.formattedDistance }}
+    </a>
   </RouterLink>
 </template>
 

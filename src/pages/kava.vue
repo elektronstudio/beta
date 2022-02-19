@@ -12,6 +12,7 @@ const { upcomingProjects } = useProjects();
       <template v-for="event in project.upcomingEvents">
         <ETitle v-html="event.title" />
         <p>{{ event.formattedFromDatetime }} / {{ event.formattedDistance }}</p>
+        <a :href="event.liveUrl" target="_blank">{{ event.liveUrl }}</a>
       </template>
     </template>
   </EStack>
