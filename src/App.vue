@@ -9,6 +9,10 @@ const navItems = [
     path: "/kava",
   },
   {
+    name: "Festival 2022",
+    path: "/festival",
+  },
+  {
     name: "Projektid",
     path: "/projektid",
   },

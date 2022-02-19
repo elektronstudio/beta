@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { useProjectBySlug } from "../utils";
-const { project } = useProjectBySlug("kohe2022");
+const about = `Transdistsiplinaarne etenduskunsti platvorm,<br />mis liidab kaasaegse
+      kunsti, teaduse ja<br />tehnloogia otsingulisi tegevusi`;
 </script>
 <template>
   <div class="Page">
-    <ETitle size="lg" class="about">
-      Transdistsiplinaarne etenduskunsti platvorm,<br />mis liidab kaasaegse
-      kunsti, teaduse ja<br />tehnloogia otsingulisi tegevusi
-    </ETitle>
+    <ETitle size="lg" class="about" v-html="about" />
     <video
       class="video"
       src="https://fra1.digitaloceanspaces.com/elektron/strapi/360a11d9f1f67714207c413e56b6e711.mp4"
@@ -16,7 +14,6 @@ const { project } = useProjectBySlug("kohe2022");
       loop
     />
   </div>
-  {{ project }}
 </template>
 
 <style scoped>

@@ -1,0 +1,17 @@
+<script setup lang="ts">
+import { useProjectBySlug } from "../utils";
+const { project } = useProjectBySlug("kohe2022");
+</script>
+<template>
+  <div class="Page">
+    <ETitle size="lg" v-html="project.title" />
+    <EContent v-html="project.description_english" />
+  </div>
+</template>
+
+<style scoped>
+.Page {
+  position: relative;
+  padding: var(--p-5);
+}
+</style>

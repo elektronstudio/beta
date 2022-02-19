@@ -26,11 +26,11 @@ const rss = await parser.parseString(rssSource.contents);
     </EStack>
     <EStack>
       <ETitle>Latest episodes</ETitle>
-      <EStack v-for="(episode, i) in rss.items" :key="i">
+      <!-- <EStack v-for="(episode, i) in rss.items" :key="i">
         <ETitle v-html="episode.title" />
         <EContent v-html="episode['content:encoded']" />
         <audio controls :src="episode?.enclosure.url" />
-      </EStack>
+      </EStack> -->
     </EStack>
   </div>
 </template>
