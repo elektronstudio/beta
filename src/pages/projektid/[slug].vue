@@ -15,14 +15,15 @@ const { project } = useProjectBySlug(params.slug as string);
         <EContent v-html="project.description_english" />
       </EStack>
       <!-- TODO: Remove style when elektro gets updated -->
-      <EStack v-if="project.upcomingEvents" style="grid-auto-rows: min-content">
-        <ETitle>Upcoming events</ETitle>
+      <EStack style="grid-auto-rows: min-content">
+        <ETitle v-if="project.upcomingEvents">Upcoming events</ETitle>
         <template v-for="event in project.upcomingEvents">
           <ETitle v-html="event.title" />
           <p>
             {{ event.formattedFromDatetime }} / {{ event.formattedDistance }}
           </p>
         </template>
+        <EImageSlider :images="project.images" />
       </EStack>
     </EStack>
   </div>

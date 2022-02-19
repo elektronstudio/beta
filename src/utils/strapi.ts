@@ -22,16 +22,28 @@ function sortEvents(a: any, b: any) {
 function processProject(project: any) {
   project.thumbnail = project.images[0]?.url;
 
-  // TODO: Add image remapping
+  // Augment images
+  project.images = project.images.map((image: any) => {
+    // Augment image data
+    const imageData = {
+      sizes: Object.values(image.formats),
+      alt: image.alternativeText,
+      caption: image.caption,
+    };
+    return { ...image, ...imageData };
+  });
 
+  // Convert Markdown to HTML
   project.description_intro = formatMarkdown(project.intro);
   project.description_english = formatMarkdown(project.description_english);
   project.description_estonian = formatMarkdown(project.description_estonian);
 
   project.events = (project.events || [])
     .map((event: any) => {
+      // Convert Markdown to HTML
       event.description_english = formatMarkdown(event.description_english);
       event.description_estonian = formatMarkdown(event.description_estonian);
+      // Augment events with reactive event data
       const eventData = useRange(
         new Date(event.start_at),
         new Date(event.end_at),
