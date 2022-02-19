@@ -65,11 +65,12 @@ export function useProjects() {
   return { projects, upcomingProjects };
 }
 
-export async function useFestival() {
-  const festival = ref<any>();
-  $fetch(`${config.strapiUrl}/festivals?slug=kohe2022`).then(
-    (f) => (festival.value = f.map(processProject)[0]),
+export function useProjectBySlug(slug: string) {
+  const project = ref<any>();
+  $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
+    (f) => (project.value = f.map(processProject)[0]),
   );
+  return { project };
 }
 
 export async function getPodcast() {

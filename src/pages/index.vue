@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { useProjectBySlug } from "../utils";
+const { project } = useProjectBySlug("kohe2022");
+</script>
 <template>
   <div class="Page">
     <ETitle size="lg" class="about">
@@ -12,6 +16,7 @@
       loop
     />
   </div>
+  {{ project }}
 </template>
 
 <style scoped>
