@@ -12,14 +12,11 @@ const event = computed(() => firstUpcomingProject.value?.upcomingEvents?.[0]);
     :class="{ isLive: event?.urgency === 'now' }"
     to="/"
   >
-    <div v-if="event">
-      {{ event }}
-    </div>
+    <div v-if="event">{{ event.title }} {{ event.formattedDistance }}</div>
   </RouterLink>
 </template>
 
 <style scoped>
-/* @TODO: This is mostly repeating ENav code. Maybe do a more dry approach. */
 .NavLive {
   display: inline-flex;
   height: var(--h-9);
