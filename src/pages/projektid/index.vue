@@ -9,6 +9,7 @@ const { projects } = useProjects();
     <ETitle size="lg">Projektid</ETitle>
     <br />
     <div
+      v-if="projects"
       style="
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
