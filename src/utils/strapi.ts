@@ -59,9 +59,7 @@ export function useProjects() {
   });
 
   const upcomingProjects = computed(() => {
-    const p = projects.value.filter(
-      (project: any) => project.upcomingEvents.length > 0,
-    );
+    const p = projects.value.filter((project: any) => project.upcomingEvents);
     return p.length ? p : null;
   });
 

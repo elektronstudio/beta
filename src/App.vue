@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const navItems = [
   {
-    name: "elektro",
+    name: "elektron",
     path: "/",
   },
   {
@@ -21,7 +21,7 @@ const navItems = [
     path: "/meist",
   },
   {
-    name: "Signal podcast",
+    name: "Podcast",
     path: "/signal",
   },
   {
