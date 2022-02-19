@@ -40,9 +40,11 @@ function processProject(project: any) {
     })
     .sort(sortEvents);
 
-  project.upcomingEvents = project.events.filter(
+  const p = project.events.filter(
     (event: any) => event.urgency.value !== "past",
   );
+
+  project.upcomingEvents = p.length ? p : null;
 
   return project;
 }
@@ -57,9 +59,10 @@ export function useProjects() {
   });
 
   const upcomingProjects = computed(() => {
-    return projects.value.filter(
+    const p = projects.value.filter(
       (project: any) => project.upcomingEvents.length > 0,
     );
+    return p.length ? p : null;
   });
 
   return { projects, upcomingProjects };

@@ -32,6 +32,8 @@ const navItems = [
 </script>
 <template>
   <Nav :navItems="navItems" />
-  <Suspense><router-view /></Suspense>
+  <!-- Wrap into <Suspense> if you want to use -->
+  <!-- toplevel await it script setup -->
+  <router-view />
   <EWindowBorder />
 </template>
