@@ -4,10 +4,10 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ENavItem: typeof import('elektro')['ENavItem']
+    EContent: typeof import('elektro')['EContent']
+    EStack: typeof import('elektro')['EStack']
     ETitle: typeof import('elektro')['ETitle']
     EWindowBorder: typeof import('elektro')['EWindowBorder']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Nav: typeof import('./src/components/Nav.vue')['default']
   }
 }

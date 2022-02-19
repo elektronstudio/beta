@@ -1,5 +1,4 @@
 <template>
-  <Nav />
   <div class="Page">
     <ETitle size="lg" class="about">
       Transdistsiplinaarne etenduskunsti platvorm,<br />mis liidab kaasaegse

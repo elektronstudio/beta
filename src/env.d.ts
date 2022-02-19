@@ -21,3 +21,5 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+declare module "rss-parser/dist/rss-parser.js";

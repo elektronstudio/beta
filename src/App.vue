@@ -28,6 +28,6 @@ const navItems = [
 </script>
 <template>
   <Nav :navItems="navItems" />
-  <router-view />
+  <Suspense><router-view /></Suspense>
   <EWindowBorder />
 </template>
