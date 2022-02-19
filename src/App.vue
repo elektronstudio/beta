@@ -9,7 +9,7 @@ const navItems = [
     path: "/kava",
   },
   {
-    name: "Festival 2022",
+    name: "Festival?",
     path: "/festival",
   },
   {
@@ -23,10 +23,6 @@ const navItems = [
   {
     name: "Podcast",
     path: "/signal",
-  },
-  {
-    name: "Live (todo)",
-    path: "",
   },
 ];
 </script>
