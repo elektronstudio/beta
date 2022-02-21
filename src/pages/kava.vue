@@ -3,7 +3,6 @@ import { useProjects } from "../utils";
 import { useRange } from "elektro";
 
 const { upcomingProjects } = useProjects();
-console.log(upcomingProjects);
 
 const isUpcoming = (start_at: string, end_at: string) => {
   const { urgency } = useRange(new Date(start_at), new Date(end_at));
