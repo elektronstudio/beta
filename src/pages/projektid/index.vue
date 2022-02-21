@@ -15,14 +15,7 @@ const archivedProjects = computed(() =>
   <div class="Page">
     <ETitle size="lg" v-if="upcomingProjects.length > 0">Projektid</ETitle>
     <br />
-    <div
-      v-if="upcomingProjects.length > 0"
-      style="
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: var(--gap-4);
-      "
-    >
+    <div v-if="upcomingProjects.length > 0" class="projects">
       <template v-for="project in projects">
         <router-link
           v-if="!project.archived"
@@ -43,14 +36,7 @@ const archivedProjects = computed(() =>
     <ETitle size="lg" v-if="archivedProjects.length > 0">Arhiiv</ETitle>
     <br />
 
-    <div
-      v-if="archivedProjects.length > 0"
-      style="
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: var(--gap-4);
-      "
-    >
+    <div v-if="archivedProjects.length > 0" class="projects">
       <template v-for="project in projects">
         <router-link
           v-if="!project.archived"
@@ -69,5 +55,21 @@ const archivedProjects = computed(() =>
 <style scoped>
 .Page {
   padding: var(--p-5);
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-4);
+}
+@media only screen and (min-width: 600px) {
+  .projects {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .projects {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 </style>
