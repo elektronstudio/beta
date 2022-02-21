@@ -1,34 +1,16 @@
 <!-- @TODO: temporary component, remove this -->
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import NavLive from "./NavLive.vue";
-
-const navItems = [
-  {
-    name: "Lavastused",
-    path: "/lavastused",
-  },
-  {
-    name: "Projektid",
-    path: "/projektid",
-  },
-  {
-    name: "Kava",
-    path: "/kava",
-  },
-  {
-    name: "Meist",
-    path: "/meist",
-  },
-  {
-    name: "ENG",
-    path: "/en",
-  },
-];
+type Props = {
+  navItems: {
+    name: string;
+    path: string;
+  }[];
+};
+const { navItems } = defineProps<Props>();
 
 const navState = ref(false);
-const router = useRouter();
 </script>
 
 <template>
@@ -38,11 +20,7 @@ const router = useRouter();
         <ELogo el="span" />
       </RouterLink>
     </div>
-    <ENav
-      :class="{ navActive: navState }"
-      :nav-items="navItems"
-      :active-path="router.currentRoute.value.path"
-    />
+    <ENav :class="{ navActive: navState }" :nav-items="navItems" />
     <!-- <ELiveButton v-if="nextEvent" :next-event="nextEvent" /> -->
     <NavLive />
     <!-- @TODO: Add proper icon you html hacker :) -->

@@ -1,10 +1,6 @@
 <script setup lang="ts">
 const navItems = [
   {
-    name: "elektron",
-    path: "/",
-  },
-  {
     name: "Kava",
     path: "/kava",
   },
