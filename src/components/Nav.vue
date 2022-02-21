@@ -17,7 +17,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
 <template>
   <header class="Nav">
     <div class="topBar">
-      <RouterLink to="/" class="homeButton">
+      <RouterLink to="/" class="menuItem homeButton">
         <ELogo el="span" />
       </RouterLink>
     </div>
@@ -64,6 +64,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
   background-color: var(--bg);
 }
 .menuItem {
+  position: relative;
   display: inline-flex;
   height: var(--h-9);
   padding: var(--p-1) var(--p-3);

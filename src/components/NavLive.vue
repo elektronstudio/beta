@@ -30,7 +30,8 @@ const event = computed(() => firstUpcomingProject.value?.upcomingEvents?.[0]);
   text-transform: uppercase;
   color: var(--gray-300);
 }
-.NavLive.isLive {
+.NavLive.isLive,
+.NavLive:hover {
   color: var(--bg);
   background-color: var(--gray-200);
 }
@@ -44,7 +45,7 @@ const event = computed(() => firstUpcomingProject.value?.upcomingEvents?.[0]);
 @media only screen and (min-width: 600px) {
   .NavLive {
     margin-left: auto;
-    width: 20rem;
+    width: 22rem;
     padding: var(--p-1);
   }
 }
