@@ -22,6 +22,9 @@ const speakerLoud = `<svg width="1rem" height="1rem" viewBox="0 0 15 15" fill="n
       src="https://fra1.digitaloceanspaces.com/elektron/strapi/360a11d9f1f67714207c413e56b6e711.mp4"
       :muted="muted"
       autoplay
+      playsinline
+      webkit-playsinline
+      preload="auto"
       loop
     />
     <button class="muteButton" @click="handleMute">
