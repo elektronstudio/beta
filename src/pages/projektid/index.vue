@@ -1,30 +1,67 @@
 <script setup lang="ts">
 import { useProjects } from "../../utils";
+import { computed } from "vue";
 
 const { projects } = useProjects();
+const upcomingProjects = computed(() =>
+  projects.value.filter((project: any) => !project.archived),
+);
+const archivedProjects = computed(() =>
+  projects.value.filter((project: any) => project.archived),
+);
 </script>
 
 <template>
   <div class="Page">
-    <ETitle size="lg">Projektid</ETitle>
+    <ETitle size="lg" v-if="upcomingProjects.length > 0">Projektid</ETitle>
     <br />
     <div
-      v-if="projects"
+      v-if="upcomingProjects.length > 0"
       style="
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: var(--gap-4);
       "
     >
-      <router-link
-        v-for="project in projects"
-        :to="'/projektid/' + project.slug"
-      >
-        <EProductionCard
-          :title="project.title"
-          :thumbnail="project.images[0]?.url"
-        />
-      </router-link>
+      <template v-for="project in projects">
+        <router-link
+          v-if="!project.archived"
+          :to="'/projektid/' + project.slug"
+        >
+          <EProductionCard
+            :title="project.title"
+            :thumbnail="project.images[0]?.url"
+            :next-event="
+              project.upcomingEvents && {
+                startAt: project.upcomingEvents[0].formattedFromDatetime,
+              }
+            "
+          />
+        </router-link>
+      </template>
+    </div>
+    <ETitle size="lg" v-if="archivedProjects.length > 0">Arhiiv</ETitle>
+    <br />
+
+    <div
+      v-if="archivedProjects.length > 0"
+      style="
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: var(--gap-4);
+      "
+    >
+      <template v-for="project in projects">
+        <router-link
+          v-if="!project.archived"
+          :to="'/projektid/' + project.slug"
+        >
+          <EProductionCard
+            :title="project.title"
+            :thumbnail="project.images[0]?.url"
+          />
+        </router-link>
+      </template>
     </div>
   </div>
 </template>

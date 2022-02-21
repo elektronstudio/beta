@@ -13,7 +13,7 @@ const navItems = [
     path: "/projektid",
   },
   {
-    name: "Meist",
+    name: "WTF Elektron",
     path: "/meist",
   },
   {
@@ -26,6 +26,8 @@ const navItems = [
   <Nav :navItems="navItems" />
   <!-- Wrap into <Suspense> if you want to use -->
   <!-- toplevel await it script setup -->
-  <router-view />
+  <Suspense>
+    <router-view />
+  </Suspense>
   <EWindowBorder />
 </template>

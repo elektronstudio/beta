@@ -1,9 +1,15 @@
-<template>
-  <div class="Page"><ETitle size="lg">Meist</ETitle></div>
-</template>
+<script setup lang="ts">
+import { getAboutPage } from "../utils";
+import ContentBlocks from "../components/ContentBlocks.vue";
 
-<style scoped>
-.Page {
-  padding: var(--p-5);
-}
-</style>
+const { data } = await getAboutPage();
+</script>
+
+<template>
+  <main class="Page About">
+    <ContentBlocks
+      v-if="data.attributes.cards"
+      :cards="data.attributes.cards"
+    />
+  </main>
+</template>
