@@ -22,8 +22,7 @@ const about = `Transdistsiplinaarne etenduskunsti platvorm,<br />mis liidab kaas
 }
 .about {
   position: absolute;
-  top: var(--p-5);
-  left: var(--p-5);
+  padding: var(--p-5);
 }
 .video {
   width: 100%;
