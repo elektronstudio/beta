@@ -8,10 +8,12 @@ const { project } = useProjectBySlug("kohe2022");
     <header>
       <ETitle size="lg" v-html="project.title" />
     </header>
-    <main>
-      <EBox class="MainContent">
+    <main class="MainContent">
+      <EBox>
         <!-- TODO use the project.intro field in Strapi-->
         <EContent v-html="project.description_estonian" />
+      </EBox>
+      <EBox>
         <EContent v-html="project.description_english" />
       </EBox>
     </main>
@@ -25,6 +27,11 @@ const { project } = useProjectBySlug("kohe2022");
   grid-gap: var(--gap-5);
   padding: var(--p-4);
   color: var(--gray-300);
+}
+
+.MainContent {
+  display: grid;
+  grid-gap: var(--gap-5);
 }
 
 @media only screen and (min-width: 600px) {
