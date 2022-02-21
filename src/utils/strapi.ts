@@ -98,3 +98,10 @@ export async function getPodcast() {
     (f) => f.map(processProject)[0],
   );
 }
+
+export async function getAboutPage() {
+  console.log("poop");
+  return await $fetch(
+    `${config.strapiV4Url}/api/about?populate%5Bcards%5D%5Bpopulate%5D=*`,
+  );
+}
