@@ -10,13 +10,13 @@ const { upcomingProjects } = useProjects();
       v-if="upcomingProjects && upcomingProjects.length > 0"
       v-for="project in upcomingProjects"
     >
-      <EScheduleEvent
-        :title="project.title"
-        :description="project.intro"
-        :path="''"
-      >
+      <EScheduleEvent :description="project.intro" :path="''">
         <!-- @TODO: Remove this once router is figured out -->
-        <ETitle size="lg" :title="project.title" />
+        <template #title>
+          <RouterLink :to="`/projektid/${project.slug}`">
+            <ETitle size="lg" :title="project.title" />
+          </RouterLink>
+        </template>
         <template
           v-if="project.upcomingEvents"
           v-for="event in project.upcomingEvents"
@@ -43,6 +43,16 @@ const { upcomingProjects } = useProjects();
 }
 .Page.Projects > section {
   margin-bottom: var(--m-12);
+}
+
+.EscheduleEvent .ETitle {
+  margin-bottom: var(--m-6);
+}
+.EscheduleEvent a {
+  color: var(--gray-300);
+}
+.EscheduleEvent a:hover {
+  color: var(--fg);
 }
 /* @TODO: Add breakpoints system */
 @media only screen and (min-width: 1240px) {
