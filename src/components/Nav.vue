@@ -17,7 +17,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
 <template>
   <header class="Nav">
     <div class="topBar">
-      <RouterLink to="/" class="menuItem homeButton">
+      <RouterLink to="/" class="menuItem homeButton" @click="navState = false">
         <ELogo el="span" />
       </RouterLink>
     </div>
@@ -27,6 +27,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
         class="menuItem"
         :key="item.name"
         :to="item.path"
+        @click="navState = false"
       >
         {{ item.name }}
       </RouterLink>
