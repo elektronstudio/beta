@@ -100,7 +100,6 @@ export async function getPodcast() {
 }
 
 export async function getAboutPage() {
-  console.log("poop");
   return await $fetch(
     `${config.strapiV4Url}/api/about?populate%5Bcards%5D%5Bpopulate%5D=*`,
   );
