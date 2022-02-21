@@ -22,7 +22,12 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
       </RouterLink>
     </div>
     <nav class="menu" :class="{ navActive: navState }">
-      <RouterLink v-for="item in navItems" :key="item.name" :to="item.path">
+      <RouterLink
+        v-for="item in navItems"
+        class="menuItem"
+        :key="item.name"
+        :to="item.path"
+      >
         {{ item.name }}
       </RouterLink>
     </nav>
@@ -54,7 +59,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
   flex-direction: column;
   background-color: var(--bg);
 }
-.menu > * {
+.menuItem {
   display: inline-flex;
   height: var(--h-9);
   padding: var(--p-1) var(--p-3);
@@ -65,7 +70,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
   color: var(--gray-300);
 }
 
-.menu > *:not(:first-child) {
+.menuItem:not(:first-child) {
   margin-top: calc(var(--border-DEFAULT) * -1);
 }
 .homeButton {
@@ -105,16 +110,16 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
   .homeButton {
     min-width: 8rem;
   }
-  .menu > * {
+  .menuItem {
     padding: var(--p-1);
   }
-  .menu > *:not(:first-child) {
+  .menuItem:not(:first-child) {
     margin-top: 0;
     margin-left: calc(var(--border-DEFAULT) * -1);
   }
-  .menu > .router-link-active,
-  .menu > *:hover {
-    border-image: url("/images/bg-router-link-activeexture-xs.gif") 1;
+  .menuItem.router-link-active,
+  .menuItem:hover {
+    border-image: url("/images/bg-texture-xs.gif") 1;
     z-index: 2;
   }
 }
