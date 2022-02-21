@@ -13,7 +13,7 @@ const isUpcoming = (start_at: string, end_at: string) => {
 <template>
   <main class="Page Projects">
     <template
-      v-if="upcomingProjects.length > 0"
+      v-if="upcomingProjects && upcomingProjects.length > 0"
       v-for="project in upcomingProjects"
     >
       <EScheduleEvent

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useProjects } from "../../utils";
-import { formatDatetime } from "elektro";
 import { computed } from "vue";
 
 const { projects } = useProjects();
@@ -33,9 +32,8 @@ const archivedProjects = computed(() =>
             :title="project.title"
             :thumbnail="project.images[0]?.url"
             :next-event="
-              project.events[0] && {
-                startAt: formatDatetime(new Date(project.events[0]?.start_at)),
-                endAt: formatDatetime(new Date(project.events[0]?.end_at)),
+              project.upcomingEvents && {
+                startAt: project.upcomingEvents[0].formattedFromDatetime,
               }
             "
           />
@@ -61,12 +59,6 @@ const archivedProjects = computed(() =>
           <EProductionCard
             :title="project.title"
             :thumbnail="project.images[0]?.url"
-            :next-event="
-              project.events[0] && {
-                startAt: formatDatetime(new Date(project.events[0]?.start_at)),
-                endAt: formatDatetime(new Date(project.events[0]?.end_at)),
-              }
-            "
           />
         </router-link>
       </template>
