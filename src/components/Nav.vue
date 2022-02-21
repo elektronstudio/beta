@@ -1,65 +1,125 @@
+<!-- @TODO: temporary component, remove this -->
 <script setup lang="ts">
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import NavLive from "./NavLive.vue";
-type Props = {
-  navItems: {
-    name: string;
-    path: string;
-  }[];
-};
 
-const { navItems } = defineProps<Props>();
-const menuItemsLength = navItems ? navItems.length + 1 : 0;
+const navItems = [
+  {
+    name: "Lavastused",
+    path: "/lavastused",
+  },
+  {
+    name: "Projektid",
+    path: "/projektid",
+  },
+  {
+    name: "Kava",
+    path: "/kava",
+  },
+  {
+    name: "Meist",
+    path: "/meist",
+  },
+  {
+    name: "ENG",
+    path: "/en",
+  },
+];
+
+const navState = ref(false);
+const router = useRouter();
 </script>
 
 <template>
-  <nav class="Nav">
-    <RouterLink v-for="item in navItems" :key="item.name" :to="item.path">
-      {{ item.name }}
-    </RouterLink>
+  <header class="Nav">
+    <div class="topBar">
+      <RouterLink to="/" class="homeButton">
+        <ELogo el="span" />
+      </RouterLink>
+    </div>
+    <ENav
+      :class="{ navActive: navState }"
+      :nav-items="navItems"
+      :active-path="router.currentRoute.value.path"
+    />
+    <!-- <ELiveButton v-if="nextEvent" :next-event="nextEvent" /> -->
     <NavLive />
-  </nav>
+    <!-- @TODO: Add proper icon you html hacker :) -->
+    <button class="toggleNav" @click="navState = !navState">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
 </template>
 
 <style scoped>
 .Nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 100;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--h-9);
+  border: var(--border-DEFAULT) solid var(--gray-500);
   background-color: var(--bg);
 }
-.Nav > :deep(*) {
-  display: inline-flex;
-  height: var(--h-9);
-  padding: var(--p-1) var(--p-3);
-  border: var(--border-DEFAULT) solid var(--gray-500);
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  text-transform: uppercase;
+.homeButton {
+  display: inline-block;
   color: var(--gray-300);
+  padding: var(--p-1) var(--p-3);
 }
-
-.Nav > :deep(*):not(:first-child) {
-  margin-top: calc(var(--border-DEFAULT) * -1);
+.toggleNav {
+  display: grid;
+  row-gap: 4px;
+  width: var(--w-7);
+  margin: var(--p-1) var(--p-3);
 }
-
+.toggleNav span {
+  width: 100%;
+  height: 2px;
+  background-color: var(--gray-300);
+}
 /* @TODO: Add breakpoints system */
-@media only screen and (min-width: 600px) {
-  .Nav {
+@media only screen and (max-width: 599px) {
+  nav.ENav.navActive {
+    display: flex;
+  }
+}
+@media only screen and (max-width: 999px) {
+  nav.ENav {
+    display: none;
+  }
+  nav.ENav.navActive {
     display: grid;
-
-    --menu-items-count: v-bind(menuItemsLength);
-    grid-template-columns: repeat(var(--menu-items-count), 1fr);
+    position: fixed;
+    top: var(--h-9);
+    width: 100%;
+    margin-top: calc(var(--border-DEFAULT) * -1);
+    z-index: 100;
   }
-  .Nav > :deep(*) {
-    padding: var(--p-1);
+}
+@media only screen and (min-width: 600px) {
+  .homeButton {
+    min-width: 8rem;
   }
-  .Nav > :deep(*):not(:first-child) {
-    margin-top: 0;
+}
+@media only screen and (min-width: 1000px) {
+  .Nav {
+    display: flex;
+  }
+  nav.ENav {
+    flex-grow: 1;
     margin-left: calc(var(--border-DEFAULT) * -1);
   }
-  .Nav > .isActive,
-  .Nav > :deep(*):hover {
-    border-image: url("/images/bg-texture-xs.gif") 1;
-    z-index: 2;
+  .homeButton {
+    min-width: 10rem;
+  }
+  .toggleNav {
+    display: none;
   }
 }
 </style>
