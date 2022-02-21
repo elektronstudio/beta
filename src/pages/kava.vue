@@ -55,7 +55,7 @@ const { upcomingProjects } = useProjects();
   color: var(--fg);
 }
 /* @TODO: Add breakpoints system */
-@media only screen and (min-width: 1240px) {
+@media only screen and (min-width: 600px) {
   .Page.Projects {
     grid-template-columns: repeat(8, 1fr);
   }
