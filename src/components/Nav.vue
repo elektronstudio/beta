@@ -1,6 +1,6 @@
 <!-- @TODO: temporary component, remove this -->
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import NavLive from "./NavLive.vue";
 type Props = {
   navItems: {
@@ -11,6 +11,7 @@ type Props = {
 const { navItems } = defineProps<Props>();
 
 const navState = ref(false);
+const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
 </script>
 
 <template>
@@ -20,8 +21,11 @@ const navState = ref(false);
         <ELogo el="span" />
       </RouterLink>
     </div>
-    <ENav :class="{ navActive: navState }" :nav-items="navItems" />
-    <!-- <ELiveButton v-if="nextEvent" :next-event="nextEvent" /> -->
+    <nav class="menu" :class="{ navActive: navState }">
+      <RouterLink v-for="item in navItems" :key="item.name" :to="item.path">
+        {{ item.name }}
+      </RouterLink>
+    </nav>
     <NavLive />
     <!-- @TODO: Add proper icon you html hacker :) -->
     <button class="toggleNav" @click="navState = !navState">
@@ -45,6 +49,25 @@ const navState = ref(false);
   border: var(--border-DEFAULT) solid var(--gray-500);
   background-color: var(--bg);
 }
+.menu {
+  display: none;
+  flex-direction: column;
+  background-color: var(--bg);
+}
+.menu > * {
+  display: inline-flex;
+  height: var(--h-9);
+  padding: var(--p-1) var(--p-3);
+  border: var(--border-DEFAULT) solid var(--gray-500);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  color: var(--gray-300);
+}
+
+.menu > *:not(:first-child) {
+  margin-top: calc(var(--border-DEFAULT) * -1);
+}
 .homeButton {
   display: inline-block;
   color: var(--gray-300);
@@ -61,17 +84,15 @@ const navState = ref(false);
   height: 2px;
   background-color: var(--gray-300);
 }
+
 /* @TODO: Add breakpoints system */
 @media only screen and (max-width: 599px) {
-  nav.ENav.navActive {
+  .menu.navActive {
     display: flex;
   }
 }
 @media only screen and (max-width: 999px) {
-  nav.ENav {
-    display: none;
-  }
-  nav.ENav.navActive {
+  .menu.navActive {
     display: grid;
     position: fixed;
     top: var(--h-9);
@@ -84,12 +105,27 @@ const navState = ref(false);
   .homeButton {
     min-width: 8rem;
   }
+  .menu > * {
+    padding: var(--p-1);
+  }
+  .menu > *:not(:first-child) {
+    margin-top: 0;
+    margin-left: calc(var(--border-DEFAULT) * -1);
+  }
+  .menu > .router-link-active,
+  .menu > *:hover {
+    border-image: url("/images/bg-router-link-activeexture-xs.gif") 1;
+    z-index: 2;
+  }
 }
 @media only screen and (min-width: 1000px) {
   .Nav {
     display: flex;
   }
-  nav.ENav {
+  .menu {
+    display: grid;
+    --menu-items-count: v-bind(menuItemsLength);
+    grid-template-columns: repeat(var(--menu-items-count), 1fr);
     flex-grow: 1;
     margin-left: calc(var(--border-DEFAULT) * -1);
   }
