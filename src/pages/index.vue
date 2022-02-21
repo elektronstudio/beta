@@ -41,20 +41,24 @@ const speakerLoud = `<svg width="1rem" height="1rem" viewBox="0 0 15 15" fill="n
 }
 .video {
   width: 100%;
-  height: calc(100vh - var(--h-9));
+  height: calc(100vh - var(--h-9) * 2);
   object-fit: cover;
   opacity: 0.25;
   touch-action: none;
 }
 
 .muteButton {
-  position: absolute;
+  position: fixed;
   right: var(--p-3);
   bottom: calc(var(--p-3) + var(--h-9));
 }
 
 @media only screen and (min-width: 600px) {
+  .video {
+    height: calc(100vh - var(--h-9));
+  }
   .muteButton {
+    position: absolute;
     bottom: var(--p-3);
   }
 }
