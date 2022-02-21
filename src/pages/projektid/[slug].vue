@@ -1,17 +1,9 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { useProjectBySlug } from "../../utils";
-import { computed } from "vue";
 
 const { params } = useRoute();
-const { project } = useProjectBySlug(params.slug as string);
-const images = computed(() =>
-  project.value.images.map((image: any) => ({
-    sizes: Object.values(image.formats),
-    alt: image.alternativeText,
-    caption: image.caption,
-  })),
-);
+const { project } = await useProjectBySlug(params.slug as string);
 </script>
 
 <template>
@@ -24,7 +16,7 @@ const images = computed(() =>
       <!-- @TODO: Add locale based conditionals -->
       <EContent v-if="project.intro" :content="project.intro" />
     </header>
-    <EImageSlider :images="images" />
+    <EImageSlider :images="project.images" />
     <main>
       <EBox class="MainContent">
         <!-- @TODO: Add metadata -->
