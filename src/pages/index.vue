@@ -44,6 +44,7 @@ const speakerLoud = `<svg width="1rem" height="1rem" viewBox="0 0 15 15" fill="n
   height: calc(100vh - var(--h-9));
   object-fit: cover;
   opacity: 0.25;
+  touch-action: none;
 }
 
 .muteButton {
