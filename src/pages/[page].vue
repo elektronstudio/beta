@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import { watchEffect } from "vue";
-import { useProjectBySlug } from "../utils";
-const { project } = useProjectBySlug("kohe2022");
+import { useRoute } from "vue-router";
+import { getPage } from "../utils";
+import { formatMarkdown } from "../utils";
+
+const { params } = useRoute();
+
+const data = await getPage(params.page as string);
+const { attributes } = data.value;
+console.log(data.value);
 </script>
+
 <template>
-  <div class="Page PageTemplate">
+  <article class="Page PageTemplate">
     <header>
-      <ETitle size="lg" v-html="project.title" />
+      <ETitle el="h1" size="lg" :title="attributes.title" />
     </header>
     <main>
       <EBox class="MainContent">
-        <!-- TODO use the project.intro field in Strapi-->
-        <EContent v-html="project.description_estonian" />
-        <EContent v-html="project.description_english" />
+        <EContent :content="formatMarkdown(attributes.content)" />
       </EBox>
     </main>
-  </div>
+  </article>
 </template>
 
 <style scoped>

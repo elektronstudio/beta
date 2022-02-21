@@ -48,11 +48,15 @@ const { cards } = defineProps<Props>();
         :title="item.title"
         :content="formatMarkdown(item.content)"
       />
-      <ERelatedPageCard
-        v-else-if="item.__component === 'content.related-page'"
-        :title="item.title"
-        :slug="item.page?.data.attributes.slug"
-      />
+      <RouterLink
+        v-else-if="
+          item.__component === 'content.related-page' &&
+          item.page?.data?.attributes.slug
+        "
+        :to="item.page?.data?.attributes.slug"
+      >
+        <ERelatedPageCard :title="item.title" />
+      </RouterLink>
       <EExternallinkCard
         v-else-if="item.__component === 'content.external-link'"
         :title="item.title"
