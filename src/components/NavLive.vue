@@ -25,6 +25,7 @@ const event = computed(() => firstUpcomingProject.value?.upcomingEvents?.[0]);
   padding: var(--p-1) var(--p-3);
   border: var(--border-DEFAULT) solid var(--gray-500);
   font-family: var(--font-mono);
+  background-color: var(--bg);
   font-size: var(--text-xs);
   text-transform: uppercase;
   color: var(--gray-300);
