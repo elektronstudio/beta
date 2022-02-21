@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import { useProjects } from "../utils";
-import { useRange } from "elektro";
 
 const { upcomingProjects } = useProjects();
-
-const isUpcoming = (start_at: string, end_at: string) => {
-  const { urgency } = useRange(new Date(start_at), new Date(end_at));
-  return urgency.value === "future";
-};
 </script>
 
 <template>
@@ -23,10 +17,11 @@ const isUpcoming = (start_at: string, end_at: string) => {
       >
         <!-- @TODO: Remove this once router is figured out -->
         <ETitle size="lg" :title="project.title" />
-        <template v-if="project.events" v-for="event in project.events">
+        <template
+          v-if="project.upcomingEvents"
+          v-for="event in project.upcomingEvents"
+        >
           <EEventInstance
-            client:only
-            v-if="isUpcoming(event.start_at, event.end_at)"
             :start-at="event.formattedFromDatetime"
             :end-at="event.formattedDistance"
             :ticket-url="event.liveUrl"
