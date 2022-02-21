@@ -13,7 +13,7 @@ const navItems = [
     path: "/projektid",
   },
   {
-    name: "Meist",
+    name: "WTF Elektron",
     path: "/meist",
   },
   {
