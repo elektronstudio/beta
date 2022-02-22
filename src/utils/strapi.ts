@@ -21,15 +21,18 @@ function sortEvents(a: any, b: any) {
 
 function processProject(project: any) {
   // Augment image data
-  project.images = project.images.map((image: any) => {
-    const imageData = {
-      sizes: Object.values(image.formats),
-      alt: image.alternativeText,
-      caption: image.caption,
-    };
-    return { ...image, ...imageData };
-  });
+  project.images = project.images
+    .filter((image: any) => image.mime !== "video/mp4")
+    .map((image: any) => {
+      const imageData = {
+        sizes: Object.values(image.formats),
+        alt: image.alternativeText,
+        caption: image.caption,
+      };
+      return { ...image, ...imageData };
+    });
 
+  project.gallery = project.images.length > 1 ? project.images.slice(1) : null;
   project.thumbnail = project.images[0]?.url;
 
   // Convert Markdown to HTML
@@ -60,7 +63,15 @@ function processProject(project: any) {
   );
 
   project.upcomingEvents = p.length ? p : null;
-
+  project.details = project.details
+    ? project.details.split("\n").map((item: any) => {
+        const [key, value] = item.split(": ");
+        return {
+          detail: key,
+          value,
+        };
+      })
+    : null;
   return project;
 }
 

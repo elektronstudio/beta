@@ -10,17 +10,18 @@ const { project } = await useProjectBySlug(params.slug as string);
   <article class="Page SingleProduction">
     <header>
       <ETitle el="h1" size="lg" :title="project.title" />
-      <!-- @TODO: Add author/producer field to Strapi -->
       <h4 v-if="project.authors">{{ project.authors }}</h4>
 
       <!-- @TODO: Add locale based conditionals -->
-      <EContent v-if="project.intro" :content="project.intro" />
+      <EContent v-if="project.intro" class="Description" size="lg">
+        <p>{{ project.intro }}</p>
+      </EContent>
     </header>
-    <EImageSlider :images="project.images" />
+    <EImageSlider v-if="project.gallery" :images="project.gallery" />
     <main>
       <EBox class="MainContent">
         <!-- @TODO: Add metadata -->
-        <EDetailsList :details="[{ detail: 'Detail', value: 'Value' }]" />
+        <EDetailsList v-if="project.details" :details="project.details" />
         <EContent :content="project.description_estonian" />
       </EBox>
       <EBox
