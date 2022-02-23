@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { getAboutPage } from "../utils";
 import ContentBlocks from "../components/ContentBlocks.vue";
-
-const { data } = await getAboutPage();
+import dataJson from "../data/about.json";
+// const { data } = await getAboutPage();
+const { data } = dataJson;
 </script>
 
 <template>

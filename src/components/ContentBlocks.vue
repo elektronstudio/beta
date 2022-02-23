@@ -64,6 +64,14 @@ const { cards } = defineProps<Props>();
       />
       <ETeamCard
         v-else-if="item.__component === 'content.person-card'"
+        :thumbnail="
+          item.image.data
+            ? {
+                sizes: Object.values(item.image.data.attributes.formats),
+                alt: item.image.data.attributes.alternativeText,
+              }
+            : undefined
+        "
         :name="item.name"
         :content="formatMarkdown(item.content)"
       />
