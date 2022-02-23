@@ -105,6 +105,11 @@ const { project } = await useProjectBySlug(params.slug as string);
 }
 
 /* @TODO: Add breakpoints system */
+@media only screen and (max-width: 599px) {
+  .EContent.Description :deep(p) {
+    font-size: var(--text-xl);
+  }
+}
 @media only screen and (min-width: 600px) {
   .Page.SingleProduction header,
   .Page.SingleProduction main {
