@@ -3,7 +3,9 @@ import { computed } from "vue";
 import { useProjects } from "../utils";
 
 const { firstUpcomingProject } = useProjects();
-const event = computed(() => firstUpcomingProject.value?.upcomingEvents?.[0]);
+const event = computed(() => firstUpcomingProject.value);
+
+console.log(event.value);
 </script>
 
 <template>

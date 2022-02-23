@@ -89,8 +89,34 @@ export function useProjects() {
     return p.length ? p : null;
   });
 
+  const upcomingEvents = computed(() => {
+    if (!upcomingProjects.value) {
+      return null;
+    }
+
+    const events = [] as any[];
+
+    upcomingProjects.value.forEach((project: any) => {
+      project.upcomingEvents.forEach((event: any) => {
+        events.push(event);
+      });
+    });
+
+    const sortByDate = events.sort(
+      (event1: any, event2: any) =>
+        new Date(event1.start_at).getTime() -
+        new Date(event2.start_at).getTime(),
+    );
+
+    return sortByDate;
+  });
+
   const firstUpcomingProject = computed(() => {
-    return upcomingProjects.value ? upcomingProjects.value[0] : null;
+    if (!upcomingEvents.value) {
+      return null;
+    }
+
+    return upcomingEvents.value[0];
   });
 
   return { projects, upcomingProjects, firstUpcomingProject };
