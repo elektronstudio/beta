@@ -1,3 +1,4 @@
+<!-- @TODO: Move to Elektro -->
 <script setup lang="ts">
 type Props = {
   thumbnail?: string;
