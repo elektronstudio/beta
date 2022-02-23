@@ -90,6 +90,10 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
   margin: var(--p-1) var(--p-3);
 }
 
+.topBar {
+  margin-left: calc(var(--border-DEFAULT) * -1);
+}
+
 /* @TODO: Add breakpoints system */
 @media only screen and (max-width: 599px) {
   .menu.navActive {
