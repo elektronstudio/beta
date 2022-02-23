@@ -29,6 +29,7 @@ const event = computed(() => firstUpcomingProject.value?.upcomingEvents?.[0]);
   font-size: var(--text-xs);
   text-transform: uppercase;
   color: var(--gray-300);
+  line-height: 1;
 }
 .NavLive.isLive,
 .NavLive:hover {
@@ -56,7 +57,7 @@ const event = computed(() => firstUpcomingProject.value?.upcomingEvents?.[0]);
 }
 @media only screen and (min-width: 1240px) {
   .NavLive {
-    width: 30rem;
+    width: 26rem;
   }
 }
 </style>
