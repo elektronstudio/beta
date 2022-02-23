@@ -117,7 +117,14 @@ const { project } = await useProjectBySlug(params.slug as string);
     grid-template-areas: "main main main main" "side side side side";
   }
   .MainContent {
+    grid-template-areas: "details content";
     grid-template-columns: 2fr 3fr;
+  }
+  .MainContent .EDetailsList {
+    grid-area: details;
+  }
+  .MainContent .EContent {
+    grid-area: content;
   }
 }
 @media only screen and (min-width: 1240px) {

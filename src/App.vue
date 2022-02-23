@@ -5,7 +5,7 @@ const navItems = [
     path: "/kava",
   },
   {
-    name: "Festival?",
+    name: "KVF 2022",
     path: "/festival",
   },
   {
