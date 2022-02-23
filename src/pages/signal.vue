@@ -2,6 +2,7 @@
 import { $fetch } from "ohmyfetch";
 import Parser from "rss-parser/dist/rss-parser.js";
 import { useProjectBySlug } from "../utils";
+import PodcastItem from "../components/PodcastItem.vue";
 
 // TODO move to /logic and use env variable
 
@@ -17,20 +18,23 @@ const rss = await parser.parseString(rssSource.contents);
 <template>
   <div class="signal">
     <!-- TODO: Remove style when elektro gets updated -->
-    <EStack style="grid-auto-rows: min-content">
-      <ETitle size="lg">Elektron Signal</ETitle>
+    <EBox class="content">
+      <ETitle el="h1" size="lg">Elektron Signal</ETitle>
+
       <!-- TODO: Add susbcribe buttons -->
       <!-- https://github.com/elektronstudio/art/blob/master/src/pages/Signal.vue#L36 -->
       <EContent v-html="project?.description_estonian" />
       <EContent v-html="project?.description_english" />
-    </EStack>
+    </EBox>
     <EStack>
       <ETitle>Latest episodes</ETitle>
-      <!-- <EStack v-for="(episode, i) in rss.items" :key="i">
-        <ETitle v-html="episode.title" />
-        <EContent v-html="episode['content:encoded']" />
-        <audio controls :src="episode?.enclosure.url" />
-      </EStack> -->
+      <PodcastItem
+        v-for="episode in rss.items"
+        :title="episode.title"
+        :description="episode['content:encoded']"
+        :thumbnail="episode.itunes.image"
+        :audio="episode?.enclosure.url"
+      />
     </EStack>
   </div>
 </template>
@@ -39,6 +43,7 @@ const rss = await parser.parseString(rssSource.contents);
 .signal {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: start;
   gap: var(--gap-5);
   padding: var(--gap-5);
   grid-auto-rows: auto;
@@ -48,5 +53,9 @@ const rss = await parser.parseString(rssSource.contents);
   .signal {
     grid-template-columns: 1fr;
   }
+}
+
+.content h1 {
+  margin-bottom: var(--m-3);
 }
 </style>
