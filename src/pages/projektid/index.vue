@@ -6,6 +6,7 @@ const { projects } = useProjects();
 const upcomingProjects = computed(() =>
   projects.value.filter((project: any) => !project.archived),
 );
+console.log(upcomingProjects.value);
 const archivedProjects = computed(() =>
   projects.value.filter((project: any) => project.archived),
 );
@@ -23,7 +24,14 @@ const archivedProjects = computed(() =>
         >
           <EProductionCard
             :title="project.title"
-            :thumbnail="project.images[0]?.url"
+            :thumbnail="
+              project.images[0]
+                ? {
+                    sizes: Object.values(project.images[0].formats),
+                    alt: project.images[0].alternativeText,
+                  }
+                : undefined
+            "
             :next-event="
               project.upcomingEvents && {
                 startAt: project.upcomingEvents[0].formattedFromDatetime,
