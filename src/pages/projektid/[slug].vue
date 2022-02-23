@@ -13,9 +13,12 @@ const { project } = await useProjectBySlug(params.slug as string);
       <h4 v-if="project.authors">{{ project.authors }}</h4>
 
       <!-- @TODO: Add locale based conditionals -->
-      <EContent v-if="project.intro" class="Description" size="lg">
-        <p>{{ project.intro }}</p>
-      </EContent>
+      <EContent
+        v-if="project.description_intro"
+        class="Description"
+        size="lg"
+        :content="project.description_intro"
+      />
     </header>
     <EImageSlider v-if="project.gallery" :images="project.gallery" />
     <main>
