@@ -102,9 +102,11 @@ const rss = await parser.parseString(rssSource.contents);
   }
 }
 @media only screen and (min-width: 600px) {
-  .Page.SingleProduction header,
-  .Page.SingleProduction main {
+  .Page.SingleProduction header {
     grid-template-columns: repeat(4, 1fr);
+  }
+  .Page.SingleProduction main {
+    grid-template-columns: repeat(2, 1fr);
   }
   .Page.SingleProduction header {
     grid-template-areas:
@@ -133,9 +135,7 @@ const rss = await parser.parseString(rssSource.contents);
   }
 
   .Page.SingleProduction main {
-    grid-template-areas:
-      "main"
-      "side";
+    grid-template-areas: "main side";
   }
 }
 @media only screen and (min-width: 1240px) {

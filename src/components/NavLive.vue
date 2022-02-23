@@ -4,8 +4,6 @@ import { useProjects } from "../utils";
 
 const { firstUpcomingProject } = useProjects();
 const event = computed(() => firstUpcomingProject.value);
-
-console.log(event.value);
 </script>
 
 <template>

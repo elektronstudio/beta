@@ -6,7 +6,6 @@ const { projects } = useProjects();
 const upcomingProjects = computed(() =>
   projects.value.filter((project: any) => !project.archived),
 );
-console.log(upcomingProjects.value);
 const archivedProjects = computed(() =>
   projects.value.filter((project: any) => project.archived),
 );

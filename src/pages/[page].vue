@@ -7,7 +7,6 @@ const { params } = useRoute();
 
 const data = await getPage(params.page as string);
 const { attributes } = data.value;
-console.log(data.value);
 </script>
 
 <template>
