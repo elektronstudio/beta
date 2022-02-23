@@ -66,11 +66,6 @@ const rss = await parser.parseString(rssSource.contents);
     "subtitle"
     "description";
 }
-.Page.SingleProduction main {
-  grid-template-areas:
-    "main"
-    "side";
-}
 
 .Page.SingleProduction header h1 {
   grid-area: title;
@@ -86,13 +81,11 @@ const rss = await parser.parseString(rssSource.contents);
 }
 
 .MainContent {
-  grid-area: main;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: var(--gap-5);
 }
 .SideContent {
-  grid-area: side;
   align-self: start;
 }
 .SideContent h3 {
@@ -117,7 +110,9 @@ const rss = await parser.parseString(rssSource.contents);
   .Page.SingleProduction main {
     grid-template-areas: "main main main main" "side side side side";
   }
+
   .MainContent {
+    grid-area: main;
     grid-template-areas: "details content";
     grid-template-columns: 2fr 3fr;
   }
@@ -126,6 +121,16 @@ const rss = await parser.parseString(rssSource.contents);
   }
   .MainContent .EContent {
     grid-area: content;
+  }
+
+  .SideContent {
+    grid-area: side;
+  }
+
+  .Page.SingleProduction main {
+    grid-template-areas:
+      "main"
+      "side";
   }
 }
 @media only screen and (min-width: 1240px) {
