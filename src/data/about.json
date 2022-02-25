@@ -3,7 +3,7 @@
     "id": 1,
     "attributes": {
       "createdAt": "2022-02-10T11:09:42.969Z",
-      "updatedAt": "2022-02-23T09:14:09.488Z",
+      "updatedAt": "2022-02-25T08:02:11.576Z",
       "publishedAt": "2022-02-10T11:25:04.708Z",
       "cards": [
         {
@@ -164,7 +164,7 @@
           "id": 1,
           "__component": "content.person-card",
           "name": "Hendrik Kaljujärv",
-          "content": "Hendrik on väga sügav inimene. Ta loobib lolle nalju ja sügavaid mõtteid läbisegi ja neid on raske eristada. Vahel osutub loll nali hoopis mega sügavaks ja oluliseks mõtteks lähemalt vaadates. Hendriku tagasiside aitab kergel ja hüpleval mõttekesel rahuneda, enda sisse vaadata ja avada enda tõeline potensiaal. Hendriku silmist on tunda, milline on kuu ja tähtede olukord taevas. Loominguline plahvatus on sellest astroloogilisest seisust tihti sõltuv. Hendrik on eˉlektroni tegevjuht.",
+          "content": "Hendrik on väga sügav inimene, kelle tagasiside aitab kergel ja hüpleval mõttel rahuneda, enda sisse vaadata ja avada tõeliseid potensiaale. Tema silmist on tunda, milline on kuu ja tähtede olukord taevas. Loominguline plahvatus on sellest astroloogilisest seisust tihti sõltuv. Hendrik on eˉlektroni tegevjuht.",
           "image": {
             "data": {
               "id": 4,
@@ -216,7 +216,7 @@
           "id": 4,
           "__component": "content.person-card",
           "name": "Maike Lond",
-          "content": "Maike on selline kellega juttu ajades mõistad ühtäkki, et tema sõnad ja mõtted dekodeerivad sinu arusaamu. See on niisama palju hirmutav kui ka erutav. Maike on etenduskunstnik ja dramaturg. Elektonis korraldab ja korrastab kaost. Kui ta eˉlektronis on kõik inimesed ümber kodeerinud läheb ta bändikasse ja hakkab seal koos Zahiriga sepistama suuremat ümberkodeerimist kuid sageli juhtub, et nad iseendist kaugemale ei jõua. ",
+          "content": "Maikega vesteldes mõistad ühtäkki, et tema sõnad ja mõtted dekodeerivad sinu arusaamu. See on nii hirmutav kui ka erutav. Maike on etenduskunstnik ja dramaturg, kes korraldab ja korrastab kaost. Kui ta on eˉlektronis kõik inimesed ümber kodeerinud, läheb ta Zahiriga bändikasse, sepistama suuremat ümberkodeerimist.",
           "image": {
             "data": {
               "id": 12,
@@ -265,62 +265,10 @@
           }
         },
         {
-          "id": 2,
-          "__component": "content.person-card",
-          "name": "Kaie Olmre",
-          "content": "Kaie on kullakallis. Talle saab silma vaadata ja korraga hakkab kohe kergem, mured ja raskused justkui leiavad mänglevalt oma lahenduse. Ja vahel tundub, et polekski nagu midagi mida Kaie ei oska. Magical production manager Super Kaie. ",
-          "image": {
-            "data": {
-              "id": 8,
-              "attributes": {
-                "name": "kaie.png",
-                "alternativeText": "kaie.png",
-                "caption": "kaie.png",
-                "width": 504,
-                "height": 504,
-                "formats": {
-                  "small": {
-                    "ext": ".png",
-                    "url": "https://elektron.wwwstuudio.ee/uploads/small_kaie_2dabe19a0b.png",
-                    "hash": "small_kaie_2dabe19a0b",
-                    "mime": "image/png",
-                    "name": "small_kaie.png",
-                    "path": null,
-                    "size": 160.63,
-                    "width": 500,
-                    "height": 500
-                  },
-                  "thumbnail": {
-                    "ext": ".png",
-                    "url": "https://elektron.wwwstuudio.ee/uploads/thumbnail_kaie_2dabe19a0b.png",
-                    "hash": "thumbnail_kaie_2dabe19a0b",
-                    "mime": "image/png",
-                    "name": "thumbnail_kaie.png",
-                    "path": null,
-                    "size": 20.71,
-                    "width": 156,
-                    "height": 156
-                  }
-                },
-                "hash": "kaie_2dabe19a0b",
-                "ext": ".png",
-                "mime": "image/png",
-                "size": 110.66,
-                "url": "https://elektron.wwwstuudio.ee/uploads/kaie_2dabe19a0b.png",
-                "previewUrl": null,
-                "provider": "local",
-                "provider_metadata": null,
-                "createdAt": "2022-02-23T09:12:01.628Z",
-                "updatedAt": "2022-02-23T09:12:01.628Z"
-              }
-            }
-          }
-        },
-        {
           "id": 3,
           "__component": "content.person-card",
           "name": "Taavet Jansen",
-          "content": "Taavet on mäd professor, kelle aju on modulaar-neuroloogiliste katsete keskus. Kord on ta doktorant mõnes ülikoolis, või siis kõikides ülikoolides korraga, siis on ta õppejõud, siis on ta kunstnik, lavastaja. Ei, ta on tegelikult tantsija. Jah, ta on helilooja ja disainer, programmeerija. Keegi ei tea. Selge on see, et ta on hea inimene ja kõigi sõber, umbes nagu Leopold. Taavet korraldab kõike ja kõiki, nagu oma peas nõnda ka maa peal.",
+          "content": "Taavet on mäd professor, kelle aju on modulaar-neuroloogiliste katsete keskus. Ta on doktorant, õppejõud, kunstnik ja lavastaja. Ei, ta on tegelikult tantsija. Jah, ta on helilooja ja disainer, programmeerija. Selge on see, et ta on hea inimene ja kõigi sõber, umbes nagu Leopold. Taavet korraldab kõike ja kõiki, nagu oma peas, nõnda ka maa peal.",
           "image": {
             "data": {
               "id": 17,
@@ -364,6 +312,58 @@
                 "provider_metadata": null,
                 "createdAt": "2022-02-23T09:12:02.539Z",
                 "updatedAt": "2022-02-23T09:12:02.539Z"
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "__component": "content.person-card",
+          "name": "Kaie Olmre",
+          "content": "Kaie on kullakallis. Talle saab silma vaadata ja korraga hakkab kergem, mured ja raskused leiavad justkui mänglevalt oma lahenduse. Ja vahel tundub, et polekski nagu midagi, mida Kaie ei oska. Magical production manager Super Kaie. ",
+          "image": {
+            "data": {
+              "id": 8,
+              "attributes": {
+                "name": "kaie.png",
+                "alternativeText": "kaie.png",
+                "caption": "kaie.png",
+                "width": 504,
+                "height": 504,
+                "formats": {
+                  "small": {
+                    "ext": ".png",
+                    "url": "https://elektron.wwwstuudio.ee/uploads/small_kaie_2dabe19a0b.png",
+                    "hash": "small_kaie_2dabe19a0b",
+                    "mime": "image/png",
+                    "name": "small_kaie.png",
+                    "path": null,
+                    "size": 160.63,
+                    "width": 500,
+                    "height": 500
+                  },
+                  "thumbnail": {
+                    "ext": ".png",
+                    "url": "https://elektron.wwwstuudio.ee/uploads/thumbnail_kaie_2dabe19a0b.png",
+                    "hash": "thumbnail_kaie_2dabe19a0b",
+                    "mime": "image/png",
+                    "name": "thumbnail_kaie.png",
+                    "path": null,
+                    "size": 20.71,
+                    "width": 156,
+                    "height": 156
+                  }
+                },
+                "hash": "kaie_2dabe19a0b",
+                "ext": ".png",
+                "mime": "image/png",
+                "size": 110.66,
+                "url": "https://elektron.wwwstuudio.ee/uploads/kaie_2dabe19a0b.png",
+                "previewUrl": null,
+                "provider": "local",
+                "provider_metadata": null,
+                "createdAt": "2022-02-23T09:12:01.628Z",
+                "updatedAt": "2022-02-23T09:12:01.628Z"
               }
             }
           }
@@ -424,7 +424,7 @@
           "id": 6,
           "__component": "content.person-card",
           "name": "Kristjan (Kika) Jansen",
-          "content": "Kika vaatab tähistaevast ja ütleb, et see kõik on üks struktuur, üks kood, maatriks, süsteem. Ja tal on õigus. Kuid siis selgub, et ta tunneb, tajub ja oskab selle süsteemi koodi ja struktuuriga ka ümber käia ning luua. Kui Kika õhtul peale suurt loomis palangut otsustab lõõgastuda, võtab ta kapist välja mõne sünteka ja hakkab nautima. Sageli räägib ta oma lastele unejuttu, usutavasti eˉlektronist või siis sellest kuidas nad võivad tähistaevast muuta täpselt selliseks nagu ise soovivad, olgu vaid idee hea. ",
+          "content": "Kika vaatab tähistaevast nagu ühte struktuuri, koodi, maatriksit, süsteemi. Samas tunneb, tajub ja oskab ta selle süsteemiga ka ümber käia ning sellest uusi struktuure luua. Sageli räägib ta oma lastele unejuttu eˉlektronist ja sellest, kuidas nad võivad tähistaevast muuta täpselt selliseks, nagu ise soovivad, olgu vaid idee hea.",
           "image": {
             "data": {
               "id": 9,
@@ -476,7 +476,7 @@
           "id": 7,
           "__component": "content.person-card",
           "name": "Jaan Evart",
-          "content": "Jaan on elav müsteerium kes mõtleb palju ja ütleb vähe. Täpselt sellist inimest on vaja igaühe ellu ja ollu. Aga Jaanil on ka loomulik anne.",
+          "content": "Jaan on elav müsteerium, kes mõtleb palju ja ütleb vähe. Täpselt sellist inimest on vaja igaühe ellu ja ollu. Aga Jaanil on ka loomulik anne. ",
           "image": {
             "data": {
               "id": 7,
