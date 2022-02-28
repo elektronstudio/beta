@@ -24,7 +24,7 @@ const { upcomingProjects } = useProjects();
           <EEventInstance
             :start-at="event.formattedFromDatetime"
             :end-at="event.formattedDistance"
-            :ticket-url="event.liveUrl"
+            :ticket-url="event.ticketUrl"
           />
         </template>
       </EScheduleEvent>

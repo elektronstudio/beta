@@ -54,7 +54,23 @@ function processProject(project: any) {
         projectSlug: project.slug,
         eventSlug: event.slug,
       });
-      return { ...event, ...eventData, liveUrl };
+
+      const fientaId = event.fienta_id
+        ? event.fienta_id
+        : project.fienta_id
+        ? project.fienta_id
+        : null;
+
+      let ticketUrl = null;
+
+      if (fientaId) {
+        ticketUrl = config.fientaTicketUrl;
+        ticketUrl = replaceTokens(config.fientaTicketUrl as string, {
+          fientaId,
+        });
+      }
+
+      return { ...event, ...eventData, liveUrl, ticketUrl };
     })
     .sort(sortEvents);
 
