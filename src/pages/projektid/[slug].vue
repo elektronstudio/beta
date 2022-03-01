@@ -36,6 +36,7 @@ const { project } = await useProjectBySlug(params.slug as string);
           <ETitle el="h3" size="lg">Etendused</ETitle>
           <template v-for="event in project.upcomingEvents">
             <EEventInstance
+              :title="event.title"
               :start-at="event.formattedFromDatetime"
               layout="vertical"
               :ticket-url="event.ticketUrl"
