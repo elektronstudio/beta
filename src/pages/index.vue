@@ -19,7 +19,7 @@ const speakerLoud = `<svg width="1rem" height="1rem" viewBox="0 0 15 15" fill="n
     <ETitle size="lg" class="about" v-html="about" />
     <video
       class="video"
-      src="https://fra1.digitaloceanspaces.com/elektron/strapi/360a11d9f1f67714207c413e56b6e711.mp4"
+      src="https://fra1.digitaloceanspaces.com/elektron/strapi/3d1e757e291f18c4f0de143dd2067744.mp4?updated_at=2022-03-01T12:43:55.132Z"
       :muted="muted"
       autoplay
       playsinline
@@ -41,12 +41,13 @@ const speakerLoud = `<svg width="1rem" height="1rem" viewBox="0 0 15 15" fill="n
 .about {
   position: absolute;
   padding: var(--p-5);
+  z-index: 1;
 }
 .video {
   width: 100%;
   height: calc(100vh - var(--h-9) * 2);
   object-fit: cover;
-  opacity: 0.25;
+  opacity: 0.8;
   touch-action: none;
 }
 

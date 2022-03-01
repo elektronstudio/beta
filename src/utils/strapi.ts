@@ -158,6 +158,12 @@ export async function getAboutPage() {
   );
 }
 
+export async function getFrontPage() {
+  return await $fetch(
+    `${config.strapiV4Url}/api/about?populate%5Bcards%5D%5Bpopulate%5D=*`,
+  );
+}
+
 export async function getPage(slug: string) {
   const page = ref<any>();
   await $fetch(
