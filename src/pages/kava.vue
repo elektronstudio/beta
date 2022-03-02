@@ -71,7 +71,7 @@ const { upcomingProjects } = useProjects();
 }
 
 .projectTitle {
-  margin-bottom: var(--m-6);
+  margin-bottom: var(--m-2);
 }
 .EscheduleEvent a {
   color: var(--gray-300);
