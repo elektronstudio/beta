@@ -7,6 +7,7 @@ const arrowRight = icons.icons["arrow-right"].body;
 
 const { params } = useRoute();
 const { data } = await useEventData(params.slug);
+console.log(data.value.ticketUrl, data.value.liveUrl);
 </script>
 
 <template>
@@ -27,8 +28,8 @@ const { data } = await useEventData(params.slug);
             @click="navigate"
           >
             <svg
-              width="15"
-              height="15"
+              width="1em"
+              height="1em"
               viewBox="0 0 15 15"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -81,8 +82,8 @@ const { data } = await useEventData(params.slug);
                 <router-link :to="`/projektid/${data.slug}/${instance.slug}`">
                   <EButton size="xs" el="a" color="transparent">
                     <svg
-                      width="15"
-                      height="15"
+                      width="1em"
+                      height="1em"
                       viewBox="0 0 15 15"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -100,6 +101,46 @@ const { data } = await useEventData(params.slug);
           <ETitle el="h3" size="lg">Press</ETitle>
           <EPressItems :items="press" />
         </template> -->
+      </EBox>
+      <EBox
+        v-if="data.ticketUrl || data.liveUrl"
+        class="SideContent buttons"
+        el="aside"
+      >
+        <EButton
+          v-if="data.liveUrl"
+          size="xs"
+          el="a"
+          color="transparent"
+          :href="data.liveUrl"
+        >
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            v-html="arrowRight"
+          ></svg>
+          Vaata üritust
+        </EButton>
+        <EButton
+          v-if="data.ticketUrl"
+          size="xs"
+          el="a"
+          color="accent"
+          :href="data.ticketUrl"
+        >
+          <svg
+            width="1em"
+            height="1em"
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            v-html="arrowRight"
+          ></svg>
+          Osta pilet
+        </EButton>
       </EBox>
     </main>
   </article>
@@ -161,6 +202,12 @@ const { data } = await useEventData(params.slug);
 
 .eventTitle {
   margin-bottom: var(--m-2);
+}
+
+.buttons {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-5);
 }
 
 /* @TODO: Add breakpoints system */
