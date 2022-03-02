@@ -72,9 +72,7 @@ const { data } = await useEventData(params.slug);
             >
               <template #title>
                 <router-link :to="`/projektid/${data.slug}/${instance.slug}`">
-                  <ETitle el="h4" class="eventTitle">{{
-                    instance.title
-                  }}</ETitle>
+                  <ETitle el="h4" size="xs">{{ instance.title }}</ETitle>
                 </router-link>
               </template>
               <template #buttons>
@@ -197,10 +195,6 @@ const { data } = await useEventData(params.slug);
 }
 .SideContent h3:not(:first-child) {
   margin-top: var(--m-8);
-}
-
-.eventTitle {
-  margin-bottom: var(--m-2);
 }
 
 .buttons {
