@@ -138,14 +138,41 @@ export function useProjects() {
   return { projects, upcomingProjects, firstUpcomingProject };
 }
 
-export function useProjectBySlug(slug: string) {
+export async function useProjectBySlug(slug: string) {
   const project = ref<any>();
-  $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
+  await $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
     (f) => (project.value = f.map(processProject)[0]),
   );
   return { project };
 }
 
+export async function useEventBySlug(slug: string) {
+  const event = ref<any>();
+  await $fetch(`${config.strapiUrl}/events?slug=${slug}`).then(
+    (f) => (event.value = f.map(processProject)[0]),
+  );
+  return { event };
+}
+
+export async function useEventData(path: string | string[]) {
+  const data = ref<any>();
+  const slugs = typeof path === "string" ? path?.split("/") : path;
+  const { project } = await useProjectBySlug(slugs[0] as string);
+  const { event } = await useEventBySlug(slugs[1] as string);
+
+  if (project || event) {
+    if (slugs.length === 2) {
+      data.value = {
+        ...event.value,
+        project: { title: project.value.title, slug: project.value.slug },
+      };
+    } else {
+      data.value = { ...project.value };
+    }
+  }
+
+  return { data };
+}
 export async function getPodcast() {
   return await $fetch(`${config.strapiUrl}/festivals?slug=signal`).then(
     (f) => f.map(processProject)[0],
