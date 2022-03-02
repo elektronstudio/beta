@@ -4,6 +4,10 @@ import { useProjects } from "../utils";
 
 const { firstUpcomingProject } = useProjects();
 const event = computed(() => firstUpcomingProject.value);
+// @TODO: Maybe this should come from elektro useDate
+const formattedDistance = computed(() =>
+  event.value?.urgency === "now" ? "LIVE NOW!" : event.value?.formattedDistance,
+);
 </script>
 
 <template>
@@ -14,7 +18,7 @@ const event = computed(() => firstUpcomingProject.value);
     :class="{ isLive: event?.urgency === 'now' }"
     v-if="event"
   >
-    {{ event.title }} {{ event.formattedDistance }}
+    {{ event.title }} {{ formattedDistance }}
   </a>
 </template>
 
