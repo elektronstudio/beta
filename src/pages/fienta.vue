@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { validateTicket } from "elektro";
 import { ref } from "vue";
 
 const url = new URLSearchParams(window.location.search);
 const urlCode = url.get("code");
 
-// TODO: Add to config
 const redirect = (code: string) => {
-  // window.location.href = `https://live.elektron.art/fienta?code=${code}`;
+  // window.location.href = `https://live.elektron.art/fienta?code=${code}`
   window.location.href = "https://live.elektron.art/saveukraine";
 };
 
@@ -18,13 +16,9 @@ if (urlCode) {
 const code = ref(urlCode || "");
 
 const onSubmit = () => {
-  validateTicket(code.value).then((t) => {
-    console.log(t);
-  });
-
-  // if (code.value) {
-  //   redirect(code.value);
-  // }
+  if (code.value) {
+    redirect(code.value);
+  }
 };
 </script>
 
