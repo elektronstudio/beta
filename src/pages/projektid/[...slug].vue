@@ -7,7 +7,6 @@ const arrowRight = icons.icons["arrow-right"].body;
 
 const { params } = useRoute();
 const { data } = await useEventData(params.slug);
-console.log(data.value.ticketUrl, data.value.liveUrl);
 </script>
 
 <template>
