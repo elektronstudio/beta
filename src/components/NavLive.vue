@@ -7,15 +7,15 @@ const event = computed(() => firstUpcomingProject.value);
 </script>
 
 <template>
-  <RouterLink
+  <a
     class="NavLive"
+    :href="event.liveUrl"
+    target="_blank"
     :class="{ isLive: event?.urgency === 'now' }"
-    to="/"
+    v-if="event"
   >
-    <a :href="event.liveUrl" target="_blank" v-if="event">
-      {{ event.title }} {{ event.formattedDistance }}
-    </a>
-  </RouterLink>
+    {{ event.title }} {{ event.formattedDistance }}
+  </a>
 </template>
 
 <style scoped>
