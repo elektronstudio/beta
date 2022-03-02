@@ -1,46 +1,98 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { useProjectBySlug } from "../../utils";
+import { useEventData } from "../../utils";
+import { icons } from "@iconify-json/radix-icons";
+const arrowLeft = icons.icons["arrow-left"].body;
+const arrowRight = icons.icons["arrow-right"].body;
 
 const { params } = useRoute();
-const { project } = await useProjectBySlug(params.slug as string);
+const { data } = await useEventData(params.slug);
 </script>
 
 <template>
   <article class="Page SingleProduction">
     <header>
-      <ETitle el="h1" size="lg" :title="project.title" />
-      <h4 v-if="project.authors">{{ project.authors }}</h4>
+      <div class="title">
+        <router-link
+          v-if="data.project"
+          custom
+          :to="'/projektid/' + data.project.slug"
+          v-slot="{ href, navigate }"
+        >
+          <EButton
+            size="xs"
+            el="a"
+            color="transparent"
+            :href="href"
+            @click="navigate"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              v-html="arrowLeft"
+            ></svg>
+            {{ data.project.title }}
+          </EButton>
+        </router-link>
+        <ETitle el="h2" size="lg" :title="data.title" />
+      </div>
+      <h4 v-if="data.authors">{{ data.authors }}</h4>
 
       <!-- @TODO: Add locale based conditionals -->
       <EContent
-        v-if="project.description_intro"
+        v-if="data.description_intro"
         class="Description"
         size="lg"
-        :content="project.description_intro"
+        :content="data.description_intro"
       />
     </header>
-    <EImageSlider v-if="project.gallery" :images="project.gallery" />
+    <EImageSlider v-if="data.gallery" :images="data.gallery" />
     <main>
       <EBox class="MainContent">
         <!-- @TODO: Add metadata -->
-        <EDetailsList v-if="project.details" :details="project.details" />
-        <EContent :content="project.description_estonian" />
+        <EDetailsList v-if="data.details" :details="data.details" />
+        <EContent :content="data.description_estonian" />
       </EBox>
       <EBox
-        v-if="project.upcomingEvents || project.press"
+        v-if="data.upcomingEvents || data.press"
         class="SideContent"
         el="aside"
       >
-        <template v-if="project.upcomingEvents">
-          <ETitle el="h3" size="lg">Etendused</ETitle>
-          <template v-for="event in project.upcomingEvents">
+        <template v-if="data.upcomingEvents">
+          <ETitle el="h3" size="lg" title="Etendused" />
+          <template v-for="instance in data.upcomingEvents">
             <EEventInstance
-              :title="event.title"
-              :start-at="event.formattedFromDatetime"
+              :title="instance.title"
+              :start-at="instance.formattedFromDatetime"
               layout="vertical"
-              :ticket-url="event.ticketUrl"
-            />
+              :ticket-url="instance.ticketUrl"
+            >
+              <template #title>
+                <router-link :to="`/projektid/${data.slug}/${instance.slug}`">
+                  <ETitle el="h4" class="eventTitle">{{
+                    instance.title
+                  }}</ETitle>
+                </router-link>
+              </template>
+              <template #buttons>
+                <router-link :to="`/projektid/${data.slug}/${instance.slug}`">
+                  <EButton size="xs" el="a" color="transparent">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      v-html="arrowRight"
+                    ></svg>
+                    Loe lähemalt
+                  </EButton>
+                </router-link>
+              </template>
+            </EEventInstance>
           </template>
         </template>
         <!-- @TODO: Add press -->
@@ -70,12 +122,13 @@ const { project } = await useProjectBySlug(params.slug as string);
     "description";
 }
 .Page.SingleProduction main {
+  align-content: start;
   grid-template-areas:
     "main"
     "side";
 }
 
-.Page.SingleProduction header h1 {
+.Page.SingleProduction header .title {
   grid-area: title;
 }
 
@@ -89,6 +142,7 @@ const { project } = await useProjectBySlug(params.slug as string);
 }
 
 .MainContent {
+  align-self: start;
   grid-area: main;
   display: grid;
   grid-template-columns: 1fr;
@@ -103,6 +157,10 @@ const { project } = await useProjectBySlug(params.slug as string);
 }
 .SideContent h3:not(:first-child) {
   margin-top: var(--m-8);
+}
+
+.eventTitle {
+  margin-bottom: var(--m-2);
 }
 
 /* @TODO: Add breakpoints system */
