@@ -19,6 +19,57 @@ function sortEvents(a: any, b: any) {
   return compareDesc(new Date(b.start_at), new Date(a.start_at));
 }
 
+function processEvent({
+  event,
+  projectSlug,
+  projectFiendId,
+}: {
+  event: any;
+  projectSlug: string;
+  projectFiendId: string;
+}) {
+  // @TODO: THIS could be more DRY and optimised
+  event.images = event.images
+    .filter((image: any) => image.mime !== "video/mp4")
+    .map((image: any) => {
+      const imageData = {
+        sizes: Object.values(image.formats),
+        alt: image.alternativeText,
+        caption: image.caption,
+      };
+      return { ...image, ...imageData };
+    });
+
+  event.gallery = event.images.length > 1 ? event.images.slice(1) : null;
+  event.description_intro = formatMarkdown(event.intro);
+
+  // Convert Markdown to HTML
+  event.description_english = formatMarkdown(event.description_english);
+  event.description_estonian = formatMarkdown(event.description_estonian);
+  // Augment events with reactive event data
+  const eventData = useRange(new Date(event.start_at), new Date(event.end_at));
+  const liveUrl = replaceTokens(config.liveUrl as string, {
+    projectSlug,
+    eventSlug: event.slug,
+  });
+
+  const fientaId = event.fienta_id
+    ? event.fienta_id
+    : projectFiendId
+    ? projectFiendId
+    : null;
+
+  let ticketUrl = null;
+  if (fientaId) {
+    ticketUrl = config.fientaTicketUrl;
+    ticketUrl = replaceTokens(config.fientaTicketUrl as string, {
+      fientaId,
+    });
+  }
+
+  return { ...event, ...eventData, liveUrl, ticketUrl };
+}
+
 function processProject(project: any) {
   // Augment image data
   project.images = project.images
@@ -42,35 +93,11 @@ function processProject(project: any) {
 
   project.events = (project.events || [])
     .map((event: any) => {
-      // Convert Markdown to HTML
-      event.description_english = formatMarkdown(event.description_english);
-      event.description_estonian = formatMarkdown(event.description_estonian);
-      // Augment events with reactive event data
-      const eventData = useRange(
-        new Date(event.start_at),
-        new Date(event.end_at),
-      );
-      const liveUrl = replaceTokens(config.liveUrl as string, {
+      return processEvent({
+        event,
         projectSlug: project.slug,
-        eventSlug: event.slug,
+        projectFiendId: project.fienta_id,
       });
-
-      const fientaId = event.fienta_id
-        ? event.fienta_id
-        : project.fienta_id
-        ? project.fienta_id
-        : null;
-
-      let ticketUrl = null;
-
-      if (fientaId) {
-        ticketUrl = config.fientaTicketUrl;
-        ticketUrl = replaceTokens(config.fientaTicketUrl as string, {
-          fientaId,
-        });
-      }
-
-      return { ...event, ...eventData, liveUrl, ticketUrl };
     })
     .sort(sortEvents);
 
@@ -146,10 +173,15 @@ export async function useProjectBySlug(slug: string) {
   return { project };
 }
 
-export async function useEventBySlug(slug: string) {
+export async function useEventBySlug(slug: string, project: any) {
   const event = ref<any>();
   await $fetch(`${config.strapiUrl}/events?slug=${slug}`).then(
-    (f) => (event.value = f.map(processProject)[0]),
+    (f) =>
+      (event.value = processEvent({
+        event: f[0],
+        projectSlug: project.slug,
+        projectFiendId: project.fienta_id,
+      })),
   );
   return { event };
 }
@@ -158,17 +190,15 @@ export async function useEventData(path: string | string[]) {
   const data = ref<any>();
   const slugs = typeof path === "string" ? path?.split("/") : path;
   const { project } = await useProjectBySlug(slugs[0] as string);
-  const { event } = await useEventBySlug(slugs[1] as string);
 
-  if (project || event) {
-    if (slugs.length === 2) {
-      data.value = {
-        ...event.value,
-        project: { title: project.value.title, slug: project.value.slug },
-      };
-    } else {
-      data.value = { ...project.value };
-    }
+  if (slugs.length === 2 && project) {
+    const { event } = await useEventBySlug(slugs[1], project.value);
+    data.value = {
+      ...event.value,
+      project: { title: project.value.title, slug: project.value.slug },
+    };
+  } else {
+    data.value = { ...project.value };
   }
 
   return { data };

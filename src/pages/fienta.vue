@@ -4,9 +4,10 @@ import { ref } from "vue";
 const url = new URLSearchParams(window.location.search);
 const urlCode = url.get("code");
 
-// TODO: Add to config
-const redirect = (code: string) =>
-  (window.location.href = `https://live.elektron.art/fienta?code=${code}`);
+const redirect = (code: string) => {
+  // window.location.href = `https://live.elektron.art/fienta?code=${code}`
+  window.location.href = "https://live.elektron.art/saveukraine";
+};
 
 if (urlCode) {
   redirect(urlCode);
