@@ -81,12 +81,17 @@ const { upcomingProjects } = useProjects();
 }
 /* @TODO: Add breakpoints system */
 @media only screen and (min-width: 600px) {
+  .Page.Projects > section {
+    grid-column: 4 / -1;
+    margin-bottom: var(--m-24);
+  }
+}
+@media only screen and (min-width: 1000px) {
   .Page.Projects {
     grid-template-columns: repeat(8, 1fr);
   }
   .Page.Projects > section {
     grid-column: 4 / -1;
-    margin-bottom: var(--m-24);
   }
 }
 </style>
