@@ -1,15 +1,15 @@
 <script setup lang="ts">
 const navItems = [
   {
-    name: "Kava",
+    name: "Schedule",
     path: "/kava",
   },
+  // {
+  //   name: "KVF 2022",
+  //   path: "/festival",
+  // },
   {
-    name: "KVF 2022",
-    path: "/festival",
-  },
-  {
-    name: "Projektid",
+    name: "Projects",
     path: "/projektid",
   },
   {
