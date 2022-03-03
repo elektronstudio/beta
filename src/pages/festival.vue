@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useProjectBySlug } from "../utils";
-const { project } = useProjectBySlug("kohe2022");
+const { project } = await useProjectBySlug("kohe2022");
 </script>
 
 <template>

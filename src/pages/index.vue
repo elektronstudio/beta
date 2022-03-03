@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useProjectBySlug } from "../utils";
 const about = `Transdistsiplinaarne etenduskunsti platvorm,<br />mis liidab kaasaegse
       kunsti, teaduse ja<br />tehnloogia otsingulisi tegevusi`;
 

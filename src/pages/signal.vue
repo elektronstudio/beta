@@ -4,7 +4,7 @@ import Parser from "rss-parser/dist/rss-parser.js";
 import { useProjectBySlug } from "../utils";
 import PodcastItem from "../components/PodcastItem.vue";
 // TODO move to /logic and use env variable
-const { project } = useProjectBySlug("signal");
+const { project } = await useProjectBySlug("signal");
 
 const rssUrl =
   "https://api.allorigins.win/get?url=https://elektronsignal.captivate.fm/rssfeed";
