@@ -5,8 +5,8 @@ const url = new URLSearchParams(window.location.search);
 const urlCode = url.get("code");
 
 const redirect = (code: string) => {
-  // window.location.href = `https://live.elektron.art/fienta?code=${code}`
-  window.location.href = "https://live.elektron.art/saveukraine";
+  window.location.href = `https://live.elektron.art/fienta?code=${code}`;
+  //window.location.href = "https://live.elektron.art/saveukraine";
 };
 
 if (urlCode) {
