@@ -41,6 +41,7 @@ const speakerLoud = `<svg width="1rem" height="1rem" viewBox="0 0 15 15" fill="n
   position: absolute;
   padding: var(--p-5);
   z-index: 1;
+  color: var(--gray-300);
 }
 .video {
   width: 100%;
