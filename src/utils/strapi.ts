@@ -19,15 +19,7 @@ function sortEvents(a: any, b: any) {
   return compareDesc(new Date(b.start_at), new Date(a.start_at));
 }
 
-function processEvent({
-  event,
-  projectSlug,
-  projectFiendId,
-}: {
-  event: any;
-  projectSlug: string;
-  projectFiendId: string;
-}) {
+function processEvent(event: any) {
   // @TODO: THIS could be more DRY and optimised
   event.images = event.images
     .filter((image: any) => image.mime !== "video/mp4")
@@ -41,32 +33,35 @@ function processEvent({
     });
 
   event.gallery = event.images.length > 1 ? event.images.slice(1) : null;
+
   event.description_intro = formatMarkdown(event.intro);
 
   // Convert Markdown to HTML
   event.description_english = formatMarkdown(event.description_english);
   event.description_estonian = formatMarkdown(event.description_estonian);
+
   // Augment events with reactive event data
   const eventData = useRange(new Date(event.start_at), new Date(event.end_at));
+
   const liveUrl = replaceTokens(config.liveUrl as string, {
-    projectSlug,
+    projectSlug: event.project.slug,
     eventSlug: event.slug,
   });
 
   const fientaId = event.fienta_id
     ? event.fienta_id
-    : projectFiendId
-    ? projectFiendId
+    : event.project.fienta_id
+    ? event.project.fienta_id
     : null;
 
   let ticketUrl = null;
+
   if (fientaId) {
     ticketUrl = config.fientaTicketUrl;
     ticketUrl = replaceTokens(config.fientaTicketUrl as string, {
       fientaId,
     });
   }
-
   return { ...event, ...eventData, liveUrl, ticketUrl };
 }
 
@@ -93,11 +88,16 @@ function processProject(project: any) {
 
   project.events = (project.events || [])
     .map((event: any) => {
-      return processEvent({
-        event,
-        projectSlug: project.slug,
-        projectFiendId: project.fienta_id,
-      });
+      if (!event.project) {
+        event = {
+          ...event,
+          project: {
+            slug: project.slug,
+            fienta_id: project.fienta_id,
+          },
+        };
+      }
+      return processEvent(event);
     })
     .sort(sortEvents);
 
@@ -165,44 +165,27 @@ export function useProjects() {
   return { projects, upcomingProjects, firstUpcomingProject };
 }
 
-export async function useProjectBySlug(slug: string) {
+export function useProjectBySlug(slug: string) {
   const project = ref<any>();
-  await $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
+  $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
     (f) => (project.value = f.map(processProject)[0]),
   );
   return { project };
 }
 
-export async function useEventBySlug(slug: string, project: any) {
+export function useEventBySlug(slug: string) {
   const event = ref<any>();
-  await $fetch(`${config.strapiUrl}/events?slug=${slug}`).then(
-    (f) =>
-      (event.value = processEvent({
-        event: f[0],
-        projectSlug: project.slug,
-        projectFiendId: project.fienta_id,
-      })),
-  );
-  return { event };
-}
-
-export async function useEventData(path: string | string[]) {
-  const data = ref<any>();
-  const slugs = typeof path === "string" ? path?.split("/") : path;
-  const { project } = await useProjectBySlug(slugs[0] as string);
-
-  if (slugs.length === 2 && project) {
-    const { event } = await useEventBySlug(slugs[1], project.value);
-    data.value = {
-      ...event.value,
-      project: { title: project.value.title, slug: project.value.slug },
+  $fetch(`${config.strapiUrl}/events?slug=${slug}`).then((res) => {
+    const e = {
+      ...res[0],
+      project: processProject(res[0].festival),
+      festival: null,
     };
-  } else {
-    data.value = { ...project.value };
-  }
-
-  return { data };
+    event.value = processEvent(e);
+  });
+  return event;
 }
+
 export async function getPodcast() {
   return await $fetch(`${config.strapiUrl}/festivals?slug=signal`).then(
     (f) => f.map(processProject)[0],

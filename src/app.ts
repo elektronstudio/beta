@@ -4,6 +4,8 @@ import routes from "virtual:generated-pages";
 import App from "./App.vue";
 import "elektro/style.css";
 
+// console.log(routes);
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
