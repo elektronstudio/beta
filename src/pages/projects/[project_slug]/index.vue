@@ -10,5 +10,5 @@ const project = useProjectBySlug(project_slug);
 
 <template>
   <pre>Project {{ project_slug }}</pre>
-  <pre>{{ project }}</pre>
+  <pre>{{ project?.events }}</pre>
 </template>

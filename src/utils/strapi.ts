@@ -170,7 +170,7 @@ export function useProjectBySlug(slug: string) {
   $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
     (f) => (project.value = f.map(processProject)[0]),
   );
-  return { project };
+  return project;
 }
 
 export function useEventBySlug(slug: string) {
