@@ -3,7 +3,7 @@ import { useRange } from "elektro";
 import { $fetch } from "ohmyfetch";
 import { compareDesc } from "date-fns";
 
-import { config, formatMarkdown, replaceTokens } from ".";
+import { config, formatMarkdown, processStreamkey, replaceTokens } from ".";
 
 // TODO: Add Event and Project typings
 
@@ -62,7 +62,21 @@ function processEvent(event: any) {
       fientaId,
     });
   }
-  return { ...event, ...eventData, liveUrl, ticketUrl };
+
+  const route = `/projects/${event.project.slug}/${event.slug}`;
+  const liveRoute = `/projects/${event.project.slug}/${event.slug}/live`;
+
+  const streamkeys = processStreamkey(event.streamkey);
+
+  return {
+    ...event,
+    ...eventData,
+    liveUrl,
+    ticketUrl,
+    route,
+    liveRoute,
+    ...streamkeys,
+  };
 }
 
 function processProject(project: any) {
@@ -115,6 +129,9 @@ function processProject(project: any) {
         };
       })
     : null;
+
+  project.route = `/projects/${project.slug}`;
+
   return project;
 }
 
@@ -165,24 +182,30 @@ export function useProjects() {
   return { projects, upcomingProjects, firstUpcomingProject };
 }
 
+import projectData from "../data/saveucraine.json";
+
 export function useProjectBySlug(slug: string) {
   const project = ref<any>();
-  $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
-    (f) => (project.value = f.map(processProject)[0]),
-  );
+  // $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
+  //   (f) => (project.value = f.map(processProject)[0]),
+  // );
+  project.value = projectData.map(processProject)[0];
   return project;
 }
 
 export function useEventBySlug(slug: string) {
   const event = ref<any>();
-  $fetch(`${config.strapiUrl}/events?slug=${slug}`).then((res) => {
-    const e = {
-      ...res[0],
-      project: processProject(res[0].festival),
-      festival: null,
-    };
-    event.value = processEvent(e);
-  });
+  // $fetch(`${config.strapiUrl}/events?slug=${slug}`).then((res) => {
+  //   const e = {
+  //     ...res[0],
+  //     project: processProject(res[0].festival),
+  //     festival: null,
+  //   };
+  //   event.value = processEvent(e);
+  // });
+  event.value = projectData
+    .map(processProject)[0]
+    .events.filter((e: any) => e.slug === slug)[0];
   return event;
 }
 

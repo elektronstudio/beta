@@ -14,12 +14,7 @@ export default defineConfig({
   },
   plugins: [
     ViteVue(),
-    VitePages({
-      extendRoute(route, parent) {
-        console.log(route);
-        return route;
-      },
-    }),
+    VitePages(),
     ViteComponents({
       resolvers: [
         (name) => {

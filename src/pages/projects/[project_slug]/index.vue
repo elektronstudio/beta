@@ -9,6 +9,13 @@ const project = useProjectBySlug(project_slug);
 </script>
 
 <template>
-  <pre>Project {{ project_slug }}</pre>
-  <pre>{{ project?.events }}</pre>
+  <EStack v-if="project" style="padding: var(--p-5)">
+    <ETitle size="lg">Project: {{ project.title }}</ETitle>
+    <RouterLink :to="event.route" v-for="event in project.events">
+      <EBox>
+        <ETitle>{{ event.title }}</ETitle>
+        <EContent v-html="event.intro" />
+      </EBox>
+    </RouterLink>
+  </EStack>
 </template>
