@@ -63,8 +63,11 @@ function processEvent(event: any) {
     });
   }
 
-  const route = `/projects/${event.project.slug}/${event.slug}`;
-  const liveRoute = `/projects/${event.project.slug}/${event.slug}/live`;
+  const routes = {
+    projectRoute: `/projects/${event.project.slug}`,
+    route: `/projects/${event.project.slug}/${event.slug}`,
+    liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
+  };
 
   const streamkeys = processStreamkey(event.streamkey);
 
@@ -73,8 +76,7 @@ function processEvent(event: any) {
     ...eventData,
     liveUrl,
     ticketUrl,
-    route,
-    liveRoute,
+    ...routes,
     ...streamkeys,
   };
 }

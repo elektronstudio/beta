@@ -27,7 +27,8 @@ const {
 <template>
   <div v-if="event" class="Live">
     <div>
-      <RouterLink :to="event.route"><EBox>Back to event</EBox></RouterLink>
+      <RouterLink :to="event.route">&larr; Back to event</RouterLink>
+      <!-- TODO: separate component -->
       <video
         ref="videoRef"
         muted

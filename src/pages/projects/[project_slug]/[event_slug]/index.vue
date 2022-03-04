@@ -11,8 +11,9 @@ const event = useEventBySlug(event_slug);
 
 <template>
   <EStack v-if="event" style="padding: var(--p-5)">
+    <RouterLink :to="event.projectRoute">&larr; Back to project</RouterLink>
     <ETitle size="lg">Event: {{ event.title }}</ETitle>
-    <RouterLink :to="event.liveRoute"><EBox>Watch live</EBox></RouterLink>
+    <RouterLink :to="event.liveRoute">Watch live &rarr;</RouterLink>
     <EContent v-html="event.intro" />
   </EStack>
 </template>

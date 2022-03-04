@@ -11,6 +11,7 @@ const project = useProjectBySlug(project_slug);
 <template>
   <EStack v-if="project" style="padding: var(--p-5)">
     <ETitle size="lg">Project: {{ project.title }}</ETitle>
+    <EContent v-html="project.intro" />
     <RouterLink :to="event.route" v-for="event in project.events">
       <EBox>
         <ETitle>{{ event.title }}</ETitle>
