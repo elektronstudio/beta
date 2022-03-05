@@ -11,8 +11,7 @@ const { event_slug } = defineProps<Props>();
 const event = useEventBySlug(event_slug);
 
 // TODO: support multiple videos
-// TODO: add event.streamkeys[0] viewer stats
-const url = computed(() => event?.value.streamurls[0]);
+const url = computed(() => event?.value.videostreams[0].streamurl);
 const { videoRef, width, height, status: _status } = useVideostream(url);
 
 const {

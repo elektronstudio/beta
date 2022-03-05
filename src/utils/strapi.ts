@@ -69,7 +69,7 @@ function processEvent(event: any) {
     liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
   };
 
-  const streamkeys = processStreamkey(event.streamkey);
+  const videostreams = processStreamkey(event.streamkey);
 
   return {
     ...event,
@@ -77,7 +77,7 @@ function processEvent(event: any) {
     liveUrl,
     ticketUrl,
     ...routes,
-    ...streamkeys,
+    videostreams,
   };
 }
 

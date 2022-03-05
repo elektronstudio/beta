@@ -1,12 +1,13 @@
 // Todo: Move to elektro
 
+import { ref } from "vue";
 import { config, replaceTokens, split } from ".";
 
-const formatStreamkey = (streamkey = "") => {
+function formatStreamkey(streamkey = "") {
   return streamkey === config.streamTranscodeKeyIn
-    ? config.streamTranscodeKeyOut
+    ? (config.streamTranscodeKeyOut as string)
     : streamkey;
-};
+}
 
 const formatStreamUrl = (streamkey = "") => {
   if (streamkey.endsWith("m3u8")) {
@@ -22,6 +23,13 @@ const formatStreamUrl = (streamkey = "") => {
 
 export const processStreamkey = (streamkey = "") => {
   const streamkeys = split(streamkey);
-  const streamurls = streamkeys.map(formatStreamUrl);
-  return { streamkeys: streamkeys.map(formatStreamkey), streamurls };
+  return streamkeys.map(formatStreamkey).map((streamkey: string) => {
+    // TODO: Support actual stats
+    const viewers = ref(0);
+    return {
+      streamkey,
+      streamurl: formatStreamUrl(streamkey),
+      viewers,
+    };
+  });
 };
