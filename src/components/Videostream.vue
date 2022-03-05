@@ -1,10 +1,11 @@
 <script setup lang="ts">
+// TODO: Move to elektro
 import { useVideostream } from "elektro";
 
-// TODO: Move to elektro
 type Props = {
   src: string;
 };
+
 const { src } = defineProps<Props>();
 const { videoRef, width, height, status } = useVideostream(src);
 </script>
