@@ -11,8 +11,7 @@ const { event_slug } = defineProps<Props>();
 const event = useEventBySlug(event_slug);
 
 // TODO: support multiple videos
-const url = computed(() => event?.value.videostreams[0].streamurl);
-const { videoRef, width, height, status: _status } = useVideostream(url);
+const stream = computed(() => event?.value.videostreams[0]);
 
 const {
   chatMessages,
@@ -24,31 +23,20 @@ const {
 </script>
 
 <template>
-  <div v-if="event" class="Live">
-    <div>
-      <RouterLink :to="event.route">&larr; Back to event</RouterLink>
-      <!-- TODO: separate component -->
-      <video
-        ref="videoRef"
-        muted
-        autoplay
-        controls
-        :width="width"
-        :height="height"
-        style="width: 100%"
-      />
-      <ETitle size="lg">Live event: {{ event.title }}</ETitle>
-      <EContent v-html="event.intro" />
+  <div v-if="event">
+    <RouterLink :to="event.route">&larr; Back to event</RouterLink>
+    <Videostream :src="stream.streamurl">
+      <div>Viewers: {{ stream.viewers }}</div>
+    </Videostream>
+    <ETitle size="lg">Live event: {{ event.title }}</ETitle>
+    <EContent v-html="event.intro" />
+    <div ref="scrollRef" class="messages">
+      <EBox v-for="message in chatMessages">
+        <pre>{{ message }}</pre>
+      </EBox>
     </div>
-    <div>
-      <div ref="scrollRef" class="messages">
-        <EBox v-for="message in chatMessages">
-          <pre>{{ message }}</pre>
-        </EBox>
-      </div>
-      <EFormTextArea v-model="newChatMessage" />
-      <EButton size="xs" @click="onNewChatMessage">Submit</EButton>
-    </div>
+    <EFormTextArea v-model="newChatMessage" />
+    <EButton size="xs" @click="onNewChatMessage">Submit</EButton>
   </div>
 </template>
 
