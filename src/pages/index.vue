@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
-const about = `Transdistsiplinaarne etenduskunsti platvorm,<br />mis liidab kaasaegse
-      kunsti, teaduse ja<br />tehnloogia otsingulisi tegevusi`;
+const about = `eˉlektron creates and presents<br /> transdisciplinary artworks/performances<br /> for both physical and virtual stage.<br />
+A world where you can be alone together.`;
 
 const muted = ref<boolean | undefined>(true);
 
@@ -41,6 +41,8 @@ const speakerLoud = `<svg width="1rem" height="1rem" viewBox="0 0 15 15" fill="n
   position: absolute;
   padding: var(--p-5);
   z-index: 1;
+  color: var(--gray-300);
+  mix-blend-mode: difference;
 }
 .video {
   width: 100%;

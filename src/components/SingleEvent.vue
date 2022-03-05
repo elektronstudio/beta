@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { useRoute } from "vue-router";
-import { useEventData } from "../../utils";
 import { icons } from "@iconify-json/radix-icons";
 const arrowLeft = icons.icons["arrow-left"].body;
 const arrowRight = icons.icons["arrow-right"].body;
 
-const { params } = useRoute();
-const { data } = await useEventData(params.slug);
+type Props = {
+  data: any;
+};
+
+const { data } = defineProps<Props>();
 </script>
 
 <template>
-  <article class="Page SingleProduction">
+  <article v-if="data" class="Page SingleProduction">
     <header>
       <div class="title">
         <router-link
