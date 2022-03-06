@@ -24,7 +24,6 @@ const stream = computed(() => event?.value.videostreams[0]);
       :grid-pos-y="1"
       :is-minimised="false"
       :order="0"
-      @update-draggables="() => {}"
     >
       <Videostream :src="stream.streamurl">
         <div>Viewers: {{ stream.viewers }}</div>
@@ -38,7 +37,6 @@ const stream = computed(() => event?.value.videostreams[0]);
       :grid-pos-x="15"
       :grid-pos-y="1"
       :order="1"
-      @update-draggables="() => {}"
     >
       <Chat :channel="event_slug" />
     </EDraggable>
@@ -51,12 +49,13 @@ const stream = computed(() => event?.value.videostreams[0]);
       :grid-pos-y="4"
       content-type="video"
       :order="2"
-      @update-draggables="() => {}"
     >
       <EStack style="padding: var(--p-5)">
+        <!-- TODO Reuse existing back button UI -->
         <RouterLink :to="event.route">&larr; Back to event</RouterLink>
         <ETitle size="lg">Live event: {{ event.title }}</ETitle>
         <EContent v-html="event.intro" />
+        <!-- TODO What about event.description? -->
       </EStack>
     </EDraggable>
   </EBreadBoard>
