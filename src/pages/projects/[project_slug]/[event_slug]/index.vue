@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { icons } from "@iconify-json/radix-icons";
+import IconArrowLeft from "~icons/radix-icons/arrow-left";
+import IconArrowRight from "~icons/radix-icons/arrow-right";
 import { useEventBySlug } from "@/utils";
-
-const arrowLeft = icons.icons["arrow-left"].body;
-const arrowRight = icons.icons["arrow-right"].body;
 
 type Props = {
   project_slug: string;
@@ -39,14 +37,7 @@ const event = useEventBySlug(event_slug);
             :href="href"
             @click="navigate"
           >
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 15 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              v-html="arrowLeft"
-            ></svg>
+            <IconArrowLeft />
             {{ event.project.title }}
           </EButton>
         </router-link>
@@ -91,14 +82,7 @@ const event = useEventBySlug(event_slug);
               <template #buttons>
                 <router-link :to="`/projektid/${event.slug}/${instance.slug}`">
                   <EButton size="xs" el="a" color="transparent">
-                    <svg
-                      width="1em"
-                      height="1em"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      v-html="arrowRight"
-                    ></svg>
+                    <IconArrowRight />
                     Loe lähemalt
                   </EButton>
                 </router-link>
@@ -118,14 +102,7 @@ const event = useEventBySlug(event_slug);
         el="aside"
       >
         <EButton size="xs" el="a" color="transparent" :href="event.liveRoute">
-          <svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            v-html="arrowRight"
-          ></svg>
+          <IconArrowRight />
           Vaata üritust
         </EButton>
         <EButton
@@ -135,14 +112,7 @@ const event = useEventBySlug(event_slug);
           color="accent"
           :href="event.ticketUrl"
         >
-          <svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            v-html="arrowRight"
-          ></svg>
+          <IconArrowRight />
           Osta pilet
         </EButton>
       </EBox>

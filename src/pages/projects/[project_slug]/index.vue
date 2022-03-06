@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { useProjectBySlug } from "@/utils";
-import { icons } from "@iconify-json/radix-icons";
-
-const arrowLeft = icons.icons["arrow-left"].body;
-const arrowRight = icons.icons["arrow-right"].body;
+import IconArrowLeft from "~icons/radix-icons/arrow-left";
+import IconArrowRight from "~icons/radix-icons/arrow-right";
 
 type Props = {
   project_slug: string;
@@ -11,41 +9,6 @@ type Props = {
 const { project_slug } = defineProps<Props>();
 const project = useProjectBySlug(project_slug);
 </script>
-
-<!-- <template>
-  <EStack v-if="project" style="padding: var(--p-5)">
-    <ETitle size="lg">Project: {{ project.title }}</ETitle>
-    <EContent v-html="project.intro" />
-    <RouterLink :to="event.route" v-for="event in project.events">
-      <EBox>
-        <ETitle>{{ event.title }}</ETitle>
-        <EContent v-html="event.intro" />
-      </EBox>
-    </RouterLink>
-  </EStack>
-</template> -->
-
-<!-- <script setup lang="ts">
-import { icons } from "@iconify-json/radix-icons";
-import { useEventBySlug } from "@/utils";
-
-
-type Props = {
-  project_slug: string;
-  event_slug: string;
-};
-const { event_slug } = defineProps<Props>();
-const event = useEventBySlug(event_slug);
-</script> -->
-
-<!-- <template>
-  <EStack v-if="event" style="padding: var(--p-5)">
-    <RouterLink :to="event.projectRoute">&larr; Back to project</RouterLink>
-    <ETitle size="lg">Event: {{ event.title }}</ETitle>
-    <RouterLink :to="event.liveRoute">Watch live &rarr;</RouterLink>
-    <EContent v-html="event.intro" />
-  </EStack>
-</template> -->
 
 <template>
   <article v-if="project" class="Page SingleProduction">
@@ -59,14 +22,7 @@ const event = useEventBySlug(event_slug);
             :href="href"
             @click="navigate"
           >
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 15 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              v-html="arrowLeft"
-            ></svg>
+            <IconArrowLeft />
             Projects
           </EButton>
         </router-link>
@@ -85,7 +41,7 @@ const event = useEventBySlug(event_slug);
     <main>
       <EBox class="MainContent">
         <!-- @TODO: Add metadata -->
-        <!-- @TODO: Does projects have details? Quess not -->
+        <!-- @TODO: Do projects have details? -->
         <EDetailsList v-if="project.details" :details="project.details" />
         <EContent :content="project.description_estonian" />
       </EBox>
@@ -111,14 +67,7 @@ const event = useEventBySlug(event_slug);
               <template #buttons>
                 <router-link :to="instance.route">
                   <EButton size="xs" el="a" color="transparent">
-                    <svg
-                      width="1em"
-                      height="1em"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      v-html="arrowRight"
-                    ></svg>
+                    <IconArrowRight />
                     Loe lähemalt
                   </EButton>
                 </router-link>
@@ -132,40 +81,6 @@ const event = useEventBySlug(event_slug);
           <EPressItems :items="press" />
         </template> -->
       </EBox>
-      <!-- <EBox
-        v-if="event.ticketUrl || event.liveUrl"
-        class="SideContent buttons"
-        el="aside"
-      >
-        <EButton size="xs" el="a" color="transparent" :href="event.liveRoute">
-          <svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            v-html="arrowRight"
-          ></svg>
-          Vaata üritust
-        </EButton>
-        <EButton
-          v-if="event.ticketUrl"
-          size="xs"
-          el="a"
-          color="accent"
-          :href="event.ticketUrl"
-        >
-          <svg
-            width="1em"
-            height="1em"
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            v-html="arrowRight"
-          ></svg>
-          Osta pilet
-        </EButton>
-      </EBox> -->
     </main>
   </article>
 </template>
