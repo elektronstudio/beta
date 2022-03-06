@@ -240,6 +240,10 @@ export async function getPodcast() {
 }
 
 // TODO: Rearchitect to use reactive data
+// When there are different fetch queries per language
+// use something like this:
+//
+// watch(lang, () => $fetch(LANG_QUERY).then(...), { immediate: true}))
 export async function getAboutPage() {
   return await $fetch(
     `${config.strapiV4Url}/api/about?populate%5Bcards%5D%5Bpopulate%5D=*`,
