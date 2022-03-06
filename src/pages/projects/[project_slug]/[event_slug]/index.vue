@@ -65,7 +65,7 @@ const event = useEventBySlug(event_slug);
         class="SideContent"
         el="aside"
       >
-        <template v-if="event.upcomingEvents">
+        <!-- <template v-if="event.upcomingEvents">
           <ETitle el="h3" size="lg" title="Etendused" />
           <template v-for="instance in event.upcomingEvents">
             <EEventInstance
@@ -89,7 +89,7 @@ const event = useEventBySlug(event_slug);
               </template>
             </EEventInstance>
           </template>
-        </template>
+        </template> -->
         <!-- @TODO: Add press -->
         <!-- <template v-if="press">
           <ETitle el="h3" size="lg">Press</ETitle>

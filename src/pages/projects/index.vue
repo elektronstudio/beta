@@ -13,7 +13,7 @@ const archivedProjects = computed(() =>
 
 <template>
   <div class="Page">
-    <ETitle size="lg" v-if="upcomingProjects.length > 0">Projektid</ETitle>
+    <ETitle size="lg" v-if="upcomingProjects.length > 0">Projects</ETitle>
     <br />
     <div v-if="upcomingProjects.length > 0" class="projects">
       <template v-for="project in projects">
