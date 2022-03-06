@@ -43,7 +43,7 @@ const project = useProjectBySlug(project_slug);
         <!-- @TODO: Add metadata -->
         <!-- @TODO: Do projects have details? -->
         <EDetailsList v-if="project.details" :details="project.details" />
-        <EContent :content="project.description_estonian" />
+        <EContent :content="project.description" />
       </EBox>
       <EBox
         v-if="project.upcomingEvents || project.press"

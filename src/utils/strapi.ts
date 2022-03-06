@@ -3,7 +3,13 @@ import { useRange } from "elektro";
 import { $fetch } from "ohmyfetch";
 import { compareDesc } from "date-fns";
 
-import { config, formatMarkdown, processStreamkey, replaceTokens } from ".";
+import {
+  config,
+  formatMarkdown,
+  processStreamkey,
+  replaceTokens,
+  lang,
+} from ".";
 
 // TODO: Add Event and Project typings
 
@@ -34,11 +40,16 @@ function processEvent(event: any) {
 
   event.gallery = event.images.length > 1 ? event.images.slice(1) : null;
 
+  // TODO: Add lang support for intro
   event.description_intro = formatMarkdown(event.intro);
 
-  // Convert Markdown to HTML
+  // TODO: Remove when not needed anymore
   event.description_english = formatMarkdown(event.description_english);
   event.description_estonian = formatMarkdown(event.description_estonian);
+
+  event.description = computed(
+    () => [event.description_english, event.description_estonian][lang.value],
+  );
 
   // Augment events with reactive event data
   const eventData = useRange(new Date(event.start_at), new Date(event.end_at));
@@ -101,8 +112,15 @@ function processProject(project: any) {
 
   // Convert Markdown to HTML
   project.description_intro = formatMarkdown(project.intro);
+
+  // TODO: Remove when not needed anymore
   project.description_english = formatMarkdown(project.description_english);
   project.description_estonian = formatMarkdown(project.description_estonian);
+
+  project.description = computed(
+    () =>
+      [project.description_english, project.description_estonian][lang.value],
+  );
 
   project.events = (project.events || [])
     .map((event: any) => {

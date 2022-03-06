@@ -2,6 +2,8 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import NavLive from "./NavLive.vue";
+import { lang } from "@/utils";
+
 type Props = {
   navItems: {
     name: string;
@@ -29,7 +31,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
         :to="item.path"
         @click="navState = false"
       >
-        {{ item.name }}
+        {{ [item.name_english, item.name_estonian][lang] }}
       </RouterLink>
     </nav>
     <NavLive />

@@ -58,43 +58,13 @@ const event = useEventBySlug(event_slug);
       <EBox class="MainContent">
         <!-- @TODO: Add metadata -->
         <EDetailsList v-if="event.details" :details="event.details" />
-        <EContent :content="event.description_estonian" />
+        <EContent :content="event.description" />
       </EBox>
       <EBox
         v-if="event.upcomingEvents || event.press"
         class="SideContent"
         el="aside"
       >
-        <!-- <template v-if="event.upcomingEvents">
-          <ETitle el="h3" size="lg" title="Etendused" />
-          <template v-for="instance in event.upcomingEvents">
-            <EEventInstance
-              :title="instance.title"
-              :start-at="instance.formattedFromDatetime"
-              layout="vertical"
-              :ticket-url="instance.ticketUrl"
-            >
-              <template #title>
-                <router-link :to="`/projektid/${event.slug}/${instance.slug}`">
-                  <ETitle el="h4" size="xs">{{ instance.title }}</ETitle>
-                </router-link>
-              </template>
-              <template #buttons>
-                <router-link :to="`/projektid/${event.slug}/${instance.slug}`">
-                  <EButton size="xs" el="a" color="transparent">
-                    <IconArrowRight />
-                    Loe lähemalt
-                  </EButton>
-                </router-link>
-              </template>
-            </EEventInstance>
-          </template>
-        </template> -->
-        <!-- @TODO: Add press -->
-        <!-- <template v-if="press">
-          <ETitle el="h3" size="lg">Press</ETitle>
-          <EPressItems :items="press" />
-        </template> -->
       </EBox>
       <EBox
         v-if="event.ticketUrl || event.liveUrl"

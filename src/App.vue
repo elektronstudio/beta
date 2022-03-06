@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const navItems = [
   {
-    name: "Schedule",
+    name_english: "Schedule",
+    name_estonian: "Kava",
     path: "/kava",
   },
   // {
@@ -9,15 +10,18 @@ const navItems = [
   //   path: "/festival",
   // },
   {
-    name: "Projects",
+    name_english: "Projects",
+    name_estonian: "Projektid",
     path: "/projektid",
   },
   {
-    name: "WTF Elektron",
+    name_english: "WTF elektron",
+    name_estonian: "Meist",
     path: "/meist",
   },
   {
-    name: "Podcast",
+    name_english: "Podcast",
+    name_estonian: "Podcast",
     path: "/signal",
   },
 ];
@@ -30,4 +34,5 @@ const navItems = [
     <router-view :key="$route.fullPath" />
   </Suspense>
   <EWindowBorder />
+  <Lang />
 </template>
