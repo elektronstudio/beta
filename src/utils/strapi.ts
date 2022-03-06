@@ -102,6 +102,8 @@ function processProject(project: any) {
   project.description_english = formatMarkdown(project.description_english);
   project.description_estonian = formatMarkdown(project.description_estonian);
 
+  /*
+  
   project.events = (project.events || [])
     .map((event: any) => {
       // In some cases, we do not have event.project
@@ -117,7 +119,7 @@ function processProject(project: any) {
           },
         };
       }
-      return processEvent(event);
+      //  return processEvent(event);
     })
     .sort(sortEvents);
 
@@ -126,6 +128,8 @@ function processProject(project: any) {
   );
 
   project.upcomingEvents = p.length ? p : null;
+  */
+
   project.details = project.details
     ? project.details.split("\n").map((item: any) => {
         const [key, value] = item.split(": ");
