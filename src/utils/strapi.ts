@@ -188,9 +188,6 @@ export function useProjects() {
   return { projects, upcomingProjects, firstUpcomingProject };
 }
 
-import projectData from "../data/saveucraine.json";
-import { env } from "process";
-
 export function useProjectBySlug(slug: string) {
   const project = ref<any>();
   $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
