@@ -1,4 +1,4 @@
-// Todo: Move to elektro
+// TODO: Move to elektro
 
 import { ref } from "vue";
 import { config, replaceTokens, split } from ".";

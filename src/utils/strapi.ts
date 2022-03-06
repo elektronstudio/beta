@@ -104,6 +104,10 @@ function processProject(project: any) {
 
   project.events = (project.events || [])
     .map((event: any) => {
+      // In some cases, we do not have event.project
+      // data, for example when fetchng events from
+      // project.events. In this case we provide subsset
+      // of the project data for event processing
       if (!event.project) {
         event = {
           ...event,
@@ -185,50 +189,53 @@ export function useProjects() {
 }
 
 import projectData from "../data/saveucraine.json";
+import { env } from "process";
 
 export function useProjectBySlug(slug: string) {
   const project = ref<any>();
-  // $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
-  //   (f) => (project.value = f.map(processProject)[0]),
-  // );
-  project.value = projectData.map(processProject)[0];
+  $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
+    (f) => (project.value = f.map(processProject)[0]),
+  );
   return project;
 }
 
 export function useEventBySlug(slug: string) {
   const event = ref<any>();
-  // $fetch(`${config.strapiUrl}/events?slug=${slug}`).then((res) => {
-  //   const e = {
-  //     ...res[0],
-  //     project: processProject(res[0].festival),
-  //     festival: null,
-  //   };
-  //   event.value = processEvent(e);
-  // });
-  event.value = projectData
-    .map(processProject)[0]
-    .events.filter((e: any) => e.slug === slug)[0];
+  $fetch(`${config.strapiUrl}/events?slug=${slug}`).then((res) => {
+    // Temporarily rename event.festival to event.project
+    // TODO: Remove it when migrating data to v4
+    const e = {
+      ...res[0],
+      project: processProject(res[0].festival),
+      festival: null,
+    };
+    event.value = processEvent(e);
+  });
   return event;
 }
 
+// TODO: Rearchitect to use reactive data
 export async function getPodcast() {
   return await $fetch(`${config.strapiUrl}/festivals?slug=signal`).then(
     (f) => f.map(processProject)[0],
   );
 }
 
+// TODO: Rearchitect to use reactive data
 export async function getAboutPage() {
   return await $fetch(
     `${config.strapiV4Url}/api/about?populate%5Bcards%5D%5Bpopulate%5D=*`,
   );
 }
 
+// TODO: Rearchitect to use reactive data
 export async function getFrontPage() {
   return await $fetch(
     `${config.strapiV4Url}/api/about?populate%5Bcards%5D%5Bpopulate%5D=*`,
   );
 }
 
+// TODO: Rearchitect to use reactive data
 export async function getPage(slug: string) {
   const page = ref<any>();
   await $fetch(
