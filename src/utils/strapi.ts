@@ -69,7 +69,9 @@ function processEvent(event: any) {
     liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
   };
 
-  const videostreams = processStreamkey(event.streamkey);
+  const videostreams = event.streamkey
+    ? processStreamkey(event.streamkey)
+    : null;
 
   return {
     ...event,
@@ -102,8 +104,6 @@ function processProject(project: any) {
   project.description_english = formatMarkdown(project.description_english);
   project.description_estonian = formatMarkdown(project.description_estonian);
 
-  /*
-  
   project.events = (project.events || [])
     .map((event: any) => {
       // In some cases, we do not have event.project
@@ -119,16 +119,15 @@ function processProject(project: any) {
           },
         };
       }
-      //  return processEvent(event);
+      return processEvent(event);
     })
     .sort(sortEvents);
 
-  const p = project.events.filter(
-    (event: any) => event.urgency.value !== "past",
+  const p = (project.events || []).filter(
+    (event: any) => event.urgency?.value !== "past",
   );
 
   project.upcomingEvents = p.length ? p : null;
-  */
 
   project.details = project.details
     ? project.details.split("\n").map((item: any) => {
