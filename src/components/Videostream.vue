@@ -5,7 +5,6 @@ import { useVideostream } from "elektro";
 type Props = {
   src: string;
 };
-
 const { src } = defineProps<Props>();
 const { videoRef, width, height, status } = useVideostream(src);
 </script>
@@ -21,7 +20,15 @@ const { videoRef, width, height, status } = useVideostream(src);
       :height="height"
       style="width: 100%"
     />
-    <div style="position: absolute; top: var(--p-2); left: var(--p-2)">
+    <div
+      style="
+        position: absolute;
+        top: var(--p-2);
+        left: var(--p-2);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+      "
+    >
       <slot />
     </div>
   </div>
