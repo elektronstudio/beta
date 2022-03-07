@@ -2,6 +2,7 @@ import { computed, ref } from "vue";
 import { useRange } from "elektro";
 import { $fetch } from "ohmyfetch";
 import { compareDesc } from "date-fns";
+import merge from "lodash.merge";
 
 import {
   config,
@@ -260,11 +261,23 @@ export async function getAboutPage() {
   );
 }
 
-// TODO: Not sure why this is a dupe of getAboutPage
-export async function getFrontPage() {
-  return await $fetch(
-    `${config.strapiV4Url}/api/about?populate[cards][populate]=*`,
-  );
+export function useFrontPage() {
+  const pageLangs = ref<any>([null, null]);
+  // Was able to fetch both languages in one query,
+  // wondering why does it not work on useAboutPage?
+  $fetch(`${config.strapiV4Url}/api/frontpage?populate=*`).then((res) => {
+    res.data.attributes.background.data.attributes.url = `https://${res.data.attributes.background.data.attributes.url}`;
+    pageLangs.value = [
+      merge({}, res, {
+        data: {
+          attributes: res.data.attributes.localizations.data[0].attributes,
+        },
+      }),
+      // et
+      res,
+    ];
+  });
+  return computed(() => pageLangs.value[lang.value]);
 }
 
 // TODO: Rearchitect to use reactive data
