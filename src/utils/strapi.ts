@@ -240,8 +240,8 @@ export async function getPodcast() {
 }
 
 export function useAboutPage() {
-  // TODO: I was not able to get all the locales on one go ?lang=all hence
-  // this complex fetching. Simplify it.
+  // TODO: I was not able to get all the locales on one go usig
+  // ?lang=all -- hence this complex fetching. Simplify it.
   const pageLangs = ref<any>([null, null]);
   Promise.all(
     ["en", "et"].map((langcode) =>
@@ -260,21 +260,20 @@ export async function getAboutPage() {
   );
 }
 
-// TODO: Not needed any more?
+// TODO: Not sure why this is a dupe of getAboutPage
 export async function getFrontPage() {
   return await $fetch(
-    `${config.strapiV4Url}/api/about?populate%5Bcards%5D%5Bpopulate%5D=*`,
+    `${config.strapiV4Url}/api/about?populate[cards][populate]=*`,
   );
 }
 
 // TODO: Rearchitect to use reactive data
 export async function getPage(slug: string) {
   const page = ref<any>();
-  await $fetch(
-    `${config.strapiV4Url}/api/pages?filters%5Bslug%5D=${slug}`,
-  ).then((f) => {
-    console.log(f.data);
-    page.value = f.data[0];
-  });
+  await $fetch(`${config.strapiV4Url}/api/pages?filters[slug]=${slug}`).then(
+    (f) => {
+      page.value = f.data[0];
+    },
+  );
   return page;
 }
