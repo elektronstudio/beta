@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useProjectBySlug } from "@/utils";
+import { useProjectBySlug, l } from "@/utils";
 import IconArrowLeft from "~icons/radix-icons/arrow-left";
 import IconArrowRight from "~icons/radix-icons/arrow-right";
 
@@ -23,7 +23,7 @@ const project = useProjectBySlug(project_slug);
             @click="navigate"
           >
             <IconArrowLeft />
-            Projects
+            {{ l("Projects", "Projektid") }}
           </EButton>
         </router-link>
         <ETitle el="h2" size="lg" :title="project.title" />
@@ -51,7 +51,7 @@ const project = useProjectBySlug(project_slug);
         el="aside"
       >
         <template v-if="project.upcomingEvents">
-          <ETitle el="h3" size="lg" title="Etendused" />
+          <ETitle el="h3" size="lg" :title="l('Events', 'Üritused')" />
           <template v-for="instance in project.upcomingEvents">
             <EEventInstance
               :title="instance.title"
@@ -68,7 +68,7 @@ const project = useProjectBySlug(project_slug);
                 <router-link :to="instance.route">
                   <EButton size="xs" el="a" color="transparent">
                     <IconArrowRight />
-                    Loe lähemalt
+                    {{ l("Read more", "Loe lähemalt") }}
                   </EButton>
                 </router-link>
               </template>

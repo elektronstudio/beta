@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useProjects } from "../../utils";
+import { useProjects, l } from "@/utils";
 import { computed } from "vue";
 
 const { projects } = useProjects();
@@ -13,7 +13,9 @@ const archivedProjects = computed(() =>
 
 <template>
   <div class="Page">
-    <ETitle size="lg" v-if="upcomingProjects.length > 0">Projects</ETitle>
+    <ETitle size="lg" v-if="upcomingProjects.length > 0">{{
+      l("Projects", "Projektid")
+    }}</ETitle>
     <br />
     <div v-if="upcomingProjects.length > 0" class="projects">
       <template v-for="project in projects">

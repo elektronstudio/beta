@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import IconArrowLeft from "~icons/radix-icons/arrow-left";
 import IconArrowRight from "~icons/radix-icons/arrow-right";
-import { useEventBySlug } from "@/utils";
+import { useEventBySlug, l } from "@/utils";
 
 type Props = {
   project_slug: string;
@@ -74,7 +74,7 @@ const event = useEventBySlug(event_slug);
           :href="event.ticketUrl"
         >
           <IconArrowRight />
-          Osta pilet
+          {{ l("Get ticket", "Osta pilet") }}
         </EButton>
       </EBox>
     </main>

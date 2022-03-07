@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// TODO: Add actual UI
+// TODO: Find better UI / place for language switcher
 
 import { watchEffect } from "vue";
 import { useMagicKeys } from "@vueuse/core";
@@ -14,4 +14,16 @@ watchEffect(() => {
 });
 </script>
 
-<template></template>
+<template>
+  <EButton class="Lang" size="xs" color="transparent" @click="switchLang"
+    >eng / est</EButton
+  >
+</template>
+
+<style scoped>
+.Lang {
+  position: fixed;
+  bottom: var(--p-1);
+  left: var(--p-1);
+}
+</style>
