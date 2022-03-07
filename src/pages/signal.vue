@@ -20,10 +20,10 @@ const rss = await parser.parseString(rssSource.contents);
       <h4 v-if="project.authors">{{ project.authors }}</h4>
 
       <EContent
-        v-if="project.description_intro"
+        v-if="project.intro"
         class="Description"
         size="lg"
-        :content="project.description_intro"
+        :content="project.intro"
       />
     </header>
     <EImageSlider v-if="project.gallery" :images="project.gallery" />
