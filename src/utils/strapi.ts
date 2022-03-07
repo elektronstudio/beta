@@ -239,18 +239,28 @@ export async function getPodcast() {
   );
 }
 
-// TODO: Rearchitect to use reactive data
-// When there are different fetch queries per language
-// use something like this:
-//
-// watch(lang, () => $fetch(LANG_QUERY).then(...), { immediate: true}))
+export function useAboutPage() {
+  // TODO: I was not able to get all the locales on one go ?lang=all hence
+  // this complex fetching. Simplify it.
+  const pageLangs = ref<any>([null, null]);
+  Promise.all(
+    ["en", "et"].map((langcode) =>
+      $fetch(
+        `${config.strapiV4Url}/api/about?populate[cards][populate]=*&locale=${langcode}`,
+      ),
+    ),
+  ).then((res) => (pageLangs.value = res));
+  return computed(() => pageLangs.value[lang.value]);
+}
+
+// TODO: Not needed any more?
 export async function getAboutPage() {
   return await $fetch(
     `${config.strapiV4Url}/api/about?populate%5Bcards%5D%5Bpopulate%5D=*`,
   );
 }
 
-// TODO: Rearchitect to use reactive data
+// TODO: Not needed any more?
 export async function getFrontPage() {
   return await $fetch(
     `${config.strapiV4Url}/api/about?populate%5Bcards%5D%5Bpopulate%5D=*`,
@@ -262,6 +272,9 @@ export async function getPage(slug: string) {
   const page = ref<any>();
   await $fetch(
     `${config.strapiV4Url}/api/pages?filters%5Bslug%5D=${slug}`,
-  ).then((f) => (page.value = f.data[0]));
+  ).then((f) => {
+    console.log(f.data);
+    page.value = f.data[0];
+  });
   return page;
 }
