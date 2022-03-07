@@ -3,7 +3,7 @@ const navItems = [
   {
     name_english: "Schedule",
     name_estonian: "Kava",
-    path: "/kava",
+    path: "/schedule",
   },
   // {
   //   name: "KVF 2022",
@@ -12,12 +12,12 @@ const navItems = [
   {
     name_english: "Projects",
     name_estonian: "Projektid",
-    path: "/projektid",
+    path: "/projects",
   },
   {
     name_english: "WTF elektron",
     name_estonian: "Meist",
-    path: "/meist",
+    path: "/about",
   },
   {
     name_english: "Podcast",

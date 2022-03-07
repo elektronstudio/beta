@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useProjects } from "../utils";
-import { icons } from "@iconify-json/radix-icons";
-const arrowRight = icons.icons["arrow-right"].body;
+import IconArrowRight from "~icons/radix-icons/arrow-right";
+import { useProjects, l } from "@/utils";
 
 const { upcomingProjects } = useProjects();
 </script>
@@ -9,13 +8,13 @@ const { upcomingProjects } = useProjects();
 <template>
   <main class="Page Projects">
     <template
-      v-if="upcomingProjects && upcomingProjects.length > 0"
+      v-if="upcomingProjects?.length > 0"
       v-for="project in upcomingProjects"
     >
       <EScheduleEvent :description="project.description_intro" :path="''">
         <!-- @TODO: Remove this once router is figured out -->
         <template #title>
-          <RouterLink :to="`/projektid/${project.slug}`">
+          <RouterLink :to="project.route">
             <ETitle size="lg" :title="project.title" class="projectTitle" />
           </RouterLink>
         </template>
@@ -38,15 +37,8 @@ const { upcomingProjects } = useProjects();
             <template #buttons>
               <router-link :to="`/projektid/${project.slug}/${instance.slug}`">
                 <EButton size="xs" el="a" color="transparent">
-                  <svg
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    v-html="arrowRight"
-                  ></svg>
-                  Loe lähemalt
+                  <IconArrowRight />
+                  {{ l("Read more", "Loe lähemalt") }}
                 </EButton>
               </router-link>
             </template>
@@ -55,7 +47,9 @@ const { upcomingProjects } = useProjects();
       </EScheduleEvent>
     </template>
     <section v-else>
-      <ETitle>Tulevaid sündmusi ei leitud</ETitle>
+      <!-- TODO: Differentiate between data not -->
+      <!-- yet loaded and data fetching failed  -->
+      -->
     </section>
   </main>
 </template>
