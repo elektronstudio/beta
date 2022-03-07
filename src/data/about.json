@@ -1,0 +1,547 @@
+{
+	"data": {
+		"id": 1,
+		"attributes": {
+			"createdAt": "2022-02-10T13:09:42.969Z",
+			"updatedAt": "2022-03-01T12:36:45.342Z",
+			"publishedAt": "2022-02-10T13:25:04.708Z",
+			"cards": [
+				{
+					"id": 1,
+					"__component": "content.title",
+					"title": "Platvorm"
+				},
+				{
+					"id": 1,
+					"__component": "content.about-card",
+					"title": "Tuleviku lava",
+					"content": "Andrus Aaslaid ehitas kahe nädalaga meile oma saali. Jah, pisikese. Sellise, mis mahub veebibrauserisse. Sellise, mis ühendab esinejaid ja vaatajaid üle terve maakera. Siis tuli Kristjan Jansen ja nokitses edasi. Iga etendus on omanäoline. Mõni kasutab mitut lava korraga, mõni lavastus tahab suhelda publikuga näost näkku, mõni vajab, et publik osaleks maailma parima manifesti loomises, mõni soovib vaataja virtuaalsesse ruumi liikuma panna või 360* etenduse keskele tantsima saada. Kui sa kujutad ette blackboxi, siis see kõik pole just keeruline - seinad on, lagi on ja põrand ning publikupoodium on ka. Aga kujuta nüüd ette, et sinu ainsateks töövahenditeks on keskmiselt aeglasem internet, kood ja pinisevad arvutikõlarid, siis võid vist aimata kui pagana peadmurdev see ülesanne on. Selle ülesandega me päevast päeva tegelemegi. Et anda sulle, maailmast äralõigatuna, võimalus kollektiivset, intiimset, ideederohket hetke pakkuda. Maailm, kus saab olla üksi koos. Meie tuleviku lava on hinnanud nii kunstnikud, kriitikud kui ka Universal Music jt start-up võistlused, hackathonid ja akseleraatorid.\n",
+					"layout": "columns4"
+				},
+				{
+					"id": 2,
+					"__component": "content.about-card",
+					"title": "Arts",
+					"content": "eˉlektron esindab transdistsiplinaarset etenduskunsti, blackboxist virtuaallavadeni. Meil pole vahet, kas teoses kohtuvad ruum ja keha, neuroloog ja laulja, robot ja kass või kas vaataja istub toolil, on tal silmad kinni, vaatab ekraanilt, vaatab keha, vaatab teksti või kujutab kõike lihtsalt ette. Me toetame kunstniku vabadust töötada tundmatul alal, meile meeldib otsida kohast, kus kunagi varem pole käinud.",
+					"layout": "columns1"
+				},
+				{
+					"id": 3,
+					"__component": "content.about-card",
+					"title": "Development",
+					"content": "Me arendame tehnoloogiat, kui mängime neuroteatri ideedega, kui teeme visuaale ööklubidele ja kui maailm sulgub, ehitame koodist lava. Kui baarid sulguvad ehitame sellegi võrdse armastusega traditsioonilise teatri ja kaasaegse etenduskunsti vastu. Meie virtuaalne lava on tulevikulava. Kunsti ja tehnoloogia terra incognita. Kõik kunstnike soovid ja unistused kirjutame koodi. Kõik võimatu teeme võimalikuks. eˉlektroni vundamendiks on tugev teatrikogemus, tehnoloogilised oskused, digi-punk attitude, mis lubab teha asju teisiti, reegleid rikkudes ja uusi luues.  Me armastame seda kõike.",
+					"layout": "columns1"
+				},
+				{
+					"id": 4,
+					"__component": "content.about-card",
+					"title": "Interaction",
+					"content": "...",
+					"layout": "columns1"
+				},
+				{
+					"id": 5,
+					"__component": "content.about-card",
+					"title": "Research",
+					"content": "eˉlektroni projektid ja platvormi arendus on pälvinud mitmete ülikoolide ja uurijate tähelepanu. Koostöös teadlastega uuritakse võimalusi publiku tagasisideks ja entusiastlikumad teadlased katsetavad isegi vaatajate emotsioonide kasutamist tõelise neuroteatri loomiseks. Päris mitme doktorandi doktoritöö on vähem või rohkem eˉlektroniga seotud.",
+					"layout": "columns1"
+				},
+				{
+					"id": 2,
+					"__component": "content.title",
+					"title": "Oskused"
+				},
+				{
+					"id": 6,
+					"__component": "content.about-card",
+					"title": "Production",
+					"content": "Kõigepealt oli punk ja siis ballett. Siis elektrooniline muusika, millest sai ooper. Meie meeskonnal on pikk ajalugu etenduskunstide vallas heli-, video- ja valguskujundusest interaktiivsete installatsioonideni ning teadmised dramaturgiast, etendamisest ja lavastamisest. Black box on olnud meie kõigi teine kodu ja see on jätnud oma jälje.",
+					"layout": "columns1"
+				},
+				{
+					"id": 7,
+					"__component": "content.about-card",
+					"title": "Network",
+					"content": "Vaatamata nõukogulikule hoia-oma-pea-all kinderstubele oleme suutnud leida häid sõpru ülikoolidest nagu Tartu Ülikool, Tallinna Ülikooli HCI lab ja Eesti Kunstiakadeemia. Neil on eksperdid ja õpilased ning meil on uudishimu. Oleme leidnud sõpru ka festivalide ja kuraatorite seas üle Euroopa. Teeme koostööd Kanuti Gildi SAALi, SAAL Biennaali, FFT Düsseldorfi ning Pixelache ja Aavistus Festivaliga Helsingist. Ja loomulikult oleme saanud sõpru kunstnike ja publiku seast. Oih ja loomulikult ärge unustage Eesti Kultuuriministeeriumi.\n",
+					"layout": "columns1"
+				},
+				{
+					"id": 8,
+					"__component": "content.about-card",
+					"title": "Design",
+					"content": "Tõsi, enamik meist on värvipimedad ja kalduvad üldiselt must-valge poole. Kuid see on ainult enamik meist. Oleme suurepärased interaktsioonidisaini ja postkaartide kujundamise alal ning me 🖤 oma logo. ",
+					"layout": "columns1"
+				},
+				{
+					"id": 9,
+					"__component": "content.about-card",
+					"title": "Coding",
+					"content": "...",
+					"layout": "columns1"
+				},
+				{
+					"id": 5,
+					"__component": "content.title",
+					"title": "Rights"
+				},
+				{
+					"id": 1,
+					"__component": "content.external-link",
+					"url": "https://docs.google.com/document/d/16K1fyCRxl2NXBew6URcCD9JtQIKZS2pC/edit?usp=sharing&ouid=113943556854488467376&rtpof=true&sd=true",
+					"title": "Privaatsuspoliitika"
+				},
+				{
+					"id": 2,
+					"__component": "content.external-link",
+					"url": "https://docs.google.com/document/d/1OI0LjiySsgfsiCLdLVS6OF2EaUjX-4Jm/edit?usp=sharing&ouid=113943556854488467376&rtpof=true&sd=true",
+					"title": "Kasutustingimused"
+				},
+				{
+					"id": 3,
+					"__component": "content.title",
+					"title": "Wrongs"
+				},
+				{
+					"id": 1,
+					"__component": "content.related-page",
+					"title": "Uudiskiri",
+					"page": {
+						"data": {
+							"id": 1,
+							"attributes": {
+								"title": "Uudiskiri",
+								"createdAt": "2022-02-10T13:12:39.302Z",
+								"updatedAt": "2022-02-21T13:42:15.530Z",
+								"publishedAt": "2022-02-10T13:12:41.455Z",
+								"content": "[Uudiskiri #1]( https://mailchi.mp/7ed9e54b015f/uudiskiri-elektronilt-13670445)\n[Uudiskiri #2](https://mailchi.mp/7ed9e54b015f/uudiskiri-elektronilt-13670445)\n[Uudiskiri #3: Mõttepildid](https://mailchi.mp/5d34f0178db5/uudiskiri-elektronilt-15600273)",
+								"slug": "uudiskiri"
+							}
+						}
+					}
+				},
+				{
+					"id": 2,
+					"__component": "content.related-page",
+					"title": "Tekstid",
+					"page": {
+						"data": {
+							"id": 3,
+							"attributes": {
+								"title": "Tekstid",
+								"createdAt": "2022-02-21T13:09:24.362Z",
+								"updatedAt": "2022-02-21T13:29:19.996Z",
+								"publishedAt": "2022-02-21T13:29:19.917Z",
+								"content": "Taavet Jansen, Aleksander Väljamäe\n[“Exploring Physiology-Based Interactions in Performing Arts Using Artistic Interventions” lk 178-197 ](http://ojs.utlib.ee/index.php/methis/issue/view/1297)\n\nTaavet Jansen\n[“Pandeemia tiris veebisündmused interneti hallusest lagedale”](https://novaator.err.ee/1608489446/pandeemia-tiris-veebisundmused-interneti-hallusest-lagedale)",
+								"slug": "tekstid"
+							}
+						}
+					}
+				},
+				{
+					"id": 3,
+					"__component": "content.related-page",
+					"title": "Pressikajastus",
+					"page": {
+						"data": {
+							"id": 4,
+							"attributes": {
+								"title": "Pressikajastus",
+								"createdAt": "2022-02-21T13:09:46.049Z",
+								"updatedAt": "2022-02-21T13:59:00.907Z",
+								"publishedAt": "2022-02-21T13:29:15.969Z",
+								"content": "Kaja Kann Teatriarvustus:\n[koroona mängis kaardid kätte. “Hundid”](https://edasi.org/102841/teatriarvustus-kaja-kann-koroona-mangis-kaardid-katte-hundid/)\n\n\nAndrus Laansalu\n[Diislidisko](https://www.sirp.ee/s1-artiklid/c6-kunst/diislidisko/?fbclid=IwAR39DzEgO3QO3B8T8f8egoAPIa7_QpJY9Hx1AgFkTt0hDrnfg14ajma5BO8)\n\nTaavet Jansen\n[Kas see maailm ongi enam s*****i väärt?](https://kultuur.postimees.ee/7387562/kas-see-maailm-ongi-enam-s-i-vaart)\n\n\nMarie Pullerits\n[Tantsukunst ja kehalisus keset uusi hübriidvorme](https://sirp.ee/s1-artiklid/teater/tantsukunst-ja-kehalisus-keset-uusi-hubriidvorme/\n)\n\nTõnis Jürgens\n[Suur lugu. Zettabaitide kõrb](https://cca.ee/ajakiri/suur-lugu-zettabaitide-korb)\n\nKarin Allik\n[Kaamerasse joostud maraton](https://sirp.ee/s1-artiklid/teater/kaamerasse-joostud-maraton/)\n\nKärt Kelder\n[Kui kõhedalt oleme üksteisega seotud](https://kultuur.postimees.ee/7217885/kui-kohedalt-oleme-uksteisega-seotud?_ga=2.178023461.1602931483.1617691274-1015818672.1589065120)\n\nKaspar Viilup\n[Maike Lond: suurele lavale loodud etendusi ja ideid on väga riskantne \"purki pista\"](https://kultuur.err.ee/1608161557/maike-lond-suurele-lavale-loodud-etendusi-ja-ideid-on-vaga-riskantne-purki-pista)\n\n\nAndrus Aaslaid saates\n[Helikaja. Dominant. Digikultuur ja digivõimekus](https://klassikaraadio.err.ee/1608141601/helikaja-27-martsil-digikultuur-ja-digivoimekus-meie-umber/1233373)\n\n\nTaaniel Raudsepp\n[Taaniel Raudsepp: kultuur saab aidata parandada viiruse löödud arme](https://kultuur.err.ee/1608151789/taaniel-raudsepp-kultuur-saab-aidata-parandada-viiruse-loodud-arme)\n\n\nJuhan Raud\n[SUUR INTERVJUU ⟩ Priit Raud: on tekkimas mingi täiesti uus kunstivorm](https://leht.postimees.ee/7133306/priit-raud-on-tekkimas-mingi-taiesti-uus-kunstivorm?_ga=2.15954550.1131313993.1608037468-1991985449.1607775026)\n\nOtt Karulin\n[ÜLEKANTUD TEATER](https://www.temuki.ee/archives/2790)\n\n[Lavastuse „Planet Alexithymia” etendusejärgne vestlus Kanuti Gildi SAALis lavastaja Karl Saksa, dramaturg Maike Londi ja filosoof Eik Hermanni vahel](http://www.temuki.ee/archives/2413)\n\nKadri Sirel\n[Virtuaalne sügisball](https://dea.digar.ee/cgi-bin/dea?a=d&d=AKtmk202006.2.6.2&e=-------et-25--1--txt-txIN%7ctxTI%7ctxAU%7ctxTA-------------)",
+								"slug": "pressikajastus"
+							}
+						}
+					}
+				},
+				{
+					"id": 4,
+					"__component": "content.title",
+					"title": "Kontoris"
+				},
+				{
+					"id": 1,
+					"__component": "content.person-card",
+					"name": "Hendrik Kaljujärv",
+					"content": "Hendrik on väga sügav inimene, kelle tagasiside aitab kergel ja hüpleval mõttel rahuneda, enda sisse vaadata ja avada tõeliseid potensiaale. Tema silmist on tunda, milline on kuu ja tähtede olukord taevas. Loominguline plahvatus on sellest astroloogilisest seisust tihti sõltuv. Hendrik on eˉlektroni tegevjuht.",
+					"image": {
+						"data": {
+							"id": 44,
+							"attributes": {
+								"name": "hendrik.png",
+								"alternativeText": "hendrik.png",
+								"caption": "hendrik.png",
+								"width": 504,
+								"height": 504,
+								"formats": {
+									"small": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/d346e1798c61d766c04d10d52e2e9f48.png",
+										"hash": "d346e1798c61d766c04d10d52e2e9f48",
+										"mime": "image/png",
+										"name": "small_hendrik.png",
+										"path": null,
+										"size": 113.49,
+										"width": 500,
+										"height": 500
+									},
+									"thumbnail": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/c674da2dafcb9f5227b136000584f71f.png",
+										"hash": "c674da2dafcb9f5227b136000584f71f",
+										"mime": "image/png",
+										"name": "thumbnail_hendrik.png",
+										"path": null,
+										"size": 17.5,
+										"width": 156,
+										"height": 156
+									}
+								},
+								"hash": "4aa92b04de3ddb4d21cb424ea21cc896",
+								"ext": ".png",
+								"mime": "image/png",
+								"size": 87.16,
+								"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/4aa92b04de3ddb4d21cb424ea21cc896.png",
+								"previewUrl": null,
+								"provider": "strapi-provider-upload-do",
+								"provider_metadata": null,
+								"createdAt": "2022-03-01T12:34:44.367Z",
+								"updatedAt": "2022-03-01T12:34:44.367Z"
+							}
+						}
+					}
+				},
+				{
+					"id": 4,
+					"__component": "content.person-card",
+					"name": "Maike Lond",
+					"content": "Maikega vesteldes mõistad ühtäkki, et tema sõnad ja mõtted dekodeerivad sinu arusaamu. See on nii hirmutav kui ka erutav. Maike on etenduskunstnik ja dramaturg, kes korraldab ja korrastab kaost. Kui ta on eˉlektronis kõik inimesed ümber kodeerinud, läheb ta Zahiriga bändikasse, sepistama suuremat ümberkodeerimist.",
+					"image": {
+						"data": {
+							"id": 43,
+							"attributes": {
+								"name": "Maike.png",
+								"alternativeText": "Maike.png",
+								"caption": "Maike.png",
+								"width": 504,
+								"height": 504,
+								"formats": {
+									"small": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/ad2a01ffae85961ac12ec6cc6a5d27a6.png",
+										"hash": "ad2a01ffae85961ac12ec6cc6a5d27a6",
+										"mime": "image/png",
+										"name": "small_Maike.png",
+										"path": null,
+										"size": 176.19,
+										"width": 500,
+										"height": 500
+									},
+									"thumbnail": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/0da451218f1c8802c71e8a5393cf6515.png",
+										"hash": "0da451218f1c8802c71e8a5393cf6515",
+										"mime": "image/png",
+										"name": "thumbnail_Maike.png",
+										"path": null,
+										"size": 29.52,
+										"width": 156,
+										"height": 156
+									}
+								},
+								"hash": "2ff2242cc3a0599f017fa731d739defb",
+								"ext": ".png",
+								"mime": "image/png",
+								"size": 125.51,
+								"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/2ff2242cc3a0599f017fa731d739defb.png",
+								"previewUrl": null,
+								"provider": "strapi-provider-upload-do",
+								"provider_metadata": null,
+								"createdAt": "2022-03-01T12:34:44.260Z",
+								"updatedAt": "2022-03-01T12:34:44.260Z"
+							}
+						}
+					}
+				},
+				{
+					"id": 3,
+					"__component": "content.person-card",
+					"name": "Taavet Jansen",
+					"content": "Taavet on mäd professor, kelle aju on modulaar-neuroloogiliste katsete keskus. Ta on doktorant, õppejõud, kunstnik ja lavastaja. Ei, ta on tegelikult tantsija. Jah, ta on helilooja ja disainer, programmeerija. Selge on see, et ta on hea inimene ja kõigi sõber, umbes nagu Leopold. Taavet korraldab kõike ja kõiki, nagu oma peas, nõnda ka maa peal.",
+					"image": {
+						"data": {
+							"id": 39,
+							"attributes": {
+								"name": "taavet.png",
+								"alternativeText": "taavet.png",
+								"caption": "taavet.png",
+								"width": 504,
+								"height": 504,
+								"formats": {
+									"small": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/01c5e52576a9254f3cbc41f60f3697e5.png",
+										"hash": "01c5e52576a9254f3cbc41f60f3697e5",
+										"mime": "image/png",
+										"name": "small_taavet.png",
+										"path": null,
+										"size": 185.13,
+										"width": 500,
+										"height": 500
+									},
+									"thumbnail": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/ea9f9e27ae25ad9bcc34b46447566201.png",
+										"hash": "ea9f9e27ae25ad9bcc34b46447566201",
+										"mime": "image/png",
+										"name": "thumbnail_taavet.png",
+										"path": null,
+										"size": 28.61,
+										"width": 156,
+										"height": 156
+									}
+								},
+								"hash": "768a194bbcc6d40c4097ae7d16b58462",
+								"ext": ".png",
+								"mime": "image/png",
+								"size": 142.64,
+								"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/768a194bbcc6d40c4097ae7d16b58462.png",
+								"previewUrl": null,
+								"provider": "strapi-provider-upload-do",
+								"provider_metadata": null,
+								"createdAt": "2022-03-01T12:34:44.056Z",
+								"updatedAt": "2022-03-01T12:34:44.056Z"
+							}
+						}
+					}
+				},
+				{
+					"id": 2,
+					"__component": "content.person-card",
+					"name": "Kaie Olmre",
+					"content": "Kaie on kullakallis. Talle saab silma vaadata ja korraga hakkab kergem, mured ja raskused leiavad justkui mänglevalt oma lahenduse. Ja vahel tundub, et polekski nagu midagi, mida Kaie ei oska. Magical production manager Super Kaie. ",
+					"image": {
+						"data": {
+							"id": 34,
+							"attributes": {
+								"name": "kaie.png",
+								"alternativeText": "kaie.png",
+								"caption": "kaie.png",
+								"width": 504,
+								"height": 504,
+								"formats": {
+									"small": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/43a73d81f50e5fb6bd3b2dd3c9fa2b97.png",
+										"hash": "43a73d81f50e5fb6bd3b2dd3c9fa2b97",
+										"mime": "image/png",
+										"name": "small_kaie.png",
+										"path": null,
+										"size": 160.31,
+										"width": 500,
+										"height": 500
+									},
+									"thumbnail": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/d9c18fe8d2d46cbe5c904609c353ef2c.png",
+										"hash": "d9c18fe8d2d46cbe5c904609c353ef2c",
+										"mime": "image/png",
+										"name": "thumbnail_kaie.png",
+										"path": null,
+										"size": 20.63,
+										"width": 156,
+										"height": 156
+									}
+								},
+								"hash": "550bbe149f6bf3d6269147b81da87032",
+								"ext": ".png",
+								"mime": "image/png",
+								"size": 110.66,
+								"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/550bbe149f6bf3d6269147b81da87032.png",
+								"previewUrl": null,
+								"provider": "strapi-provider-upload-do",
+								"provider_metadata": null,
+								"createdAt": "2022-03-01T12:34:36.058Z",
+								"updatedAt": "2022-03-01T12:34:36.058Z"
+							}
+						}
+					}
+				},
+				{
+					"id": 5,
+					"__component": "content.person-card",
+					"name": "Bohdana Korohod",
+					"content": "Bohdana on selline kelle üle ei väsi imestamast. Kuidas ta nii tark on? Miks tal kõik asjad korraldatud on? Kust ta nii häid mõtteid saab? Kuidas ta nii palju raamatuid on jõudnud lugeda? Bohdana on andekas. Tee mis tahad, mõnele lihtsalt on antud. ",
+					"image": {
+						"data": {
+							"id": 33,
+							"attributes": {
+								"name": "bogdana.png",
+								"alternativeText": "bogdana.png",
+								"caption": "bogdana.png",
+								"width": 504,
+								"height": 504,
+								"formats": {
+									"small": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/55a98c600d38b15d922a33478f44b5e0.png",
+										"hash": "55a98c600d38b15d922a33478f44b5e0",
+										"mime": "image/png",
+										"name": "small_bogdana.png",
+										"path": null,
+										"size": 133.06,
+										"width": 500,
+										"height": 500
+									},
+									"thumbnail": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/d6ad00b4f967ee938b90e687230de75a.png",
+										"hash": "d6ad00b4f967ee938b90e687230de75a",
+										"mime": "image/png",
+										"name": "thumbnail_bogdana.png",
+										"path": null,
+										"size": 19.27,
+										"width": 156,
+										"height": 156
+									}
+								},
+								"hash": "9fdd73e934f3dff586ba8c88f407570b",
+								"ext": ".png",
+								"mime": "image/png",
+								"size": 93.34,
+								"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/9fdd73e934f3dff586ba8c88f407570b.png",
+								"previewUrl": null,
+								"provider": "strapi-provider-upload-do",
+								"provider_metadata": null,
+								"createdAt": "2022-03-01T12:34:31.662Z",
+								"updatedAt": "2022-03-01T12:34:31.662Z"
+							}
+						}
+					}
+				},
+				{
+					"id": 6,
+					"__component": "content.person-card",
+					"name": "Kristjan (Kika) Jansen",
+					"content": "Kika vaatab tähistaevast nagu ühte struktuuri, koodi, maatriksit, süsteemi. Samas tunneb, tajub ja oskab ta selle süsteemiga ka ümber käia ning sellest uusi struktuure luua. Sageli räägib ta oma lastele unejuttu eˉlektronist ja sellest, kuidas nad võivad tähistaevast muuta täpselt selliseks, nagu ise soovivad, olgu vaid idee hea.",
+					"image": {
+						"data": {
+							"id": 41,
+							"attributes": {
+								"name": "kristjan.png",
+								"alternativeText": "kristjan.png",
+								"caption": "kristjan.png",
+								"width": 504,
+								"height": 504,
+								"formats": {
+									"small": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/81592f9bd8afa886e314ac25bfd771a6.png",
+										"hash": "81592f9bd8afa886e314ac25bfd771a6",
+										"mime": "image/png",
+										"name": "small_kristjan.png",
+										"path": null,
+										"size": 98.83,
+										"width": 500,
+										"height": 500
+									},
+									"thumbnail": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/4cb65557febc948b80a1fa32afee7cb8.png",
+										"hash": "4cb65557febc948b80a1fa32afee7cb8",
+										"mime": "image/png",
+										"name": "thumbnail_kristjan.png",
+										"path": null,
+										"size": 15.5,
+										"width": 156,
+										"height": 156
+									}
+								},
+								"hash": "860bb8fd69a162d57128346516741c94",
+								"ext": ".png",
+								"mime": "image/png",
+								"size": 75,
+								"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/860bb8fd69a162d57128346516741c94.png",
+								"previewUrl": null,
+								"provider": "strapi-provider-upload-do",
+								"provider_metadata": null,
+								"createdAt": "2022-03-01T12:34:44.159Z",
+								"updatedAt": "2022-03-01T12:34:44.159Z"
+							}
+						}
+					}
+				},
+				{
+					"id": 7,
+					"__component": "content.person-card",
+					"name": "Jaan Evart",
+					"content": "Jaan on elav müsteerium, kes mõtleb palju ja ütleb vähe. Täpselt sellist inimest on vaja igaühe ellu ja ollu. Aga Jaanil on ka loomulik anne. ",
+					"image": {
+						"data": {
+							"id": 42,
+							"attributes": {
+								"name": "jaan.png",
+								"alternativeText": "jaan.png",
+								"caption": "jaan.png",
+								"width": 504,
+								"height": 504,
+								"formats": {
+									"small": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/a31946a0e19accc435c99c923092ffb7.png",
+										"hash": "a31946a0e19accc435c99c923092ffb7",
+										"mime": "image/png",
+										"name": "small_jaan.png",
+										"path": null,
+										"size": 100.86,
+										"width": 500,
+										"height": 500
+									},
+									"thumbnail": {
+										"ext": ".png",
+										"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/96aad23ea5af6a98c98afeda8dc915fc.png",
+										"hash": "96aad23ea5af6a98c98afeda8dc915fc",
+										"mime": "image/png",
+										"name": "thumbnail_jaan.png",
+										"path": null,
+										"size": 16.84,
+										"width": 156,
+										"height": 156
+									}
+								},
+								"hash": "3db6cd4542528e0c6bbc278ba7581cf7",
+								"ext": ".png",
+								"mime": "image/png",
+								"size": 73.94,
+								"url": "https://elektron.fra1.digitaloceanspaces.com/strapi/3db6cd4542528e0c6bbc278ba7581cf7.png",
+								"previewUrl": null,
+								"provider": "strapi-provider-upload-do",
+								"provider_metadata": null,
+								"createdAt": "2022-03-01T12:34:43.958Z",
+								"updatedAt": "2022-03-01T12:34:43.958Z"
+							}
+						}
+					}
+				},
+				{
+					"id": 8,
+					"__component": "content.person-card",
+					"name": "Krista Jakobson-Hadar",
+					"content": "Lepingud, arved, numbrid. Mikro ja makro, bilansid-avansid. Raamatupidamine on Krista jaoks nagu luule luuletajale.",
+					"image": {
+						"data": null
+					}
+				},
+				{
+					"id": 10,
+					"__component": "content.about-card",
+					"title": "Kodus:",
+					"content": "- Andrus Aaslaid \n- Andrus Laansalu \n- Evi Pärn \n- Katrin Aaslaid \n- Tencu \n- Raul Keller\n- Henri Hütt\n- Eleonora Tikas\n- Priit Raud\n- Kalle Tikas\n- Annika Üprus",
+					"layout": "columns1"
+				}
+			]
+		}
+	},
+	"meta": {}
+}
