@@ -38,10 +38,10 @@ const event = useEventBySlug(event_slug);
 
       <!-- @TODO: Add locale based conditionals -->
       <EContent
-        v-if="event.description_intro"
+        v-if="event.intro"
         class="Description"
         size="lg"
-        :content="event.description_intro"
+        :content="event.intro"
       />
     </header>
     <EImageSlider v-if="event.gallery" :images="event.gallery" />

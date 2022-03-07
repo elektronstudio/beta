@@ -10,6 +10,7 @@ import {
   processStreamkey,
   replaceTokens,
   lang,
+  l,
 } from ".";
 
 // TODO: Add Event and Project typings
@@ -41,15 +42,20 @@ function processEvent(event: any) {
 
   event.gallery = event.images.length > 1 ? event.images.slice(1) : null;
 
-  // TODO: Add lang support for intro
+  // Backward compatibility
   event.description_intro = formatMarkdown(event.intro);
+
+  event.intro_english = formatMarkdown(event.intro_english || "");
+  event.intro_estonian = formatMarkdown(event.intro); // For backward compatibility
+
+  event.intro = computed(() => l(event.intro_english, event.intro_estonian));
 
   // TODO: Remove when not needed anymore
   event.description_english = formatMarkdown(event.description_english);
   event.description_estonian = formatMarkdown(event.description_estonian);
 
-  event.description = computed(
-    () => [event.description_english, event.description_estonian][lang.value],
+  event.description = computed(() =>
+    l(event.description_english, event.description_estonian),
   );
 
   // Augment events with reactive event data
@@ -121,9 +127,8 @@ function processProject(project: any) {
   project.description_english = formatMarkdown(project.description_english);
   project.description_estonian = formatMarkdown(project.description_estonian);
 
-  project.description = computed(
-    () =>
-      [project.description_english, project.description_estonian][lang.value],
+  project.description = computed(() =>
+    lang(project.description_english, project.description_estonian),
   );
 
   project.events = (project.events || [])
@@ -254,7 +259,7 @@ export function useAboutPage() {
       ),
     ),
   ).then((res) => (pageLangs.value = res));
-  return computed(() => pageLangs.value[lang.value]);
+  return computed(() => l(pageLangs.value[0], pageLangs.value[1]));
 }
 
 // TODO: Not needed any more?
