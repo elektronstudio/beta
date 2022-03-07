@@ -44,8 +44,8 @@ const stream = computed(() => event?.value.videostreams[0]);
     <EDraggable
       title="About"
       draggable-id="videosteam"
-      :tiles-width="6"
-      :tiles-height="4"
+      :tiles-width="8"
+      :tiles-height="5"
       :grid-pos-x="1"
       :grid-pos-y="4"
       content-type="video"

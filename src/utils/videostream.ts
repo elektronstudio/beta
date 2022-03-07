@@ -12,7 +12,7 @@ function formatStreamkey(streamkey = "") {
 const formatStreamUrl = (streamkey = "") => {
   if (streamkey.endsWith("m3u8")) {
     return streamkey;
-  } else if (streamkey === config.streamTranscodeKeyIn) {
+  } else if (streamkey === config.streamTranscodeKeyOut) {
     return replaceTokens(config.streamTranscodeUrl as string, {
       streamkey: config.streamTranscodeKeyOut as string,
     });
