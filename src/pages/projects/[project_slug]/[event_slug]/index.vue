@@ -64,7 +64,7 @@ const event = useEventBySlug(event_slug);
       >
         <EButton size="xs" el="a" color="transparent" :href="event.liveRoute">
           <IconArrowRight />
-          Vaata üritust
+          {{ l("View live event", "Vaata üritust") }}
         </EButton>
         <EButton
           v-if="event.ticketUrl"

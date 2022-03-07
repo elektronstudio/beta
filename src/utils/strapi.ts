@@ -55,11 +55,6 @@ function processEvent(event: any) {
   // Augment events with reactive event data
   const eventData = useRange(new Date(event.start_at), new Date(event.end_at));
 
-  const liveUrl = replaceTokens(config.liveUrl as string, {
-    projectSlug: event.project.slug,
-    eventSlug: event.slug,
-  });
-
   const fientaId = event.fienta_id
     ? event.fienta_id
     : event.project.fienta_id
@@ -75,10 +70,18 @@ function processEvent(event: any) {
     });
   }
 
+  const liveUrl = replaceTokens(config.liveUrl as string, {
+    projectSlug: event.project.slug,
+    eventSlug: event.slug,
+  });
+
   const routes = {
     projectRoute: `/projects/${event.project.slug}`,
     route: `/projects/${event.project.slug}/${event.slug}`,
-    liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
+    // TODO: Enable when live view is sort-of ready and we
+    // have Fienta support
+    // liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
+    liveRoute: liveUrl,
   };
 
   const videostreams = event.streamkey
@@ -88,9 +91,9 @@ function processEvent(event: any) {
   return {
     ...event,
     ...eventData,
-    liveUrl,
     ticketUrl,
     ...routes,
+    liveUrl,
     videostreams,
   };
 }
