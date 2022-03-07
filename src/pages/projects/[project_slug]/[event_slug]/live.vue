@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useEventBySlug } from "@/utils";
 import { computed } from "vue";
+import IconArrowLeft from "~icons/radix-icons/arrow-left";
+import { useEventBySlug } from "@/utils";
 
 type Props = {
   project_slug: string;
@@ -26,7 +27,7 @@ const stream = computed(() => event?.value.videostreams[0]);
       :order="0"
     >
       <Videostream :src="stream.streamurl">
-        <div>Viewers: {{ stream.viewers }}</div>
+        <!-- <div>Viewers: {{ stream.viewers }}</div> -->
       </Videostream>
     </EDraggable>
     <EDraggable
@@ -52,7 +53,12 @@ const stream = computed(() => event?.value.videostreams[0]);
     >
       <EStack style="padding: var(--p-5)">
         <!-- TODO Reuse existing back button UI -->
-        <RouterLink :to="event.route">&larr; Back to event</RouterLink>
+        <RouterLink :to="event.route">
+          <EButton size="xs" color="transparent" el="a">
+            <IconArrowLeft />
+            Back to event
+          </EButton>
+        </RouterLink>
         <ETitle size="lg">Live event: {{ event.title }}</ETitle>
         <EContent v-html="event.intro" />
         <!-- TODO What about event.description? -->

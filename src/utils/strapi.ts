@@ -84,10 +84,8 @@ function processEvent(event: any) {
   const routes = {
     projectRoute: `/projects/${event.project.slug}`,
     route: `/projects/${event.project.slug}/${event.slug}`,
-    // TODO: Enable when live view is sort-of ready and we
-    // have Fienta support
-    // liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
-    liveRoute: liveUrl,
+    liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
+    // liveRoute: liveUrl,
   };
 
   const videostreams = event.streamkey
@@ -120,15 +118,24 @@ function processProject(project: any) {
   project.gallery = project.images.length > 1 ? project.images.slice(1) : null;
   project.thumbnail = project.images[0]?.url;
 
-  // Convert Markdown to HTML
+  // For backward compatability
+  // TODO: Remove
   project.description_intro = formatMarkdown(project.intro);
+
+  // TODO: Remove when not needed anymore
+  project.intro_english = formatMarkdown(project.intro_english);
+  project.intro_estonian = formatMarkdown(project.intro);
+
+  project.intro = computed(() =>
+    l(project.intro_english, project.intro_estonian),
+  );
 
   // TODO: Remove when not needed anymore
   project.description_english = formatMarkdown(project.description_english);
   project.description_estonian = formatMarkdown(project.description_estonian);
 
   project.description = computed(() =>
-    lang(project.description_english, project.description_estonian),
+    l(project.description_english, project.description_estonian),
   );
 
   project.events = (project.events || [])

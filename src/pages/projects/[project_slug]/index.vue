@@ -31,10 +31,10 @@ const project = useProjectBySlug(project_slug);
 
       <!-- @TODO: Add locale based conditionals -->
       <EContent
-        v-if="project.description_intro"
+        v-if="project.intro"
         class="Description"
         size="lg"
-        :content="project.description_intro"
+        :content="project.intro"
       />
     </header>
     <EImageSlider v-if="project.gallery" :images="project.gallery" />
