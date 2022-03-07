@@ -11,7 +11,7 @@ const { upcomingProjects } = useProjects();
       v-if="upcomingProjects?.length > 0"
       v-for="project in upcomingProjects"
     >
-      <EScheduleEvent :description="project.description_intro" :path="''">
+      <EScheduleEvent :description="project.intro" :path="''">
         <!-- @TODO: Remove this once router is figured out -->
         <template #title>
           <RouterLink :to="project.route">
