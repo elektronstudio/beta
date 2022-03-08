@@ -84,8 +84,8 @@ function processEvent(event: any) {
   const routes = {
     projectRoute: `/projects/${event.project.slug}`,
     route: `/projects/${event.project.slug}/${event.slug}`,
-    liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
-    // liveRoute: liveUrl,
+    // liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
+    liveRoute: liveUrl,
   };
 
   const videostreams = event.streamkey
