@@ -1,20 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
-
 const url = new URLSearchParams(window.location.search);
 const urlCode = url.get("code");
-
 const redirect = (code: string) => {
-  // TODO: Redirect to event live route when ready
   window.location.href = `https://live.elektron.art/fienta?code=${code}`;
+  //window.location.href = "https://live.elektron.art/saveukraine";
 };
-
 if (urlCode) {
   redirect(urlCode);
 }
-
-const code = ref("");
-
+const code = ref(urlCode || "");
 const onSubmit = () => {
   if (code.value) {
     redirect(code.value);
