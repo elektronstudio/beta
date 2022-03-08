@@ -22,7 +22,7 @@ const navItems = [
   {
     name_english: "Podcast",
     name_estonian: "Podcast",
-    path: "/signal",
+    path: "/podcast",
   },
 ];
 </script>
