@@ -1,25 +1,23 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { validateTicket } from "elektro";
 
 const url = new URLSearchParams(window.location.search);
 const urlCode = url.get("code");
 
-const validate = (code: string) => {
-  validateTicket(code).finally(() => {
-    window.location.href = `https://live.elektron.art/fienta?code=${code}`;
-  });
+const redirect = (code: string) => {
+  // TODO: Redirect to event live route when ready
+  window.location.href = `https://live.elektron.art/fienta?code=${code}`;
 };
 
 if (urlCode) {
-  validate(urlCode);
+  redirect(urlCode);
 }
 
 const code = ref("");
 
 const onSubmit = () => {
   if (code.value) {
-    validate(code.value);
+    redirect(code.value);
   }
 };
 </script>
