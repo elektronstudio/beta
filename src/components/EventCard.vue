@@ -16,6 +16,7 @@ const { startAt, layout = "horizontal" } = defineProps<Props>();
     </header>
     <section>
       <slot name="buttons" />
+      <!-- TODO: Bring buttons here and use event.ticketableStatus -->
     </section>
   </div>
 </template>
