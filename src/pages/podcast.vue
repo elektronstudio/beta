@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import { $fetch } from "ohmyfetch";
 import Parser from "rss-parser/dist/rss-parser.js";
-import { useProjectBySlug } from "../utils";
-import PodcastItem from "../components/PodcastItem.vue";
-const project = useProjectBySlug("signal");
 
-// TODO move to /logic and use env variable
-const rssUrl =
-  "https://api.allorigins.win/get?url=https://elektronsignal.captivate.fm/rssfeed";
-let parser = new Parser();
-const rssSource: any = await $fetch(rssUrl);
-const rss = await parser.parseString(rssSource.contents);
+import { useProjectBySlug, usePodcastRss } from "@/utils";
+import PodcastItem from "../components/PodcastItem.vue";
+
+const project = useProjectBySlug("signal");
+const rss = await usePodcastRss();
 </script>
 
 <template>

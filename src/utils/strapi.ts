@@ -1,5 +1,5 @@
 import { computed, ref } from "vue";
-import { useRange } from "elektro";
+import { getTicketableStatus, useRange } from "elektro";
 import { $fetch } from "ohmyfetch";
 import { compareDesc } from "date-fns";
 import merge from "lodash.merge";
@@ -27,7 +27,7 @@ function sortEvents(a: any, b: any) {
   return compareDesc(new Date(b.start_at), new Date(a.start_at));
 }
 
-function processEvent(event: any) {
+export function processEvent(event: any) {
   // @TODO: THIS could be more DRY and optimised
   event.images = event.images
     .filter((image: any) => image.mime !== "video/mp4")
@@ -84,13 +84,15 @@ function processEvent(event: any) {
   const routes = {
     projectRoute: `/projects/${event.project.slug}`,
     route: `/projects/${event.project.slug}/${event.slug}`,
-    // liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
     liveRoute: liveUrl,
+    hiddenLiveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
   };
 
   const videostreams = event.streamkey
     ? processStreamkey(event.streamkey)
     : null;
+
+  const ticketableStatus = getTicketableStatus([event, event.project]);
 
   return {
     ...event,
@@ -99,10 +101,11 @@ function processEvent(event: any) {
     ...routes,
     liveUrl,
     videostreams,
+    ticketableStatus,
   };
 }
 
-function processProject(project: any) {
+export function processProject(project: any) {
   // Augment image data
   project.images = project.images
     .filter((image: any) => image.mime !== "video/mp4")

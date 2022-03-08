@@ -12,7 +12,6 @@ const redirect = (code: string) => {
 if (urlCode) {
   redirect(urlCode);
 }
-
 const code = ref(urlCode || "");
 
 const onSubmit = () => {
