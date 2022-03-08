@@ -52,27 +52,36 @@ const project = useProjectBySlug(project_slug);
       >
         <template v-if="project.upcomingEvents">
           <ETitle el="h3" size="lg" :title="l('Events', 'Üritused')" />
-          <template v-for="instance in project.upcomingEvents">
-            <EEventInstance
-              :title="instance.title"
-              :start-at="instance.formattedFromDatetime"
+          <template v-for="event in project.upcomingEvents">
+            <EventCard
+              :title="event.title"
+              :start-at="event.formattedFromDatetime"
               layout="vertical"
-              :ticket-url="instance.ticketUrl"
             >
               <template #title>
-                <router-link :to="instance.route">
-                  <ETitle el="h4" size="xs">{{ instance.title }}</ETitle>
+                <router-link :to="event.route">
+                  <ETitle el="h4" size="xs">{{ event.title }}</ETitle>
                 </router-link>
               </template>
               <template #buttons>
-                <router-link :to="instance.route">
+                <router-link :to="event.route">
                   <EButton size="xs" el="a" color="transparent">
                     <IconArrowRight />
                     {{ l("Read more", "Loe lähemalt") }}
                   </EButton>
                 </router-link>
+                <EButton
+                  el="a"
+                  size="xs"
+                  color="accent"
+                  target="_blank"
+                  :href="event.ticketUrl"
+                >
+                  <IconArrowRight />
+                  {{ l("Get a ticket", "Osta pilet") }}
+                </EButton>
               </template>
-            </EEventInstance>
+            </EventCard>
           </template>
         </template>
         <!-- @TODO: Add press -->

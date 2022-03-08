@@ -44,10 +44,7 @@ const archivedProjects = computed(() =>
 
     <div v-if="archivedProjects.length > 0" class="projects">
       <template v-for="project in projects">
-        <router-link
-          v-if="!project.archived"
-          :to="'/projektid/' + project.slug"
-        >
+        <router-link v-if="!project.archived" :to="project.route">
           <EProductionCard
             :title="project.title"
             :thumbnail="project.images[0]?.url"

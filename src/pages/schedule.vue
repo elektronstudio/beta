@@ -12,7 +12,6 @@ const { upcomingProjects } = useProjects();
       v-for="project in upcomingProjects"
     >
       <EScheduleEvent :description="project.intro" :path="''">
-        <!-- @TODO: Remove this once router is figured out -->
         <template #title>
           <RouterLink :to="project.route">
             <ETitle size="lg" :title="project.title" class="projectTitle" />
@@ -20,36 +19,45 @@ const { upcomingProjects } = useProjects();
         </template>
         <template
           v-if="project.upcomingEvents"
-          v-for="instance in project.upcomingEvents"
+          v-for="event in project.upcomingEvents"
         >
-          <EEventInstance
-            :start-at="instance.formattedFromDatetime"
-            :end-at="instance.formattedDistance"
-            :ticket-url="instance.ticketUrl"
+          <EventCard
+            :start-at="event.formattedFromDatetime"
+            :end-at="event.formattedDistance"
+            :ticket-url="event.ticketUrl"
           >
             <template #title>
-              <router-link :to="`/projektid/${project.slug}/${instance.slug}`">
-                <ETitle el="h4" size="xs" class="eventTitle">{{
-                  instance.title
-                }}</ETitle>
+              <router-link :to="event.route">
+                <ETitle el="h4" size="xs" class="eventTitle">
+                  {{ event.title }}
+                </ETitle>
               </router-link>
             </template>
             <template #buttons>
-              <router-link :to="`/projektid/${project.slug}/${instance.slug}`">
+              <router-link :to="event.route">
                 <EButton size="xs" el="a" color="transparent">
                   <IconArrowRight />
                   {{ l("Read more", "Loe lähemalt") }}
                 </EButton>
               </router-link>
+              <EButton
+                el="a"
+                size="xs"
+                color="accent"
+                target="_blank"
+                :href="event.ticketUrl"
+              >
+                <IconArrowRight />
+                {{ l("Get a ticket", "Osta pilet") }}
+              </EButton>
             </template>
-          </EEventInstance>
+          </EventCard>
         </template>
       </EScheduleEvent>
     </template>
     <section v-else>
       <!-- TODO: Differentiate between data not -->
       <!-- yet loaded and data fetching failed  -->
-      -->
     </section>
   </main>
 </template>
