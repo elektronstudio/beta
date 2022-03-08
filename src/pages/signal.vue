@@ -3,9 +3,9 @@ import { $fetch } from "ohmyfetch";
 import Parser from "rss-parser/dist/rss-parser.js";
 import { useProjectBySlug } from "../utils";
 import PodcastItem from "../components/PodcastItem.vue";
-// TODO move to /logic and use env variable
-const { project } = useProjectBySlug("signal");
+const project = useProjectBySlug("signal");
 
+// TODO move to /logic and use env variable
 const rssUrl =
   "https://api.allorigins.win/get?url=https://elektronsignal.captivate.fm/rssfeed";
 let parser = new Parser();
@@ -14,25 +14,23 @@ const rss = await parser.parseString(rssSource.contents);
 </script>
 
 <template>
-  <article class="Page SingleProduction">
+  <article class="Page SingleProduction" v-if="project">
     <header>
       <ETitle el="h1" size="lg" :title="project.title" />
       <h4 v-if="project.authors">{{ project.authors }}</h4>
 
-      <!-- @TODO: Add locale based conditionals -->
       <EContent
-        v-if="project.description_intro"
+        v-if="project.intro"
         class="Description"
         size="lg"
-        :content="project.description_intro"
+        :content="project.intro"
       />
     </header>
     <EImageSlider v-if="project.gallery" :images="project.gallery" />
     <main>
       <EBox class="MainContent">
-        <!-- @TODO: Add metadata -->
         <EDetailsList v-if="project.details" :details="project.details" />
-        <EContent :content="project.description_estonian" />
+        <EContent :content="project.description" />
       </EBox>
       <EBox class="SideContent" el="aside">
         <ETitle el="h3" size="lg">Latest episodes</ETitle>

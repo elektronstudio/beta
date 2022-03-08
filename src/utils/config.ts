@@ -1,8 +1,11 @@
 export const config = {
   strapiUrl: import.meta.env.VITE_STRAPI_URL || "",
   // @TODO: remove hardcoded variable
-  strapiV4Url:
-    import.meta.env.VITE_STRAPI_V4_URL || "https://strapi-v4-ee9v.onrender.com",
+  strapiV4Url: import.meta.env.VITE_STRAPI_V4_URL || "",
   liveUrl: import.meta.env.VITE_LIVE_URL || "",
   fientaTicketUrl: import.meta.env.VITE_FIENTA_TICKET_URL || "",
+  streamUrl: import.meta.env.VITE_STREAM_URL || "",
+  streamTranscodeUrl: import.meta.env.VITE_STREAM_TRANSCODE_URL || "",
+  streamTranscodeKeyIn: import.meta.env.VITE_STREAM_TRANSCODE_KEY_IN || "",
+  streamTranscodeKeyOut: import.meta.env.VITE_STREAM_TRANSCODE_KEY_OUT || "",
 };

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { useFrontPage } from "@/utils";
 import { ref } from "vue";
-const about = `eˉlektron creates and presents<br /> transdisciplinary artworks/performances<br /> for both physical and virtual stage.<br />
-A world where you can be alone together.`;
+
+const page = useFrontPage();
 
 const muted = ref<boolean | undefined>(true);
 
@@ -15,10 +16,15 @@ const speakerLoud = `<svg width="1rem" height="1rem" viewBox="0 0 15 15" fill="n
 </script>
 <template>
   <div class="Page">
-    <ETitle size="lg" class="about" v-html="about" />
+    <ETitle
+      size="lg"
+      class="about"
+      v-html="page?.data.attributes.description"
+    />
     <video
+      v-if="page"
       class="video"
-      src="https://fra1.digitaloceanspaces.com/elektron/strapi/3d1e757e291f18c4f0de143dd2067744.mp4?updated_at=2022-03-01T12:43:55.132Z"
+      :src="page.data.attributes.background.data.attributes.url"
       :muted="muted"
       autoplay
       playsinline
