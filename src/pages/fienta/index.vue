@@ -1,23 +1,25 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { validateTicket } from "elektro";
 
 const url = new URLSearchParams(window.location.search);
 const urlCode = url.get("code");
 
-const redirect = (code: string) => {
-  window.location.href = `https://live.elektron.art/fienta?code=${code}`;
-  //window.location.href = "https://live.elektron.art/saveukraine";
+const validate = (code: string) => {
+  validateTicket(code).finally(() => {
+    window.location.href = `https://live.elektron.art/fienta?code=${code}`;
+  });
 };
 
 if (urlCode) {
-  redirect(urlCode);
+  validate(urlCode);
 }
 
-const code = ref(urlCode || "");
+const code = ref("");
 
 const onSubmit = () => {
   if (code.value) {
-    redirect(code.value);
+    validate(code.value);
   }
 };
 </script>

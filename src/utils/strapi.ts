@@ -1,5 +1,5 @@
 import { computed, ref } from "vue";
-import { useRange } from "elektro";
+import { getTicketableStatus, useRange } from "elektro";
 import { $fetch } from "ohmyfetch";
 import { compareDesc } from "date-fns";
 import merge from "lodash.merge";
@@ -92,6 +92,8 @@ function processEvent(event: any) {
     ? processStreamkey(event.streamkey)
     : null;
 
+  const ticketableStatus = getTicketableStatus([event, event.project]);
+
   return {
     ...event,
     ...eventData,
@@ -99,6 +101,7 @@ function processEvent(event: any) {
     ...routes,
     liveUrl,
     videostreams,
+    ticketableStatus,
   };
 }
 
