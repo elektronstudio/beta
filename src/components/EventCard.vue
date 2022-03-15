@@ -29,22 +29,12 @@ const { event, layout = "horizontal" } = defineProps<Props>();
       </router-link>
       <!-- TODO: use event.hasTicket -->
       <EButton
-        v-if="event.ticketableStatus !== 'HAS_TICKET'"
+        v-if="event.ticketUrl && event.ticketableStatus !== 'HAS_TICKET'"
         el="a"
         size="xs"
         color="accent"
         target="_blank"
         :href="event.ticketUrl"
-      >
-        <IconArrowRight />
-        {{ l("Get a ticket", "Osta pilet") }}
-      </EButton>
-      <EButton
-        v-if="event.ticketableStatus === 'HAS_TICKET'"
-        el="a"
-        size="xs"
-        target="_blank"
-        :href="event.hiddenLiveRoute"
       >
         <IconArrowRight />
         {{ l("Get a ticket", "Osta pilet") }}
