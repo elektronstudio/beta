@@ -62,7 +62,7 @@ const event = useEventBySlug(event_slug);
         class="SideContent buttons"
         el="aside"
       >
-        <EButton size="xs" el="a" color="transparent" :href="event.liveRoute">
+        <EButton size="xs" el="a" color="transparent" :href="event.liveUrl">
           <IconArrowRight />
           {{ l("View live event", "Vaata üritust") }}
         </EButton>

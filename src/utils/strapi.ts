@@ -84,7 +84,6 @@ export function processEvent(event: any) {
   const routes = {
     projectRoute: `/projects/${event.project.slug}`,
     route: `/projects/${event.project.slug}/${event.slug}`,
-    liveRoute: liveUrl,
     hiddenLiveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
   };
 
@@ -98,8 +97,8 @@ export function processEvent(event: any) {
     ...event,
     ...eventData,
     ticketUrl,
+    liveUrl, // TODO Remove when live page is ready
     ...routes,
-    liveUrl,
     videostreams,
     ticketableStatus,
   };
