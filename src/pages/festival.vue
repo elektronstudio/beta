@@ -9,12 +9,11 @@ const { project } = await useProjectBySlug("kohe2022");
       <ETitle el="h1" size="lg" :title="project.title" />
       <h4 v-if="project.authors">{{ project.authors }}</h4>
 
-      <!-- @TODO: Add locale based conditionals -->
       <EContent
-        v-if="project.description_intro"
+        v-if="project.description"
         class="Description"
         size="lg"
-        :content="project.description_intro"
+        :content="project.description"
       />
     </header>
     <EImageSlider v-if="project.gallery" :images="project.gallery" />
