@@ -18,13 +18,13 @@ const formattedDistance = computed(() =>
     :class="{ isLive: event?.urgency === 'now' }"
     v-if="event"
   >
-    {{ event.title }} {{ formattedDistance }}
+    {{ formattedDistance }}: <span class="eventTitle">{{ event.title }}</span>
   </a>
 </template>
 
 <style scoped>
 .NavLive {
-  display: inline-flex;
+  /* display: inline-flex; */
   height: var(--h-9);
   padding: var(--p-1) var(--p-3);
   border: var(--border-DEFAULT) solid var(--gray-500);
@@ -36,10 +36,15 @@ const formattedDistance = computed(() =>
   line-height: 1;
   overflow: hidden;
 }
-.NavLive.isLive,
+.eventTitle {
+  color: var(--fg);
+}
 .NavLive:hover {
   color: var(--bg);
   background-color: var(--gray-200);
+}
+.NavLive:hover .eventTitle {
+  color: var(--bg);
 }
 @media only screen and (max-width: 599px) {
   .NavLive {
@@ -61,7 +66,7 @@ const formattedDistance = computed(() =>
 }
 @media only screen and (min-width: 1240px) {
   .NavLive {
-    width: 22rem;
+    width: 32rem;
   }
 }
 </style>

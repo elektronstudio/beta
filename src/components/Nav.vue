@@ -15,7 +15,7 @@ type Props = {
 const { navItems } = defineProps<Props>();
 
 const navState = ref(false);
-const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
+const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
 </script>
 
 <template>
@@ -33,8 +33,10 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
       >
         {{ l(item.name_english, item.name_estonian) }}
       </RouterLink>
+      <!-- @TODO: Consider using client-side mediaQuery component -->
+      <Lang class="menuItem languageSwitcher largeScreen" />
     </nav>
-    <Lang class="menuItem languageSwitcher" />
+    <Lang class="menuItem languageSwitcher smallScreen" />
     <NavLive />
     <button class="toggleNav" @click="navState = !navState">
       <IconHamburgerMenu />
@@ -61,7 +63,6 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
   background-color: var(--bg);
 }
 .menuItem {
-  position: relative;
   display: inline-flex;
   height: var(--h-9);
   padding: var(--p-1) var(--p-3);
@@ -74,6 +75,12 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
 .languageSwitcher {
   margin-left: auto;
   width: 4rem;
+}
+.languageSwitcher.smallScreen {
+  margin-right: calc(var(--border-DEFAULT) * -1);
+}
+.languageSwitcher.largeScreen {
+  display: none;
 }
 .homeButton {
   display: inline-block;
@@ -129,6 +136,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
   }
   .languageSwitcher {
     margin-right: calc(var(--border-DEFAULT) * -1);
+    margin-right: 0;
   }
   .toggleNav {
     border-left: 0;
@@ -140,10 +148,13 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
   }
   .menu {
     display: grid;
+    flex-grow: 1;
     --menu-items-count: v-bind(menuItemsLength);
     grid-template-columns: repeat(var(--menu-items-count), 1fr);
-    flex-grow: 1;
     margin-left: calc(var(--border-DEFAULT) * -1);
+  }
+  .menuItem {
+    width: var(--menu-item-width);
   }
   .menu > .menuItem:not(:first-child) {
     margin-left: calc(var(--border-DEFAULT) * -1);
@@ -157,6 +168,12 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
   }
   .toggleNav {
     display: none;
+  }
+  .languageSwitcher.smallScreen {
+    display: none;
+  }
+  .languageSwitcher.largeScreen {
+    display: inline-flex;
   }
 }
 </style>
