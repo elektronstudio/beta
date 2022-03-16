@@ -20,6 +20,7 @@ const { upcomingProjects } = useProjects();
         <EventCard
           v-if="project.upcomingEvents"
           v-for="event in project.upcomingEvents"
+          layout="horizontal"
           :event="event"
         />
       </EScheduleEvent>
