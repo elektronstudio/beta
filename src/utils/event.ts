@@ -83,10 +83,13 @@ export function processEvent(event: Event): Event {
   );
 
   // TODO: Handle missing values better
-  const eventDates = useRange(
-    event.start_at ? new Date(event.start_at) : new Date(),
-    event.end_at ? new Date(event.end_at) : new Date(),
-  );
+  const eventDates =
+    event.start_at && event.end_at
+      ? useRange(
+          event.start_at ? new Date(event.start_at) : new Date(),
+          event.end_at ? new Date(event.end_at) : new Date(),
+        )
+      : undefined;
 
   const fientaId = event.fienta_id
     ? event.fienta_id
