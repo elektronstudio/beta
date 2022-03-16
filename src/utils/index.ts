@@ -1,5 +1,6 @@
 export * from "./config";
 export * from "./event";
+export * from "./image";
 export * from "./lang";
 export * from "./markdown";
 export * from "./podcast";

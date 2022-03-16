@@ -13,7 +13,9 @@ const { event, layout = "horizontal" } = defineProps<Props>();
 <template>
   <div class="EventCard" :class="layout">
     <header>
-      <time :datetime="event.start_at">{{ event.start_at }}</time>
+      <time v-if="event.start_at" :datetime="event.start_at">{{
+        event.start_at
+      }}</time>
       <router-link :to="event.route">
         <ETitle el="h4" size="xs" class="eventTitle">
           {{ event.title }}

@@ -4,17 +4,17 @@ import { compareDesc } from "date-fns";
 import { getTicketableStatus, useRange } from "elektro";
 import { computed, Ref } from "vue";
 import { config, formatMarkdown, l, processStreamkey, replaceTokens } from ".";
+import type { Image } from ".";
 
-type Image = any; // TODO: Add Image type
-
-export type EventDb = {
+// TODO: Unify optional data typings;
+type EventSchema = {
   id: number;
   title: string | null;
   slug: string | null;
   start_at: string | null;
   end_at: string | null;
   streamkey: string | null;
-  fienta_id: string | null;
+  fienta_id?: string;
   description_english: string | null;
   festival: number | null;
   description_estonian: string | null;
@@ -32,7 +32,7 @@ export type EventDb = {
 };
 
 type EventComputed = {
-  project: any; // TODO: Add Project type
+  project: { slug?: string; fienta_id?: string };
   gallery: Image[] | null;
   intro: Ref<string> | string | null;
   description: Ref<string>;
@@ -45,7 +45,7 @@ type EventComputed = {
   ticketableStatus: ReturnType<typeof getTicketableStatus>;
 } & ReturnType<typeof useRange>;
 
-type Event = EventDb & EventComputed;
+export type Event = EventSchema & EventComputed;
 
 export function sortEvents(a: Event, b: Event) {
   if (a.start_at && b.start_at) {
@@ -82,10 +82,10 @@ export function processEvent(event: Event): Event {
     l(description_english, description_estonian),
   );
 
-  // Augment events with reactive event data
-  const eventData = useRange(
-    new Date(event.start_at || ""),
-    new Date(event.end_at || ""),
+  // TODO: Handle missing values better
+  const eventDates = useRange(
+    event.start_at ? new Date(event.start_at) : new Date(),
+    event.end_at ? new Date(event.end_at) : new Date(),
   );
 
   const fientaId = event.fienta_id
@@ -110,7 +110,7 @@ export function processEvent(event: Event): Event {
   };
 
   const liveUrl = replaceTokens(config.liveUrl as string, {
-    projectSlug: event.project.slug,
+    projectSlug: event.project.slug || "",
     eventSlug: event.slug || "",
   });
 
@@ -122,7 +122,7 @@ export function processEvent(event: Event): Event {
 
   return {
     ...event,
-    ...eventData,
+    ...eventDates,
     ticketUrl,
     liveUrl, // TODO Remove when live page is ready
     ...routes,

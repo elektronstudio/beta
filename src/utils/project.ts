@@ -1,8 +1,41 @@
-import { computed } from "vue";
+import { computed, Ref } from "vue";
 import { formatMarkdown, l, processEvent, sortEvents } from ".";
+import type { Image, Event } from ".";
 
-// TODO: Add typings
-export type Project = {};
+export type ProjectSchema = {
+  id: number;
+  title: string | null;
+  fienta_id: string | null;
+  slug: string | null;
+  description_english: string | null;
+  description_estonian: string | null;
+  published_at: string | null;
+  created_by: number | null;
+  updated_by: number | null;
+  created_at: string | null;
+  updated_at: string | null;
+  priority: number | null;
+  pinned: boolean | null;
+  archived: boolean | null;
+  //intro: string | null;
+  authors: string | null;
+  details: string | null;
+  intro_english: string | null;
+  images: Image[];
+};
+
+type ProjectComputed = {
+  events?: Event[] | null;
+  gallery: Image[] | null;
+  thumbnail: string;
+  intro: Ref<string> | string | null;
+  description: Ref<string>;
+  upcomingEvents: Event[] | null;
+  details: any; // TODO: Proper typings for details
+  route: string;
+};
+
+type Project = ProjectSchema & ProjectComputed;
 
 export function sortProject(a: any, b: any) {
   return Number(b.pinned) - Number(a.pinned);
@@ -12,7 +45,7 @@ export function filterProject(project: any) {
   return !["kohe2022", "signal", "other"].includes(project.slug);
 }
 
-export function processProject(project: any) {
+export function processProject(project: Project): Project {
   // Augment image data
   project.images = project.images
     .filter((image: any) => image.mime !== "video/mp4")
@@ -28,24 +61,19 @@ export function processProject(project: any) {
   project.gallery = project.images.length > 1 ? project.images.slice(1) : null;
   project.thumbnail = project.images[0]?.url;
 
-  // For backward compatability
-  // TODO: Remove
-  project.description_intro = formatMarkdown(project.intro);
+  const intro_english = formatMarkdown((project.intro_english as string) || "");
+  const intro_estonian = formatMarkdown((project.intro as string) || "");
+
+  project.intro = computed(() => l(intro_english, intro_estonian));
 
   // TODO: Remove when not needed anymore
-  project.intro_english = formatMarkdown(project.intro_english);
-  project.intro_estonian = formatMarkdown(project.intro);
-
-  project.intro = computed(() =>
-    l(project.intro_english, project.intro_estonian),
+  const description_english = formatMarkdown(project.description_english || "");
+  const description_estonian = formatMarkdown(
+    project.description_estonian || "",
   );
 
-  // TODO: Remove when not needed anymore
-  project.description_english = formatMarkdown(project.description_english);
-  project.description_estonian = formatMarkdown(project.description_estonian);
-
   project.description = computed(() =>
-    l(project.description_english, project.description_estonian),
+    l(description_english, description_estonian),
   );
 
   project.events = (project.events || [])
