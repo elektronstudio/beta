@@ -1,22 +1,46 @@
 <script setup lang="ts">
+import IconArrowRight from "~icons/radix-icons/arrow-right";
+import { Event, l } from "@/utils";
+
 type Props = {
-  title?: string;
-  startAt: string;
+  event: Event;
   layout?: "vertical" | "horizontal";
 };
 
-const { startAt, layout = "horizontal" } = defineProps<Props>();
+const { event, layout = "horizontal" } = defineProps<Props>();
 </script>
 
 <template>
   <div class="EventCard" :class="layout">
     <header>
-      <time :datetime="startAt">{{ startAt }}</time>
-      <slot name="title" />
+      <time v-if="event.start_at" :datetime="event.start_at">
+        {{ event.formattedFromDatetime }}
+      </time>
+      <router-link :to="event.route">
+        <ETitle el="h4" size="xs" class="eventTitle">
+          {{ event.title }}
+        </ETitle>
+      </router-link>
     </header>
     <section>
-      <slot name="buttons" />
-      <!-- TODO: Bring buttons here and use event.ticketableStatus -->
+      <router-link :to="event.route">
+        <EButton size="xs" el="a" color="transparent">
+          <IconArrowRight />
+          {{ l("Read more", "Loe lähemalt") }}
+        </EButton>
+      </router-link>
+      <!-- TODO: use event.hasTicket -->
+      <EButton
+        v-if="event.ticketUrl && event.ticketableStatus !== 'HAS_TICKET'"
+        el="a"
+        size="xs"
+        color="accent"
+        target="_blank"
+        :href="event.ticketUrl"
+      >
+        <IconArrowRight />
+        {{ l("Get a ticket", "Osta pilet") }}
+      </EButton>
     </section>
   </div>
 </template>
@@ -45,7 +69,7 @@ const { startAt, layout = "horizontal" } = defineProps<Props>();
   flex-shrink: 0;
 }
 .EventCard time {
-  color: var(--fg);
+  color: var(--gray-300);
 }
 /* @TODO: Add breakpoints system */
 @media only screen and (max-width: 599px) {

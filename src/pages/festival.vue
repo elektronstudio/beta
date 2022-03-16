@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useProjectBySlug } from "../utils";
-const { project } = await useProjectBySlug("kohe2022");
+const project = useProjectBySlug("kohe2022");
 </script>
 
 <template>
@@ -59,7 +59,6 @@ const { project } = await useProjectBySlug("kohe2022");
   padding: var(--p-4);
   color: var(--gray-300);
 }
-
 .Page.SingleProduction header {
   grid-template-areas:
     "title"
@@ -71,20 +70,16 @@ const { project } = await useProjectBySlug("kohe2022");
     "main"
     "side";
 }
-
 .Page.SingleProduction header h1 {
   grid-area: title;
 }
-
 .Page.SingleProduction header h4 {
   grid-area: subtitle;
   align-self: end;
 }
-
 .Page.SingleProduction header .Description {
   grid-area: description;
 }
-
 .MainContent {
   grid-area: main;
   display: grid;
@@ -101,7 +96,6 @@ const { project } = await useProjectBySlug("kohe2022");
 .SideContent h3:not(:first-child) {
   margin-top: var(--m-8);
 }
-
 /* @TODO: Add breakpoints system */
 @media only screen and (max-width: 599px) {
   .EContent.Description :deep(p) {
@@ -118,7 +112,6 @@ const { project } = await useProjectBySlug("kohe2022");
       "title description description description"
       "subtitle description description description";
   }
-
   .Page.SingleProduction main {
     grid-template-areas: "main main main main" "side side side side";
   }

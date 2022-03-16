@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import IconArrowRight from "~icons/radix-icons/arrow-right";
-import { useProjects, l } from "@/utils";
+import { useProjects } from "@/utils";
 
 const { upcomingProjects } = useProjects();
 </script>
@@ -17,42 +16,12 @@ const { upcomingProjects } = useProjects();
             <ETitle size="lg" :title="project.title" class="projectTitle" />
           </RouterLink>
         </template>
-        <template
+        <EventCard
           v-if="project.upcomingEvents"
           v-for="event in project.upcomingEvents"
-        >
-          <EventCard
-            :start-at="event.formattedFromDatetime"
-            :end-at="event.formattedDistance"
-            :ticket-url="event.ticketUrl"
-          >
-            <template #title>
-              <router-link :to="event.route">
-                <ETitle el="h4" size="xs" class="eventTitle">
-                  {{ event.title }}
-                </ETitle>
-              </router-link>
-            </template>
-            <template #buttons>
-              <router-link :to="event.route">
-                <EButton size="xs" el="a" color="transparent">
-                  <IconArrowRight />
-                  {{ l("Read more", "Loe lähemalt") }}
-                </EButton>
-              </router-link>
-              <EButton
-                el="a"
-                size="xs"
-                color="accent"
-                target="_blank"
-                :href="event.ticketUrl"
-              >
-                <IconArrowRight />
-                {{ l("Get a ticket", "Osta pilet") }}
-              </EButton>
-            </template>
-          </EventCard>
-        </template>
+          layout="horizontal"
+          :event="event"
+        />
       </EScheduleEvent>
     </template>
     <section v-else>

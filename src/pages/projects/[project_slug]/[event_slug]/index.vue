@@ -57,17 +57,19 @@ const event = useEventBySlug(event_slug);
         el="aside"
       >
       </EBox>
+      <!-- TODO: Should it be a separate component? -->
       <EBox
         v-if="event.ticketUrl || event.liveUrl"
         class="SideContent buttons"
         el="aside"
       >
-        <EButton size="xs" el="a" color="transparent" :href="event.liveRoute">
+        <!-- TODO: Add ticket check -->
+        <EButton size="xs" el="a" color="transparent" :href="event.liveUrl">
           <IconArrowRight />
           {{ l("View live event", "Vaata üritust") }}
         </EButton>
         <EButton
-          v-if="event.ticketUrl"
+          v-if="event.ticketUrl && event.ticketableStatus !== 'HAS_TICKET'"
           size="xs"
           el="a"
           color="accent"
