@@ -3,21 +3,23 @@
 
 import { watchEffect } from "vue";
 import { useMagicKeys } from "@vueuse/core";
-import { switchLang } from "@/utils";
+import { switchLang, lang, l } from "@/utils";
 
-const { shift, l } = useMagicKeys();
+const { shift, l: lKey } = useMagicKeys();
 
 watchEffect(() => {
-  if (shift.value && l.value) {
+  if (shift.value && lKey.value) {
     switchLang();
   }
 });
+
+console.log(lang.value);
 </script>
 
 <template>
-  <EButton class="Lang" size="xs" color="transparent" @click="switchLang"
-    >eng / est</EButton
-  >
+  <button @click="switchLang">
+    {{ l("EST", "ENG") }}
+  </button>
 </template>
 
 <style scoped>

@@ -34,5 +34,4 @@ const navItems = [
     <router-view :key="$route.fullPath" />
   </Suspense>
   <EWindowBorder />
-  <Lang />
 </template>

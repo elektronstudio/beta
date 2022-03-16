@@ -20,22 +20,21 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
 
 <template>
   <header class="Nav">
-    <div class="topBar">
-      <RouterLink to="/" class="menuItem homeButton" @click="navState = false">
-        <ELogo el="span" />
-      </RouterLink>
-    </div>
+    <RouterLink to="/" class="menuItem homeButton" @click="navState = false">
+      <ELogo el="span" />
+    </RouterLink>
     <nav class="menu" :class="{ navActive: navState }">
       <RouterLink
         v-for="item in navItems"
         class="menuItem"
-        :key="item.name"
+        :key="item.path"
         :to="item.path"
         @click="navState = false"
       >
         {{ l(item.name_english, item.name_estonian) }}
       </RouterLink>
     </nav>
+    <Lang class="menuItem languageSwitcher" />
     <NavLive />
     <button class="toggleNav" @click="navState = !navState">
       <IconHamburgerMenu />
@@ -72,24 +71,28 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
   text-transform: uppercase;
   color: var(--gray-300);
 }
-
-.menuItem:not(:first-child) {
-  margin-top: calc(var(--border-DEFAULT) * -1);
+.languageSwitcher {
+  margin-left: auto;
+  width: 4rem;
 }
 .homeButton {
   display: inline-block;
   color: var(--gray-300);
   padding: var(--p-1) var(--p-3);
+  border: var(--border-DEFAULT) solid var(--gray-500);
+  margin-left: calc(var(--border-DEFAULT) * -1);
+}
+.toggleNav {
+  border-left: var(--border-DEFAULT) solid var(--gray-500);
+  display: grid;
+  place-content: center;
+  height: 100%;
+  padding: var(--p-3);
 }
 .toggleNav svg {
   color: var(--gray-300);
   width: var(--w-7);
   height: var(--h-7);
-  margin: var(--p-1) var(--p-3);
-}
-
-.topBar {
-  margin-left: calc(var(--border-DEFAULT) * -1);
 }
 
 /* @TODO: Add breakpoints system */
@@ -107,6 +110,10 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
     margin-top: calc(var(--border-DEFAULT) * -1);
     z-index: 100;
   }
+
+  .menu > .menuItem:not(:first-child) {
+    margin-top: calc(var(--border-DEFAULT) * -1);
+  }
 }
 @media only screen and (min-width: 600px) {
   .homeButton {
@@ -115,14 +122,16 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
   .menuItem {
     padding: var(--p-1);
   }
-  .menuItem:not(:first-child) {
-    margin-top: 0;
-    margin-left: calc(var(--border-DEFAULT) * -1);
-  }
   .menuItem.router-link-active,
   .menuItem:hover {
     border-image: url("/images/bg-texture-xs.gif") 1;
     z-index: 2;
+  }
+  .languageSwitcher {
+    margin-right: calc(var(--border-DEFAULT) * -1);
+  }
+  .toggleNav {
+    border-left: 0;
   }
 }
 @media only screen and (min-width: 1000px) {
@@ -135,6 +144,13 @@ const menuItemsLength = computed(() => (navItems ? navItems.length : 0));
     grid-template-columns: repeat(var(--menu-items-count), 1fr);
     flex-grow: 1;
     margin-left: calc(var(--border-DEFAULT) * -1);
+  }
+  .menu > .menuItem:not(:first-child) {
+    margin-left: calc(var(--border-DEFAULT) * -1);
+  }
+  .languageSwitcher {
+    margin-left: calc(var(--border-DEFAULT) * -1);
+    margin-right: 0;
   }
   .homeButton {
     min-width: 10rem;

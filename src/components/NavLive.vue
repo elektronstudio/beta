@@ -34,6 +34,7 @@ const formattedDistance = computed(() =>
   text-transform: uppercase;
   color: var(--gray-300);
   line-height: 1;
+  overflow: hidden;
 }
 .NavLive.isLive,
 .NavLive:hover {
@@ -49,8 +50,7 @@ const formattedDistance = computed(() =>
 }
 @media only screen and (min-width: 600px) {
   .NavLive {
-    margin-left: auto;
-    width: 22rem;
+    width: 20rem;
     padding: var(--p-1);
   }
 }
@@ -61,7 +61,7 @@ const formattedDistance = computed(() =>
 }
 @media only screen and (min-width: 1240px) {
   .NavLive {
-    width: 26rem;
+    width: 22rem;
   }
 }
 </style>
