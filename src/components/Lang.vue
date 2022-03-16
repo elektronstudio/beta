@@ -12,8 +12,6 @@ watchEffect(() => {
     switchLang();
   }
 });
-
-console.log(lang.value);
 </script>
 
 <template>
