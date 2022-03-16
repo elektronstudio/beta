@@ -96,7 +96,7 @@ export function processProject(project: Project): Project {
     .sort(sortEvents);
 
   const p = (project.events || []).filter(
-    (event: any) => event.urgency?.value !== "past",
+    (event: any) => event.urgency?.value && event.urgency?.value !== "past",
   );
 
   project.upcomingEvents = p.length ? p : null;
