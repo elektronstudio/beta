@@ -52,7 +52,11 @@ const project = useProjectBySlug(project_slug);
       >
         <template v-if="project.upcomingEvents">
           <ETitle el="h3" size="lg" :title="l('Events', 'Üritused')" />
-          <EventCard v-for="event in project.upcomingEvents" :event="event" />
+          <EventCard
+            v-for="event in project.upcomingEvents"
+            :event="event"
+            layout="vertical"
+          />
         </template>
         <!-- @TODO: Add press -->
         <!-- <template v-if="press">
