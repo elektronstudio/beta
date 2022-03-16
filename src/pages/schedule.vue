@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import IconArrowRight from "~icons/radix-icons/arrow-right";
-import { useProjects, l } from "@/utils";
+import { useProjects } from "@/utils";
 
 const { upcomingProjects } = useProjects();
 </script>
