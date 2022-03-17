@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useFrontPage } from "@/utils";
-import { ref } from "vue";
+import { useFrontPage, useProjects } from "@/utils";
+import { computed, ref, watch } from "vue";
 import IconSpeakerOff from "~icons/radix-icons/speaker-off";
 import IconSpeakerLoud from "~icons/radix-icons/speaker-loud";
+import EventPreview from "../components/EventPreview.vue";
 
 const page = useFrontPage();
 
@@ -11,35 +12,65 @@ const muted = ref<boolean | undefined>(true);
 const handleMute = () => {
   muted.value = !muted.value;
 };
+
+// @TODO: Get this value from Strapi
+const pinnedEvent = "unusta";
+const { projects } = useProjects();
+// @TODO: use project types
+const pinnedProject = ref<any>(
+  projects.value.find((project: any) => project.slug === pinnedEvent),
+);
+const modalActive = ref<boolean>(false);
+
+// @TODO: watcher not best solution here, but data not ready on initial load
+watch(projects, () => {
+  if (projects.value) {
+    pinnedProject.value = projects.value.find(
+      (project: any) => project.slug === pinnedEvent,
+    );
+    modalActive.value = true;
+  }
+});
 </script>
 <template>
   <div class="Page">
-    <ETitle
-      size="lg"
-      class="about"
-      v-html="page?.data.attributes.description"
+    <div class="videoWrapper" :class="{ modalActive: modalActive }">
+      <ETitle
+        size="lg"
+        class="about"
+        v-html="page?.data.attributes.description"
+      />
+      <video
+        v-if="page"
+        class="video"
+        :src="page.data.attributes.background.data.attributes.url"
+        :muted="muted"
+        autoplay
+        playsinline
+        webkit-playsinline
+        preload="auto"
+        loop
+      />
+      <button class="muteButton" @click="handleMute">
+        <IconSpeakerOff v-if="muted" />
+        <IconSpeakerLoud v-else />
+      </button>
+    </div>
+    <EventPreview
+      v-if="modalActive"
+      :project="pinnedProject"
+      @closeModal="modalActive = false"
     />
-    <video
-      v-if="page"
-      class="video"
-      :src="page.data.attributes.background.data.attributes.url"
-      :muted="muted"
-      autoplay
-      playsinline
-      webkit-playsinline
-      preload="auto"
-      loop
-    />
-    <button class="muteButton" @click="handleMute">
-      <IconSpeakerOff v-if="muted" />
-      <IconSpeakerLoud v-else />
-    </button>
   </div>
 </template>
 
 <style scoped>
 .Page {
   position: relative;
+}
+
+.videoWrapper.modalActive {
+  filter: blur(2px);
 }
 .about {
   position: absolute;

@@ -40,8 +40,6 @@ const project = useProjectBySlug(project_slug);
     <EImageSlider v-if="project.gallery" :images="project.gallery" />
     <main>
       <EBox class="MainContent">
-        <!-- @TODO: Add metadata -->
-        <!-- @TODO: Do projects have details? -->
         <EDetailsList v-if="project.details" :details="project.details" />
         <EContent :content="project.description" />
       </EBox>
