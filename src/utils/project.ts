@@ -1,6 +1,7 @@
 import { computed, Ref } from "vue";
 import { formatMarkdown, l, processEvent, sortEvents } from ".";
 import type { Image, Event } from ".";
+import { filterImage, processImage } from "./image";
 
 export type ProjectSchema = {
   id: number;
@@ -22,12 +23,12 @@ export type ProjectSchema = {
   details: string | null;
   intro_english: string | null;
   images: Image[];
+  thumbnail: Image | null;
 };
 
 type ProjectComputed = {
   events?: Event[] | null;
   gallery: Image[] | null;
-  thumbnail: string;
   intro: Ref<string> | string | null;
   description: Ref<string>;
   upcomingEvents: Event[] | null;
@@ -47,20 +48,12 @@ export function filterProject(project: any) {
 }
 
 export function processProject(project: Project): Project {
-  // Augment image data
-  project.images = project.images
-    .filter((image: any) => image.mime !== "video/mp4")
-    .map((image: any) => {
-      const imageData = {
-        sizes: Object.values(image.formats),
-        alt: image.alternativeText,
-        caption: image.caption,
-      };
-      return { ...image, ...imageData };
-    });
+  project.images = project.images.filter(filterImage).map(processImage);
+  project.thumbnail = project.thumbnail
+    ? processImage(project.thumbnail)
+    : null;
 
-  project.gallery = project.images.length > 1 ? project.images.slice(1) : null;
-  project.thumbnail = project.images[0]?.url;
+  //  project.gallery = project.images.length > 1 ? project.images.slice(1) : null;
 
   const intro_english = formatMarkdown((project.intro_english as string) || "");
   const intro_estonian = formatMarkdown((project.intro as string) || "");

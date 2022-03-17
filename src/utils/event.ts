@@ -3,7 +3,15 @@
 import { compareDesc } from "date-fns";
 import { getTicketableStatus, useRange } from "elektro";
 import { computed, Ref } from "vue";
-import { config, formatMarkdown, l, processStreamkey, replaceTokens } from ".";
+import {
+  config,
+  filterImage,
+  formatMarkdown,
+  l,
+  processImage,
+  processStreamkey,
+  replaceTokens,
+} from ".";
 import type { Image } from ".";
 
 // TODO: Unify optional data typings;
@@ -55,20 +63,10 @@ export function sortEvents(a: Event, b: Event) {
 }
 
 export function processEvent(event: Event): Event {
-  // @TODO: THIS could be more DRY and optimised
-  event.images = (event.images || [])
-    .filter((image: any) => image.mime !== "video/mp4")
-    .map((image: any) => {
-      const imageData = {
-        sizes: Object.values(image.formats),
-        alt: image.alternativeText,
-        caption: image.caption,
-      };
-      return { ...image, ...imageData };
-    });
+  event.images = event.images.filter(filterImage).map(processImage);
+  event.thumbnail = event.thumbnail ? processImage(event.thumbnail) : null;
 
-  // TODO: Fix this logic
-  event.images = event.images.length > 1 ? event.images.slice(1) : null;
+  //event.gallery = event.images.length > 1 ? event.images.slice(1) : null;
 
   const intro_english = formatMarkdown(event.intro_english || "");
   const intro_estonian = formatMarkdown((event.intro as string) || "");
