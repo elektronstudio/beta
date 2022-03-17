@@ -31,6 +31,7 @@ type ProjectComputed = {
   intro: Ref<string> | string | null;
   description: Ref<string>;
   upcomingEvents: Event[] | null;
+  pastEvents: Event[] | null;
   details: any; // TODO: Proper typings for details
   route: string;
 };
@@ -95,11 +96,19 @@ export function processProject(project: Project): Project {
     })
     .sort(sortEvents);
 
-  const p = (project.events || []).filter(
-    (event: any) => event.urgency?.value && event.urgency?.value !== "past",
+  // TODO: Can we cut some verbosity here?
+
+  const upcomingEvents = (project.events || []).filter(
+    (event: any) => event.urgency?.value !== "past",
   );
 
-  project.upcomingEvents = p.length ? p : null;
+  project.upcomingEvents = upcomingEvents.length ? upcomingEvents : null;
+
+  const pastEvents = (project.events || []).filter(
+    (event: any) => event.urgency?.value === "past",
+  );
+
+  project.pastEvents = pastEvents.length ? pastEvents : null;
 
   project.details = project.details
     ? project.details.split("\n").map((item: any) => {

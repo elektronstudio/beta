@@ -28,7 +28,7 @@ type EventSchema = {
   controls: string | null;
   //intro: string | null;
   intro_english: string | null;
-  images: Image[];
+  images: Image[] | null;
 };
 
 type EventComputed = {
@@ -56,7 +56,7 @@ export function sortEvents(a: Event, b: Event) {
 
 export function processEvent(event: Event): Event {
   // @TODO: THIS could be more DRY and optimised
-  event.images = event.images
+  event.images = (event.images || [])
     .filter((image: any) => image.mime !== "video/mp4")
     .map((image: any) => {
       const imageData = {
@@ -68,7 +68,7 @@ export function processEvent(event: Event): Event {
     });
 
   // TODO: Fix this logic
-  event.gallery = event.images.length > 1 ? event.images.slice(1) : null;
+  event.images = event.images.length > 1 ? event.images.slice(1) : null;
 
   const intro_english = formatMarkdown(event.intro_english || "");
   const intro_estonian = formatMarkdown((event.intro as string) || "");
