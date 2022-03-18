@@ -1,14 +1,17 @@
 <!-- @TODO: Move to Elektro -->
 <script setup lang="ts">
 import { l } from "@/utils";
-import IconArrowRight from "~icons/radix-icons/arrow-right";
+import { computed } from "vue";
 import IconCross1 from "~icons/radix-icons/cross-1";
+import EventButtons from "./EventButtons.vue";
+import IconArrowRight from "~icons/radix-icons/arrow-right";
 
 type Props = {
-  project: any;
+  event: any;
+  isEvent: boolean;
 };
 
-const { project } = defineProps<Props>();
+const { event, isEvent } = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: "closeModal"): void;
@@ -19,21 +22,28 @@ const emit = defineEmits<{
     <button class="closeButton" @click="emit('closeModal')">
       <IconCross1 />
     </button>
+
     <aside>
       <header>
-        <ETitle el="h3">{{ project.title }}</ETitle>
-        <EContent :content="project.intro" />
+        <ETitle v-if="event.formattedDistance" el="h6" size="sm">
+          {{ event.formattedDistance }}
+        </ETitle>
+        <ETitle el="h3">{{ event.title }}</ETitle>
+        <EContent :content="event.intro" />
       </header>
       <footer>
-        <router-link :to="`/projects/${project.slug}`">
-          <EButton size="xs" el="a" color="transparent">
-            <IconArrowRight />
-            {{ l("View project", "Vaata projekti") }}
-          </EButton>
-        </router-link>
+        <EventButtons v-if="isEvent" :event="event" />
+        <template v-else>
+          <router-link :to="`/projects/${event.slug}`">
+            <EButton size="xs" el="a" color="transparent">
+              <IconArrowRight />
+              {{ l("View project", "Vaata projekti") }}
+            </EButton>
+          </router-link>
+        </template>
       </footer>
     </aside>
-    <img :src="project.thumbnail" />
+    <img :src="event.thumbnail" />
   </div>
 </template>
 
@@ -43,19 +53,18 @@ const emit = defineEmits<{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column-reverse;
   border: 1px solid var(--gray-300);
   border-radius: var(--rounded-3xl);
   overflow: hidden;
-  aspect-ratio: 2 / 1;
   z-index: 10;
   background-color: var(--bg);
-  width: 100%;
-  max-width: 36rem;
+  width: calc(100% - var(--gap-3) * 2);
+  max-width: 40rem;
 }
 .ELivePreview .ETitle {
-  margin-bottom: var(--m-2);
+  margin-bottom: var(--m-3);
 }
 .ELivePreview aside {
   display: flex;
@@ -81,11 +90,18 @@ const emit = defineEmits<{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  aspect-ratio: 1;
 }
-
 .closeButton {
   position: absolute;
   right: var(--gap-2);
   top: var(--gap-2);
+}
+
+@media only screen and (min-width: 600px) {
+  .ELivePreview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 </style>

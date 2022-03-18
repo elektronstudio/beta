@@ -15,20 +15,26 @@ const handleMute = () => {
 
 // @TODO: Get this value from Strapi
 const pinnedEvent = "unusta";
-const { projects } = useProjects();
-// @TODO: use project types
-const pinnedProject = ref<any>(
-  projects.value.find((project: any) => project.slug === pinnedEvent),
-);
-const modalActive = ref<boolean>(false);
 
-// @TODO: watcher not best solution here, but data not ready on initial load
-watch(projects, () => {
-  if (projects.value) {
-    pinnedProject.value = projects.value.find(
-      (project: any) => project.slug === pinnedEvent,
-    );
-    modalActive.value = true;
+const modalActive = ref<boolean>(true);
+const { projects, firstUpcomingProject } = useProjects();
+
+const upcomingEventSoon = computed(() => {
+  if (
+    firstUpcomingProject?.value?.urgency === "soon" ||
+    firstUpcomingProject?.value?.urgency === "now"
+  ) {
+    return firstUpcomingProject.value;
+  } else {
+    return null;
+  }
+});
+
+const pinnedProject = computed(() => {
+  if (projects.value && pinnedEvent) {
+    return projects.value.find((project: any) => project.slug === pinnedEvent);
+  } else {
+    return null;
   }
 });
 </script>
@@ -58,7 +64,9 @@ watch(projects, () => {
     </div>
     <EventPreview
       v-if="modalActive"
-      :project="pinnedProject"
+      :key="upcomingEventSoon ? upcomingEventSoon.slug : pinnedProject.slug"
+      :event="upcomingEventSoon ? upcomingEventSoon : pinnedProject"
+      :is-event="upcomingEventSoon ? true : false"
       @closeModal="modalActive = false"
     />
   </div>
