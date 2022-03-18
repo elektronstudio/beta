@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useFrontPage } from "@/utils";
-import { ref } from "vue";
+import { useFrontPage, useProjects } from "@/utils";
+import { computed, ref, watch } from "vue";
 import IconSpeakerOff from "~icons/radix-icons/speaker-off";
 import IconSpeakerLoud from "~icons/radix-icons/speaker-loud";
+import EventPreview from "../components/EventPreview.vue";
 
 const page = useFrontPage();
 
@@ -11,35 +12,73 @@ const muted = ref<boolean | undefined>(true);
 const handleMute = () => {
   muted.value = !muted.value;
 };
+
+// @TODO: Get this value from Strapi
+const pinnedEvent = "unusta";
+
+const modalActive = ref<boolean>(true);
+const { projects, firstUpcomingProject } = useProjects();
+
+const upcomingEventSoon = computed(() => {
+  if (
+    firstUpcomingProject?.value?.urgency === "soon" ||
+    firstUpcomingProject?.value?.urgency === "now"
+  ) {
+    return firstUpcomingProject.value;
+  } else {
+    return null;
+  }
+});
+
+const pinnedProject = computed(() => {
+  if (projects.value && pinnedEvent) {
+    return projects.value.find((project: any) => project.slug === pinnedEvent);
+  } else {
+    return null;
+  }
+});
 </script>
 <template>
   <div class="Page">
-    <ETitle
-      size="lg"
-      class="about"
-      v-html="page?.data.attributes.description"
+    <div class="videoWrapper" :class="{ modalActive: modalActive }">
+      <ETitle
+        size="lg"
+        class="about"
+        v-html="page?.data.attributes.description"
+      />
+      <video
+        v-if="page"
+        class="video"
+        :src="page.data.attributes.background.data.attributes.url"
+        :muted="muted"
+        autoplay
+        playsinline
+        webkit-playsinline
+        preload="auto"
+        loop
+      />
+      <button class="muteButton" @click="handleMute">
+        <IconSpeakerOff v-if="muted" />
+        <IconSpeakerLoud v-else />
+      </button>
+    </div>
+    <EventPreview
+      v-if="modalActive"
+      :key="upcomingEventSoon ? upcomingEventSoon.slug : pinnedProject.slug"
+      :event="upcomingEventSoon ? upcomingEventSoon : pinnedProject"
+      :is-event="upcomingEventSoon ? true : false"
+      @closeModal="modalActive = false"
     />
-    <video
-      v-if="page"
-      class="video"
-      :src="page.data.attributes.background.data.attributes.url"
-      :muted="muted"
-      autoplay
-      playsinline
-      webkit-playsinline
-      preload="auto"
-      loop
-    />
-    <button class="muteButton" @click="handleMute">
-      <IconSpeakerOff v-if="muted" />
-      <IconSpeakerLoud v-else />
-    </button>
   </div>
 </template>
 
 <style scoped>
 .Page {
   position: relative;
+}
+
+.videoWrapper.modalActive {
+  filter: blur(2px);
 }
 .about {
   position: absolute;
