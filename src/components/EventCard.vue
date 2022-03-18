@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import IconArrowRight from "~icons/radix-icons/arrow-right";
 import { Event, l } from "@/utils";
+import EventButtons from "./EventButtons.vue";
 
 type Props = {
   event: Event;
@@ -23,24 +23,7 @@ const { event, layout = "horizontal" } = defineProps<Props>();
       </router-link>
     </header>
     <section>
-      <router-link :to="event.route">
-        <EButton size="xs" el="a" color="transparent">
-          <IconArrowRight />
-          {{ l("Read more", "Loe lähemalt") }}
-        </EButton>
-      </router-link>
-      <!-- TODO: use event.hasTicket -->
-      <EButton
-        v-if="event.ticketUrl && event.ticketableStatus !== 'HAS_TICKET'"
-        el="a"
-        size="xs"
-        color="accent"
-        target="_blank"
-        :href="event.ticketUrl"
-      >
-        <IconArrowRight />
-        {{ l("Get a ticket", "Osta pilet") }}
-      </EButton>
+      <EventButtons :event="event" />
     </section>
   </div>
 </template>
