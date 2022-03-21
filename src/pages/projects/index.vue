@@ -22,14 +22,7 @@ const archivedProjects = computed(() =>
         <router-link v-if="!project.archived" :to="'/projects/' + project.slug">
           <EProductionCard
             :title="project.title"
-            :thumbnail="
-              project.images[0]
-                ? {
-                    sizes: Object.values(project.images[0].formats),
-                    alt: project.images[0].alternativeText,
-                  }
-                : undefined
-            "
+            :thumbnail="project.thumbnail"
             :next-event="
               project.upcomingEvents && {
                 startAt: project.upcomingEvents[0].formattedFromDatetime,

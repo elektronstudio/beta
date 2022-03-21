@@ -28,7 +28,6 @@ export type ProjectSchema = {
 
 type ProjectComputed = {
   events?: Event[] | null;
-  gallery: Image[] | null;
   intro: Ref<string> | string | null;
   description: Ref<string>;
   upcomingEvents: Event[] | null;
@@ -52,8 +51,6 @@ export function processProject(project: Project): Project {
   project.thumbnail = project.thumbnail
     ? processImage(project.thumbnail)
     : null;
-
-  //  project.gallery = project.images.length > 1 ? project.images.slice(1) : null;
 
   const intro_english = formatMarkdown((project.intro_english as string) || "");
   const intro_estonian = formatMarkdown((project.intro as string) || "");

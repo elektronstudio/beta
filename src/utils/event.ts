@@ -41,7 +41,7 @@ type EventSchema = {
 
 type EventComputed = {
   project: { slug?: string; fienta_id?: string };
-  gallery: Image[] | null;
+  thumbnail: Image | null;
   intro: Ref<string> | string | null;
   description: Ref<string>;
   ticketUrl: string | null;
@@ -63,10 +63,10 @@ export function sortEvents(a: Event, b: Event) {
 }
 
 export function processEvent(event: Event): Event {
-  event.images = event.images.filter(filterImage).map(processImage);
+  event.images = event.images
+    ? event.images.filter(filterImage).map(processImage)
+    : null;
   event.thumbnail = event.thumbnail ? processImage(event.thumbnail) : null;
-
-  //event.gallery = event.images.length > 1 ? event.images.slice(1) : null;
 
   const intro_english = formatMarkdown(event.intro_english || "");
   const intro_estonian = formatMarkdown((event.intro as string) || "");
