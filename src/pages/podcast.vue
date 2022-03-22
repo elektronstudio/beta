@@ -22,7 +22,7 @@ const rss = await usePodcastRss();
         :content="project.intro"
       />
     </header>
-    <EImageSlider v-if="project.gallery" :images="project.gallery" />
+    <EImageSlider v-if="project.images" :images="project.images" />
     <main>
       <EBox class="MainContent">
         <EDetailsList v-if="project.details" :details="project.details" />

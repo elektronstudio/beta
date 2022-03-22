@@ -1,6 +1,7 @@
 import { computed, Ref } from "vue";
 import { formatMarkdown, l, processEvent, sortEvents } from ".";
 import type { Image, Event } from ".";
+import { filterImage, processImage } from "./image";
 
 export type ProjectSchema = {
   id: number;
@@ -22,15 +23,15 @@ export type ProjectSchema = {
   details: string | null;
   intro_english: string | null;
   images: Image[];
+  thumbnail: Image | null;
 };
 
 type ProjectComputed = {
   events?: Event[] | null;
-  gallery: Image[] | null;
-  thumbnail: string;
   intro: Ref<string> | string | null;
   description: Ref<string>;
   upcomingEvents: Event[] | null;
+  pastEvents: Event[] | null;
   details: any; // TODO: Proper typings for details
   route: string;
 };
@@ -46,20 +47,10 @@ export function filterProject(project: any) {
 }
 
 export function processProject(project: Project): Project {
-  // Augment image data
-  project.images = project.images
-    .filter((image: any) => image.mime !== "video/mp4")
-    .map((image: any) => {
-      const imageData = {
-        sizes: Object.values(image.formats),
-        alt: image.alternativeText,
-        caption: image.caption,
-      };
-      return { ...image, ...imageData };
-    });
-
-  project.gallery = project.images.length > 1 ? project.images.slice(1) : null;
-  project.thumbnail = project.images[0]?.url;
+  project.images = project.images.filter(filterImage).map(processImage);
+  project.thumbnail = project.thumbnail
+    ? processImage(project.thumbnail)
+    : null;
 
   const intro_english = formatMarkdown((project.intro_english as string) || "");
   const intro_estonian = formatMarkdown((project.intro as string) || "");
@@ -95,11 +86,19 @@ export function processProject(project: Project): Project {
     })
     .sort(sortEvents);
 
-  const p = (project.events || []).filter(
-    (event: any) => event.urgency?.value && event.urgency?.value !== "past",
+  // TODO: Can we cut some verbosity here?
+
+  const upcomingEvents = (project.events || []).filter(
+    (event: any) => event.urgency?.value !== "past",
   );
 
-  project.upcomingEvents = p.length ? p : null;
+  project.upcomingEvents = upcomingEvents.length ? upcomingEvents : null;
+
+  const pastEvents = (project.events || []).filter(
+    (event: any) => event.urgency?.value === "past",
+  );
+
+  project.pastEvents = pastEvents.length ? pastEvents : null;
 
   project.details = project.details
     ? project.details.split("\n").map((item: any) => {

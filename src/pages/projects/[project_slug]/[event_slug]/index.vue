@@ -44,7 +44,7 @@ const event = useEventBySlug(event_slug);
         :content="event.intro"
       />
     </header>
-    <EImageSlider v-if="event.gallery" :images="event.gallery" />
+    <EImageSlider v-if="event.images" :images="event.images" />
     <main>
       <EBox class="MainContent">
         <!-- @TODO: Add metadata -->
