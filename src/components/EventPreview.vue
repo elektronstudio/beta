@@ -1,7 +1,6 @@
 <!-- @TODO: Move to Elektro -->
 <script setup lang="ts">
 import { l } from "@/utils";
-import { computed } from "vue";
 import IconCross1 from "~icons/radix-icons/cross-1";
 import EventButtons from "./EventButtons.vue";
 import IconArrowRight from "~icons/radix-icons/arrow-right";
@@ -43,7 +42,11 @@ const emit = defineEmits<{
         </template>
       </footer>
     </aside>
-    <img :src="event.thumbnail" />
+    <EImage
+      v-if="event.thumbnail"
+      :sizes="event.thumbnail.sizes"
+      :alt="event.thumbnail.alt"
+    />
   </div>
 </template>
 
@@ -62,6 +65,7 @@ const emit = defineEmits<{
   background-color: var(--bg);
   width: calc(100% - var(--gap-3) * 2);
   max-width: 40rem;
+  margin: var(--h-9) 0;
 }
 .ELivePreview .ETitle {
   margin-bottom: var(--m-3);
