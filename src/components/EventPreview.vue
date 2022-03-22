@@ -17,7 +17,7 @@ const emit = defineEmits<{
 }>();
 </script>
 <template>
-  <div class="ELivePreview">
+  <div class="ELivePreview" v-if="event">
     <button class="closeButton" @click="emit('closeModal')">
       <IconCross1 />
     </button>

@@ -63,7 +63,7 @@ const pinnedProject = computed(() => {
       </button>
       <EventPreview
         v-if="modalActive"
-        :key="upcomingEventSoon ? upcomingEventSoon.slug : pinnedProject.slug"
+        :key="upcomingEventSoon ? upcomingEventSoon.slug : pinnedProject?.slug"
         :event="upcomingEventSoon ? upcomingEventSoon : pinnedProject"
         :is-event="upcomingEventSoon ? true : false"
         @closeModal="modalActive = false"
