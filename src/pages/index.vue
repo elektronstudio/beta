@@ -61,14 +61,14 @@ const pinnedProject = computed(() => {
         <IconSpeakerOff v-if="muted" />
         <IconSpeakerLoud v-else />
       </button>
+      <EventPreview
+        v-if="modalActive"
+        :key="upcomingEventSoon ? upcomingEventSoon.slug : pinnedProject.slug"
+        :event="upcomingEventSoon ? upcomingEventSoon : pinnedProject"
+        :is-event="upcomingEventSoon ? true : false"
+        @closeModal="modalActive = false"
+      />
     </div>
-    <EventPreview
-      v-if="modalActive"
-      :key="upcomingEventSoon ? upcomingEventSoon.slug : pinnedProject.slug"
-      :event="upcomingEventSoon ? upcomingEventSoon : pinnedProject"
-      :is-event="upcomingEventSoon ? true : false"
-      @closeModal="modalActive = false"
-    />
   </div>
 </template>
 
@@ -76,20 +76,34 @@ const pinnedProject = computed(() => {
 .Page {
   position: relative;
 }
-
-.videoWrapper.modalActive {
+.videoWrapper {
+  /* @TODO: Add global navbutton size variable for consistency */
+  height: calc(100vh - var(--h-9) * 2);
+  overflow-y: auto;
+  display: grid;
+  place-content: center;
+  overflow-y: auto;
+  padding: var(--p-3);
+}
+.videoWrapper.modalActive > *:not(.ELivePreview) {
   filter: blur(2px);
 }
 .about {
   position: absolute;
-  padding: var(--p-5);
+  top: 0;
+  left: 0;
+  /* @TODO: Add global gutter variables system for consistency */
+  padding: var(--p-3);
   z-index: 1;
   color: var(--gray-300);
   mix-blend-mode: difference;
 }
 .video {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: calc(100vh - var(--h-9) * 2);
+  height: 100%;
   object-fit: cover;
   opacity: 0.8;
   touch-action: none;
@@ -102,7 +116,10 @@ const pinnedProject = computed(() => {
 }
 
 @media only screen and (min-width: 600px) {
-  .video {
+  .about {
+    padding: var(--p-5);
+  }
+  .videoWrapper {
     height: calc(100vh - var(--h-9));
   }
   .muteButton {

@@ -52,10 +52,7 @@ const emit = defineEmits<{
 
 <style scoped>
 .ELivePreview {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   display: flex;
   flex-direction: column-reverse;
   border: 1px solid var(--gray-300);
@@ -63,9 +60,8 @@ const emit = defineEmits<{
   overflow: hidden;
   z-index: 10;
   background-color: var(--bg);
-  width: calc(100% - var(--gap-3) * 2);
+  width: 100%;
   max-width: 40rem;
-  margin: var(--h-9) 0;
 }
 .ELivePreview .ETitle {
   margin-bottom: var(--m-3);
@@ -91,6 +87,7 @@ const emit = defineEmits<{
   gap: var(--gap-5);
 }
 .ELivePreview img {
+  position: relative;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -100,6 +97,7 @@ const emit = defineEmits<{
   position: absolute;
   right: var(--gap-2);
   top: var(--gap-2);
+  z-index: 1;
 }
 
 @media only screen and (min-width: 600px) {
