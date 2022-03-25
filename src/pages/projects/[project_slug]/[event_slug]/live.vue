@@ -50,7 +50,7 @@ const data = computed(() =>
           tilesWidth: 8,
           tilesHeight: 3,
           gridPosX: 1,
-          gridPosY: 4,
+          gridPosY: 5,
           order: 2,
           data: {
             event: event,
