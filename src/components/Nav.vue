@@ -19,7 +19,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
 </script>
 
 <template>
-  <header class="Nav">
+  <header class="Nav" :class="{ hideNav: $route.fullPath.endsWith('/live') }">
     <RouterLink to="/" class="menuItem homeButton" @click="navState = false">
       <ELogo el="span" />
     </RouterLink>
@@ -56,6 +56,11 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   height: var(--h-9);
   border: var(--border-DEFAULT) solid var(--gray-500);
   background-color: var(--bg);
+  transform: translateY(0);
+  transition: transform 0.2s ease;
+}
+.Nav.hideNav {
+  transform: translateY(-100%);
 }
 .menu {
   display: none;
