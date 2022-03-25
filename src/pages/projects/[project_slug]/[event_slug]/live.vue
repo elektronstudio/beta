@@ -48,7 +48,7 @@ const data = computed(() =>
           draggableId: "about",
           contentType: "event",
           tilesWidth: 8,
-          tilesHeight: 5,
+          tilesHeight: 3,
           gridPosX: 1,
           gridPosY: 4,
           order: 2,
