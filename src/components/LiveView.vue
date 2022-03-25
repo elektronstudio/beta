@@ -29,16 +29,7 @@ const mobile = breakpoints.smaller("large");
         :key="draggable.draggableId"
       >
         <EDraggableMobile
-          :title="draggable.title"
-          :draggable-id="draggable.draggableId"
-          :tiles-width="draggable.tilesWidth"
-          :tiles-height="draggable.tilesHeight"
-          :grid-pos-x="draggable.gridPosX"
-          :grid-pos-y="draggable.gridPosY"
-          :is-minimised="draggable.isMinimised"
-          :content-type="draggable.contentType"
-          :order="draggable.order"
-          :data="draggable.data"
+          :draggable="draggable"
           @update-draggables="updateDraggablesMobile"
         >
           <DraggableContent
@@ -55,16 +46,7 @@ const mobile = breakpoints.smaller("large");
         :key="draggable.draggableId"
       >
         <EDraggable
-          :title="draggable.title"
-          :draggable-id="draggable.draggableId"
-          :tiles-width="draggable.tilesWidth"
-          :tiles-height="draggable.tilesHeight"
-          :grid-pos-x="draggable.gridPosX"
-          :grid-pos-y="draggable.gridPosY"
-          :is-minimised="draggable.isMinimised"
-          :content-type="draggable.contentType"
-          :order="draggable.order"
-          :data="draggable.data"
+          :draggable="draggable"
           @update-draggables="updateDraggablesDesktop"
         >
           <DraggableContent
