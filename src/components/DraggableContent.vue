@@ -13,9 +13,17 @@ type Props = {
 const { contentType } = defineProps<Props>();
 </script>
 <template>
-  <Chat v-if="contentType === 'chat'" :channel="data.channel" />
-  <Videostream v-else-if="contentType === 'video'" :src="data.src" />
-  <EStack v-else-if="contentType === 'event'" style="padding: var(--p-5)">
+  <!-- Chat draggable -->
+  <Chat v-if="data && contentType === 'chat'" :channel="data.channel" />
+
+  <!-- Video draggable -->
+  <Videostream v-else-if="data && contentType === 'video'" :src="data.src" />
+
+  <!-- Event draggable -->
+  <EStack
+    v-else-if="data && contentType === 'event'"
+    style="padding: var(--p-5)"
+  >
     <!-- TODO Reuse existing back button UI -->
     <template v-if="data.event">
       <RouterLink :to="data.event.route">

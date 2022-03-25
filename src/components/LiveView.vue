@@ -38,7 +38,8 @@ const mobile = breakpoints.smaller("large");
           :is-minimised="draggable.isMinimised"
           :content-type="draggable.contentType"
           :order="draggable.order"
-          @update-draggables="updateDraggablesMobile(draggable)"
+          :data="draggable.data"
+          @update-draggables="updateDraggablesMobile"
         >
           <DraggableContent
             v-if="draggable.contentType"
@@ -63,7 +64,8 @@ const mobile = breakpoints.smaller("large");
           :is-minimised="draggable.isMinimised"
           :content-type="draggable.contentType"
           :order="draggable.order"
-          @update-draggables="updateDraggablesDesktop(draggable)"
+          :data="draggable.data"
+          @update-draggables="updateDraggablesDesktop"
         >
           <DraggableContent
             v-if="draggable.contentType"
