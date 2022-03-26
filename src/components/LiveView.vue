@@ -2,12 +2,15 @@
 import { Draggable, useLive, breakpoints } from "elektro";
 import { ref } from "vue";
 import DraggableContent from "@/components/DraggableContent.vue";
+import IconArrowLeft from "~icons/radix-icons/arrow-left";
 
 type Props = {
   data: Draggable[];
+  // @TODO Proper type
+  event: any;
 };
 
-const { data } = defineProps<Props>();
+const { data, event } = defineProps<Props>();
 
 const draggablesState = ref<Draggable[]>(data);
 const minimisedDraggables = ref<Draggable[]>([]);
@@ -23,6 +26,12 @@ const mobile = breakpoints.smaller("large");
 
 <template>
   <EBreadBoard>
+    <RouterLink v-if="event" :to="event.route" class="eventNav">
+      <EButton size="xs" color="transparent" el="a">
+        <IconArrowLeft />
+        Back to event
+      </EButton>
+    </RouterLink>
     <template v-if="mobile">
       <template
         v-for="draggable in draggablesState"
@@ -70,3 +79,24 @@ const mobile = breakpoints.smaller("large");
     />
   </EBreadBoard>
 </template>
+
+<style scoped>
+.eventNav {
+  z-index: 1000;
+}
+@media only screen and (max-width: 899px) {
+  .eventNav {
+    width: 100%;
+    height: var(--h-6);
+    background-color: var(--bg);
+    border-bottom: 1px solid var(--gray-500);
+  }
+}
+@media only screen and (min-width: 900px) {
+  .eventNav {
+    position: fixed;
+    top: var(--p-2);
+    left: var(--p-2);
+  }
+}
+</style>
