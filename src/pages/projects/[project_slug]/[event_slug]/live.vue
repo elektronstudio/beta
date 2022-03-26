@@ -78,4 +78,15 @@ const data = computed(() =>
   left: var(--p-2);
   z-index: 1000;
 }
+
+@media only screen and (max-width: 899px) {
+  .eventNav {
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg);
+    height: var(--h-6);
+    border-bottom: 1px solid var(--gray-500);
+  }
+}
 </style>
