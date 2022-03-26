@@ -23,6 +23,7 @@ const data = computed(() =>
           gridPosX: 2,
           gridPosY: 1,
           tilesWidth: 12,
+          tilesHeight: 6,
           isMinimised: false,
           order: 0,
           data: {
