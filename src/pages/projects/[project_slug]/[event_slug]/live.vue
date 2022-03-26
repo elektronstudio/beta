@@ -23,7 +23,7 @@ const data = computed(() =>
           contentType: "video",
           gridPosX: 2,
           gridPosY: 1,
-          tilesWidth: 12,
+          tilesWidth: 13,
           isMinimised: false,
           order: 0,
           data: {
@@ -48,8 +48,8 @@ const data = computed(() =>
           draggableId: "about",
           contentType: "event",
           tilesWidth: 8,
-          tilesHeight: 3,
-          gridPosX: 1,
+          tilesHeight: 4,
+          gridPosX: 2,
           gridPosY: 5,
           order: 2,
           data: {
