@@ -35,7 +35,6 @@ export const processStreamkey = (streamkey = "") => {
 };
 
 // TODO: Move to Elektro
-// TODO: Add SSR check with typeof document !== 'undefined'
 
 export function usePip(videoRef: Ref<HTMLVideoElement | null>) {
   const isPipAvailable =
