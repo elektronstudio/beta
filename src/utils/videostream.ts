@@ -1,6 +1,6 @@
 // TODO: Move to elektro
 
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 import { config, replaceTokens, split } from ".";
 
 function formatStreamkey(streamkey = "") {
@@ -33,3 +33,28 @@ export const processStreamkey = (streamkey = "") => {
     };
   });
 };
+
+// TODO: Move to Elektro
+// TODO: Add SSR check with typeof document !== 'undefined'
+
+export function usePip(videoRef: Ref<HTMLVideoElement | null>) {
+  const isPipAvailable =
+    typeof document !== undefined && "pictureInPictureEnabled" in document;
+  const isPip = ref(false);
+  const enterPip = () => {
+    console.log("enter");
+    if (isPipAvailable && videoRef?.value) {
+      videoRef.value
+        .requestPictureInPicture()
+        .then(() => (isPip.value = true))
+        .catch((e) => console.log(e));
+    }
+  };
+  const exitPip = () => {
+    document
+      .exitPictureInPicture()
+      .then(() => (isPip.value = false))
+      .catch((e) => console.log(e));
+  };
+  return { isPipAvailable, isPip, enterPip, exitPip };
+}
