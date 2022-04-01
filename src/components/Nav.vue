@@ -56,7 +56,9 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   height: var(--h-9);
   border: var(--border-DEFAULT) solid var(--gray-500);
   background-color: var(--bg);
-  transform: translateY(0);
+  /* @TODO: This does not animate */
+  /* transform does not allow position fixed children to position correctly */
+  transform: none;
   transition: transform 0.2s ease;
 }
 .Nav.hideNav {
@@ -150,6 +152,8 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
 @media only screen and (min-width: 1000px) {
   .Nav {
     display: flex;
+    transform: translateY(0);
+    transition: transform 0.2s ease;
   }
   .menu {
     display: grid;

@@ -9,7 +9,7 @@ type Props = {
   data: any;
 };
 
-const { contentType } = defineProps<Props>();
+const { contentType, data } = defineProps<Props>();
 </script>
 <template>
   <!-- Chat draggable -->
