@@ -89,7 +89,7 @@ export function processProject(project: Project): Project {
   // TODO: Can we cut some verbosity here?
 
   const upcomingEvents = (project.events || []).filter(
-    (event: any) => event.urgency?.value !== "past",
+    (event: any) => event.urgency && event.urgency?.value !== "past",
   );
 
   project.upcomingEvents = upcomingEvents.length ? upcomingEvents : null;
