@@ -19,29 +19,31 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
 </script>
 
 <template>
-  <header class="Nav" :class="{ hideNav: $route.fullPath.endsWith('/live') }">
-    <RouterLink to="/" class="menuItem homeButton" @click="navState = false">
-      <ELogo el="span" />
-    </RouterLink>
-    <nav class="menu" :class="{ navActive: navState }">
-      <RouterLink
-        v-for="item in navItems"
-        class="menuItem"
-        :key="item.path"
-        :to="item.path"
-        @click="navState = false"
-      >
-        {{ l(item.name_english, item.name_estonian) }}
+  <Transition appear>
+    <header v-if="!$route.fullPath.endsWith('/live')" class="Nav">
+      <RouterLink to="/" class="menuItem homeButton" @click="navState = false">
+        <ELogo el="span" />
       </RouterLink>
-      <!-- @TODO: Consider using client-side mediaQuery component -->
-      <Lang class="menuItem languageSwitcher largeScreen" />
-    </nav>
-    <Lang class="menuItem languageSwitcher smallScreen" />
-    <NavLive />
-    <button class="toggleNav" @click="navState = !navState">
-      <IconHamburgerMenu />
-    </button>
-  </header>
+      <nav class="menu" :class="{ navActive: navState }">
+        <RouterLink
+          v-for="item in navItems"
+          class="menuItem"
+          :key="item.path"
+          :to="item.path"
+          @click="navState = false"
+        >
+          {{ l(item.name_english, item.name_estonian) }}
+        </RouterLink>
+        <!-- @TODO: Consider using client-side mediaQuery component -->
+        <Lang class="menuItem languageSwitcher largeScreen" />
+      </nav>
+      <Lang class="menuItem languageSwitcher smallScreen" />
+      <NavLive />
+      <button class="toggleNav" @click="navState = !navState">
+        <IconHamburgerMenu />
+      </button>
+    </header>
+  </Transition>
 </template>
 
 <style scoped>
@@ -59,11 +61,8 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   /* @TODO: This does not animate */
   /* transform does not allow position fixed children to position correctly */
   transform: none;
-  transition: transform 0.2s ease;
 }
-.Nav.hideNav {
-  transform: translateY(-100%);
-}
+
 .menu {
   display: none;
   flex-direction: column;
@@ -184,5 +183,15 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   .languageSwitcher.largeScreen {
     display: inline-flex;
   }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: transform 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  transform: translateY(-100%);
 }
 </style>

@@ -31,7 +31,7 @@ const muted = ref(true);
 </script>
 
 <template>
-  <div style="position: relative" ref="videoWindowRef">
+  <div style="position: relative" ref="videoWindowRef" class="videoStream">
     <video
       ref="videoRef"
       :muted="muted"
