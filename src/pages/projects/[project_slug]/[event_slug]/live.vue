@@ -3,7 +3,6 @@ import { Draggable } from "elektro";
 import { useEventBySlug } from "@/utils";
 import { computed } from "vue";
 import LiveView from "../../../../components/LiveView.vue";
-import IconArrowLeft from "~icons/radix-icons/arrow-left";
 
 type Props = {
   project_slug: string;
@@ -25,6 +24,9 @@ const data = computed(() =>
           gridPosY: 1,
           tilesWidth: 13,
           isMinimised: false,
+          isMaximised: false,
+          isMaximisable: true,
+          hideTitleBarOnIdle: true,
           order: 0,
           data: {
             src: stream?.value?.streamurl,
@@ -62,20 +64,5 @@ const data = computed(() =>
 </script>
 
 <template>
-  <RouterLink v-if="event" :to="event.route" class="eventNav">
-    <EButton size="xs" color="transparent" el="a">
-      <IconArrowLeft />
-      Back to event
-    </EButton>
-  </RouterLink>
-  <LiveView v-if="data" :data="data" />
+  <LiveView v-if="data" :data="data" :event="event" />
 </template>
-
-<style scoped>
-.eventNav {
-  position: fixed;
-  top: var(--p-2);
-  left: var(--p-2);
-  z-index: 1000;
-}
-</style>

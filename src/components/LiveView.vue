@@ -2,12 +2,17 @@
 import { Draggable, useLive, breakpoints } from "elektro";
 import { ref } from "vue";
 import DraggableContent from "@/components/DraggableContent.vue";
+import IconArrowLeft from "~icons/radix-icons/arrow-left";
+import { computed } from "@vue/reactivity";
+import { useIdle } from "@vueuse/core";
 
 type Props = {
   data: Draggable[];
+  // @TODO Proper type
+  event: any;
 };
 
-const { data } = defineProps<Props>();
+const { data, event } = defineProps<Props>();
 
 const draggablesState = ref<Draggable[]>(data);
 const minimisedDraggables = ref<Draggable[]>([]);
@@ -19,10 +24,21 @@ const { updateDraggablesDesktop, updateDraggablesMobile } = useLive({
 });
 
 const mobile = breakpoints.smaller("large");
+
+const draggableMaximised = computed(
+  () => !!draggablesState.value.find((draggable) => draggable.isMaximised),
+);
+const { idle } = useIdle(3000); // 3 seconds idle
 </script>
 
 <template>
   <EBreadBoard>
+    <RouterLink v-if="event" :to="event.route" class="backToEvent">
+      <EButton size="xs" color="transparent" el="a">
+        <IconArrowLeft />
+        Back to event
+      </EButton>
+    </RouterLink>
     <template v-if="mobile">
       <template
         v-for="draggable in draggablesState"
@@ -60,13 +76,43 @@ const mobile = breakpoints.smaller("large");
 
     <EDraggablesDock
       v-if="mobile"
+      :idle="idle"
+      :draggable-maximised="draggableMaximised"
       :draggables="minimisedDraggables"
       @update-draggables="updateDraggablesMobile"
     />
     <EDraggablesDock
       v-else
+      :idle="idle"
+      :draggable-maximised="draggableMaximised"
       :draggables="minimisedDraggables"
       @update-draggables="updateDraggablesDesktop"
     />
   </EBreadBoard>
 </template>
+
+<style scoped>
+.backToEvent {
+  z-index: 1000;
+}
+@media only screen and (max-width: 899px) {
+  .backToEvent {
+    width: 100%;
+    height: var(--h-6);
+    background-color: var(--bg);
+    border-bottom: 1px solid var(--gray-500);
+  }
+}
+@media only screen and (min-width: 900px) {
+  .backToEvent {
+    position: fixed;
+    top: var(--p-2);
+    left: var(--p-2);
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .backToEvent.idle {
+    opacity: 0;
+  }
+}
+</style>
