@@ -64,7 +64,7 @@ const event = useEventBySlug(event_slug);
         el="aside"
       >
         <!-- TODO: Add ticket check -->
-        <EButton size="xs" el="a" color="transparent" :href="event.liveUrl">
+        <EButton size="xs" el="a" color="transparent" :href="event.liveRoute">
           <IconArrowRight />
           {{ l("View live event", "Vaata üritust") }}
         </EButton>

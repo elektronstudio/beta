@@ -7,4 +7,5 @@ export * from "./podcast";
 export * from "./project";
 export * from "./strapi";
 export * from "./string";
+export * from "./fienta";
 export * from "./videostream";

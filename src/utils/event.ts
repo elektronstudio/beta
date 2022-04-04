@@ -48,7 +48,7 @@ type EventComputed = {
   liveUrl: string;
   projectRoute: string;
   route: string;
-  hiddenLiveRoute: string;
+  liveRoute: string;
   videostreams: ReturnType<typeof processStreamkey> | null;
   ticketableStatus: ReturnType<typeof getTicketableStatus>;
 } & ReturnType<typeof useRange>;
@@ -107,7 +107,7 @@ export function processEvent(event: Event): Event {
   const routes = {
     projectRoute: `/projects/${event.project.slug}`,
     route: `/projects/${event.project.slug}/${event.slug}`,
-    hiddenLiveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
+    liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
   };
 
   const liveUrl = replaceTokens(config.liveUrl as string, {
