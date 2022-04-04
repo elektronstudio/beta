@@ -42,10 +42,14 @@ const emit = defineEmits<{
         </template>
       </footer>
     </aside>
-    <EImage
-      v-if="event.thumbnail"
-      :sizes="event.thumbnail.sizes"
-      :alt="event.thumbnail.alt"
+    <img
+      v-if="event.images[0]"
+      :src="
+        event.images[0].formats.medium?.url
+          ? event.images[0].formats.medium.url
+          : event.images[0].formats.images[0].url
+      "
+      :alt="event.images[0].alt"
     />
   </div>
 </template>
