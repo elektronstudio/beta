@@ -41,11 +41,14 @@ const pinnedProject = computed(() => {
 <template>
   <div class="Page">
     <div class="videoWrapper" :class="{ modalActive: modalActive }">
-      <ETitle
-        size="lg"
-        class="about"
-        v-html="page?.data.attributes.description"
-      />
+      <Transition>
+        <ETitle
+          v-if="!modalActive"
+          size="lg"
+          class="about"
+          v-html="page?.data.attributes.description"
+        />
+      </Transition>
       <video
         v-if="page"
         class="video"
@@ -57,10 +60,12 @@ const pinnedProject = computed(() => {
         preload="auto"
         loop
       />
-      <button class="muteButton" @click="handleMute">
-        <IconSpeakerOff v-if="muted" />
-        <IconSpeakerLoud v-else />
-      </button>
+      <Transition>
+        <button v-if="!modalActive" class="muteButton" @click="handleMute">
+          <IconSpeakerOff v-if="muted" />
+          <IconSpeakerLoud v-else />
+        </button>
+      </Transition>
       <EventPreview
         v-if="modalActive"
         :key="upcomingEventSoon ? upcomingEventSoon.slug : pinnedProject?.slug"
@@ -86,7 +91,7 @@ const pinnedProject = computed(() => {
   padding: var(--p-3);
 }
 .videoWrapper.modalActive > *:not(.ELivePreview) {
-  filter: blur(2px);
+  filter: blur(8px);
 }
 .about {
   position: absolute;
@@ -126,5 +131,15 @@ const pinnedProject = computed(() => {
     position: absolute;
     bottom: var(--p-3);
   }
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
