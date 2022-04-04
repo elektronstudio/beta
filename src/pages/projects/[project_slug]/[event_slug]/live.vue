@@ -23,8 +23,11 @@ const data = computed(() =>
           gridPosX: 2,
           gridPosY: 1,
           tilesWidth: 12,
-          tilesHeight: 7,
+          // tilesHeight: 7,
           isMinimised: false,
+          isMaximised: false,
+          isMaximisable: true,
+          hideTitleBarOnIdle: true,
           order: 0,
           data: {
             src: stream?.value?.streamurl,
