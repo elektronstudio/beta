@@ -127,7 +127,6 @@ export async function validateTicket(code: string): Promise<Ticketable | null> {
     // TODO: Handle the case when you have validated ticket to
     // non-existing ticketable (event), currently we just return null
   } else {
-    console.log("remote");
     const remoteTicket = await getRemoteTicket(code);
     if (remoteTicket) {
       const ticketable = await getTicketable(remoteTicket.fienta_id);

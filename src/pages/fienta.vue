@@ -1,26 +1,3 @@
-<!-- <script setup lang="ts">
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-const url = new URLSearchParams(window.location.search);
-const urlCode = url.get("code");
-const router = useRouter();
-const redirect = (code: string) => {
-  router.push()
-  //window.location.href = `https://live.elektron.art/fienta?code=${code}`;
-};
-
-if (urlCode) {
-  redirect(urlCode);
-}
-const code = ref(urlCode || "");
-
-const onSubmit = () => {
-  if (code.value) {
-    redirect(code.value);
-  }
-};
-</script> -->
-
 <script setup lang="ts">
 import { ref } from "vue";
 import { processEvent, validateTicket } from "@/utils";
@@ -33,7 +10,8 @@ const urlCode = url.get("code");
 const code = ref(urlCode);
 
 const onValidate = () => {
-  //window.location.href = `https://live.elektron.art/fienta?code=${urlCode}`;
+  // TODO: Remove temporary fallback
+  // window.location.href = `https://live.elektron.art/fienta?code=${urlCode}`;
   if (code.value) {
     validateTicket(code.value).then((event: any) => {
       if (event) {
@@ -44,9 +22,11 @@ const onValidate = () => {
         router.push(liveRoute);
       }
     });
+    // TODO: Handle invalid ticket code
   }
 };
 
+// If there is a ?code parameter on page load, validate and redirect
 if (code.value) {
   onValidate();
 }
