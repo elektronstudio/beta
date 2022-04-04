@@ -39,10 +39,12 @@ const formattedDistance = computed(() =>
 .eventTitle {
   color: var(--fg);
 }
+.NavLive.isLive,
 .NavLive:hover {
   color: var(--bg);
   background-color: var(--gray-200);
 }
+.NavLive.isLive .eventTitle,
 .NavLive:hover .eventTitle {
   color: var(--bg);
 }
