@@ -45,6 +45,7 @@ type EventComputed = {
   intro: Ref<string> | string | null;
   description: Ref<string>;
   ticketUrl: string | null;
+  // TODO: Remove when new live page is ahem, live
   liveUrl: string;
   projectRoute: string;
   route: string;
@@ -110,6 +111,7 @@ export function processEvent(event: Event): Event {
     liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
   };
 
+  // TODO When new live page is ahem, live
   const liveUrl = replaceTokens(config.liveUrl as string, {
     projectSlug: event.project.slug || "",
     eventSlug: event.slug || "",

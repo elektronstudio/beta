@@ -59,7 +59,7 @@ const event = useEventBySlug(event_slug);
       </EBox>
       <!-- TODO: Should it be a separate component? -->
       <EBox
-        v-if="event.ticketUrl || event.liveUrl"
+        v-if="event.ticketUrl || event.liveRoute"
         class="SideContent buttons"
         el="aside"
       >
