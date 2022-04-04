@@ -49,7 +49,7 @@ const onUserNameChange = () => {
         resize="none"
       />
       <EButton size="xs" color="accent" @click="onNewChatMessage">
-        Saada
+        {{ l("Send", "Saada") }}
       </EButton>
     </div>
     <p class="name">{{ l("I am", "Nimi:") }} {{ userName }}</p>
