@@ -1,10 +1,15 @@
 <script setup lang="ts">
 // TODO: Move back to elektro
-import { EButton, useChat } from "elektro";
+import { useStorage } from "@vueuse/core";
+import { EButton, randomString, useChat } from "elektro";
+import { randomName, l } from "@/utils";
 
 type Props = {
   channel: string;
 };
+
+const userId = useStorage("elektron_user_id", randomString());
+const userName = useStorage("elektron_user_name", randomName());
 
 const { channel } = defineProps<Props>();
 
@@ -14,7 +19,15 @@ const {
   onNewChatMessage,
   scrollRef,
   textareaRef,
-} = useChat(channel);
+  //@ts-ignore
+} = useChat(channel, userId, userName);
+
+const onUserNameChange = () => {
+  const newName = window.prompt("Enter your name", userName.value);
+  if (newName) {
+    userName.value = newName;
+  }
+};
 </script>
 
 <template>
@@ -22,7 +35,7 @@ const {
     <div class="messages" ref="scrollRef">
       <template v-for="message in chatMessages">
         <div v-if="message.value" class="message">
-          <p class="username">Username</p>
+          <p v-if="message.userName" class="username">{{ message.userName }}</p>
           <p>{{ message.value }}</p>
         </div>
       </template>
@@ -35,10 +48,14 @@ const {
         ref="textareaRef"
         resize="none"
       />
-      <EButton size="xs" color="accent" @click="onNewChatMessage"
-        >Saada</EButton
-      >
+      <EButton size="xs" color="accent" @click="onNewChatMessage">
+        Saada
+      </EButton>
     </div>
+    <p class="name">{{ l("I am", "Nimi:") }} {{ userName }}</p>
+    <EButton size="xs" color="transparent" el="a" @click="onUserNameChange">
+      {{ l("Change", "Muuda") }}
+    </EButton>
   </div>
 </template>
 
@@ -116,5 +133,17 @@ const {
 
 .EButton {
   /* margin-bottom: var(--m-2); */
+}
+.name {
+  padding: var(--p-2) 0 0 var(--p-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--gray-400);
+}
+.name-change {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--gray-400);
+  text-decoration: underline;
 }
 </style>
