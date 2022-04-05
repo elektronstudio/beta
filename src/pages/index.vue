@@ -92,6 +92,7 @@ const pinnedProject = computed(() => {
 }
 .videoWrapper.modalActive > *:not(.ELivePreview) {
   filter: blur(8px);
+  opacity: 0.6;
 }
 .about {
   position: absolute;

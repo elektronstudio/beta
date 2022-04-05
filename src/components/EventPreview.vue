@@ -102,6 +102,10 @@ const emit = defineEmits<{
   right: var(--gap-2);
   top: var(--gap-2);
   z-index: 1;
+  color: var(--gray-300);
+}
+.closeButton:hover {
+  opacity: var(--opacity-60);
 }
 
 @media only screen and (min-width: 600px) {
