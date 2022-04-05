@@ -36,16 +36,22 @@ const formattedDistance = computed(() =>
   line-height: 1;
   overflow: hidden;
 }
+
+.NavLive:hover {
+  border-image: url("/images/bg-texture-xs.gif") 1;
+  z-index: 2;
+}
 .eventTitle {
   color: var(--fg);
 }
-.NavLive.isLive,
-.NavLive:hover {
+.NavLive.isLive {
   color: var(--bg);
   background-color: var(--gray-200);
 }
-.NavLive.isLive .eventTitle,
-.NavLive:hover .eventTitle {
+.NavLive.isLive:hover {
+  background-color: var(--gray-100);
+}
+.NavLive.isLive .eventTitle {
   color: var(--bg);
 }
 @media only screen and (max-width: 599px) {
