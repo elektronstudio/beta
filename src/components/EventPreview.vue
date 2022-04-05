@@ -59,7 +59,7 @@ const emit = defineEmits<{
   position: relative;
   display: flex;
   flex-direction: column-reverse;
-  border: 1px solid var(--gray-300);
+  border: 1px solid var(--gray-500);
   border-radius: var(--rounded-3xl);
   overflow: hidden;
   z-index: 10;
