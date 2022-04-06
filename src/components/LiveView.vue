@@ -15,12 +15,10 @@ type Props = {
 const { data, event } = defineProps<Props>();
 
 const draggablesState = ref<Draggable[]>(data);
-const minimisedDraggables = ref<Draggable[]>([]);
 
 const { updateDraggablesDesktop, updateDraggablesMobile } = useLive({
   data,
   draggablesState,
-  minimisedDraggables,
 });
 
 const mobile = breakpoints.smaller("large");
@@ -84,14 +82,14 @@ const { idle } = useIdle(3000); // 3 seconds idle
       v-if="mobile"
       :idle="idle"
       :draggable-maximised="draggableMaximised"
-      :draggables="minimisedDraggables"
+      :draggables="draggablesState"
       @update-draggables="updateDraggablesMobile"
     />
     <EDraggablesDock
       v-else
       :idle="idle"
       :draggable-maximised="draggableMaximised"
-      :draggables="minimisedDraggables"
+      :draggables="draggablesState"
       @update-draggables="updateDraggablesDesktop"
     />
   </EBreadBoard>

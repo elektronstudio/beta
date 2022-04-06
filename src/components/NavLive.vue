@@ -14,7 +14,6 @@ const formattedDistance = computed(() =>
   <a
     class="NavLive"
     :href="event.route"
-    target="_blank"
     :class="{ isLive: event?.urgency === 'now' }"
     v-if="event"
   >
@@ -29,8 +28,8 @@ const formattedDistance = computed(() =>
   padding: var(--p-1) var(--p-3);
   border: var(--border-DEFAULT) solid var(--gray-500);
   font-family: var(--font-mono);
-  background-color: var(--bg);
   font-size: var(--text-xs);
+  background-color: var(--bg);
   text-transform: uppercase;
   color: var(--gray-300);
   line-height: 1;
