@@ -75,7 +75,7 @@ watch(setUserName, (newName) => {
 }
 .dialog-enter-active,
 .dialog-leave-active {
-  transition: 4s ease-in-out;
+  transition: 0.4s ease-in-out;
   border: 1px solid var(--gray-500);
 }
 
