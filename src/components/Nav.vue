@@ -56,7 +56,8 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   align-items: center;
   justify-content: space-between;
   height: var(--h-9);
-  border: var(--border-DEFAULT) solid var(--gray-500);
+  /* border: var(--border-DEFAULT) solid var(--gray-500); */
+  border-bottom: var(--border-DEFAULT) solid var(--gray-500);
   background-color: var(--bg);
   /* @TODO: This does not animate */
   /* transform does not allow position fixed children to position correctly */
@@ -72,7 +73,6 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   display: inline-flex;
   height: var(--h-9);
   padding: var(--p-1) var(--p-3);
-  border: var(--border-DEFAULT) solid var(--gray-500);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   text-transform: uppercase;
@@ -83,6 +83,8 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   width: 4rem;
 }
 .languageSwitcher.smallScreen {
+  border-left: var(--border-DEFAULT) solid var(--gray-500);
+  border: var(--border-DEFAULT) solid var(--gray-500);
   margin-right: calc(var(--border-DEFAULT) * -1);
 }
 .languageSwitcher.largeScreen {
@@ -93,7 +95,6 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   color: var(--gray-300);
   padding: var(--p-1) var(--p-3);
   border: var(--border-DEFAULT) solid var(--gray-500);
-  margin-left: calc(var(--border-DEFAULT) * -1);
 }
 .toggleNav {
   border-left: var(--border-DEFAULT) solid var(--gray-500);
@@ -113,6 +114,9 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   .menu.navActive {
     display: flex;
   }
+  .Nav {
+    flex-wrap: wrap;
+  }
 }
 @media only screen and (max-width: 999px) {
   .menu.navActive {
@@ -120,15 +124,21 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
     position: fixed;
     top: var(--h-9);
     width: 100%;
-    margin-top: calc(var(--border-DEFAULT) * -1);
+    /* margin-top: calc(var(--border-DEFAULT) * -1); */
     z-index: 100;
   }
 
   .menu > .menuItem:not(:first-child) {
     margin-top: calc(var(--border-DEFAULT) * -1);
   }
+  .menu > .menuItem {
+    border-bottom: var(--border-DEFAULT) solid var(--gray-500);
+  }
 }
 @media only screen and (min-width: 600px) {
+  .Nav {
+    border: var(--border-DEFAULT) solid var(--gray-500);
+  }
   .homeButton {
     min-width: 8rem;
   }
@@ -141,7 +151,6 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
     z-index: 2;
   }
   .languageSwitcher {
-    margin-right: calc(var(--border-DEFAULT) * -1);
     margin-right: 0;
   }
   .toggleNav {
@@ -152,6 +161,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   .Nav {
     display: flex;
     transform: translateY(0);
+    border-bottom: none;
     transition: transform 0.2s ease;
   }
   .menu {
@@ -163,6 +173,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   }
   .menuItem {
     width: var(--menu-item-width);
+    border: var(--border-DEFAULT) solid var(--gray-500);
   }
   .menu > .menuItem:not(:first-child) {
     margin-left: calc(var(--border-DEFAULT) * -1);
@@ -173,6 +184,8 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   }
   .homeButton {
     min-width: 10rem;
+    margin-left: calc(var(--border-DEFAULT) * -1);
+    border: var(--border-DEFAULT) solid var(--gray-500);
   }
   .toggleNav {
     display: none;

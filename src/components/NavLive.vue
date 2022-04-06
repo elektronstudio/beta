@@ -23,7 +23,6 @@ const formattedDistance = computed(() =>
 
 <style scoped>
 .NavLive {
-  /* display: inline-flex; */
   height: var(--h-9);
   padding: var(--p-1) var(--p-3);
   border: var(--border-DEFAULT) solid var(--gray-500);
@@ -55,9 +54,9 @@ const formattedDistance = computed(() =>
 }
 @media only screen and (max-width: 599px) {
   .NavLive {
-    position: fixed;
-    bottom: 0;
     width: 100%;
+    order: 10;
+    border-top: none;
   }
 }
 @media only screen and (min-width: 600px) {

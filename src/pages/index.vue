@@ -117,7 +117,7 @@ const pinnedProject = computed(() => {
 
 .muteButton {
   position: fixed;
-  right: var(--p-3);
+  left: var(--p-3);
   bottom: calc(var(--p-3) + var(--h-9));
 }
 

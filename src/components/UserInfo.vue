@@ -27,7 +27,7 @@ watch(setUserName, (newName) => {
   </Transition>
   <EDraggableTitlebar
     :title="userName"
-    class="dockedUser"
+    class="userTab"
     @click="dialogState = !dialogState"
   >
     <span class="userIndicator" />
@@ -52,11 +52,11 @@ watch(setUserName, (newName) => {
 .UserInfo :deep(.EInput) {
   margin-bottom: 0;
 }
-.EDraggableTitlebar.dockedUser {
+.EDraggableTitlebar.userTab {
   position: fixed;
   bottom: 0;
   width: var(--dock-item-size);
-  right: var(--gap-2);
+  right: var(--gap-3);
   z-index: 1000;
   border: 1px solid var(--gray-500);
   border-bottom: 0;
@@ -75,7 +75,7 @@ watch(setUserName, (newName) => {
 }
 .dialog-enter-active,
 .dialog-leave-active {
-  transition: 0.4s ease-in-out;
+  transition: 4s ease-in-out;
   border: 1px solid var(--gray-500);
 }
 
