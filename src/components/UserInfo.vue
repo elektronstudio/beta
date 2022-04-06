@@ -2,7 +2,6 @@
 import { useStorage } from "@vueuse/core";
 import { randomName, l } from "@/utils";
 import { ref, watch } from "vue";
-import EDialog from "./EDialog.vue";
 
 const userName = useStorage("elektron_user_name", randomName());
 const setUserName = ref<string>(userName.value);
