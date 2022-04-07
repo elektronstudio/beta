@@ -1,31 +1,44 @@
 <script setup lang="ts">
-import { Event, l } from "@/utils";
+import { Event, Image, l } from "@/utils";
 import EventButtons from "./EventButtons.vue";
 
 type Props = {
   event: Event;
+  projectThumbnail?: Image;
   layout?: "vertical" | "horizontal";
 };
 
-const { event, layout = "horizontal" } = defineProps<Props>();
+const { event, projectThumbnail, layout = "horizontal" } = defineProps<Props>();
 </script>
 
 <template>
-  <div class="EventCard" :class="layout">
-    <header>
-      <time v-if="event.start_at" :datetime="event.start_at">
-        {{ event.formattedFromDatetime }}
-      </time>
-      <router-link :to="event.route">
-        <ETitle el="h4" size="xs" class="eventTitle">
-          {{ event.title }}
-        </ETitle>
-      </router-link>
-    </header>
-    <section>
-      <EventButtons :event="event" />
-    </section>
-  </div>
+  <article class="EventCard" :class="layout">
+    <figure>
+      <img
+        v-if="event.thumbnail"
+        :src="event.thumbnail?.formats?.thumbnail?.url"
+      />
+      <img
+        v-if="projectThumbnail"
+        :src="projectThumbnail?.formats?.thumbnail?.url"
+      />
+    </figure>
+    <div class="content">
+      <header>
+        <time v-if="event.start_at" :datetime="event.start_at">
+          {{ event.formattedFromDatetime }}
+        </time>
+        <router-link :to="event.route">
+          <ETitle el="h4" size="xs" class="eventTitle">
+            {{ event.title }}
+          </ETitle>
+        </router-link>
+      </header>
+      <section>
+        <EventButtons :event="event" />
+      </section>
+    </div>
+  </article>
 </template>
 
 <style scoped>
@@ -33,6 +46,23 @@ const { event, layout = "horizontal" } = defineProps<Props>();
   display: flex;
   padding: var(--p-3) 0;
   border-top: 1px solid var(--gray-500);
+}
+
+.EventCard figure {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--rounded-md);
+  background-color: var(--gray-500);
+  overflow: hidden;
+}
+.EventCard figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.EventCard .content {
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
@@ -40,7 +70,8 @@ const { event, layout = "horizontal" } = defineProps<Props>();
   display: flex;
   flex-direction: column;
 }
-.EventCard.vertical {
+.EventCard,
+.EventCard.vertical .content {
   gap: var(--gap-3);
 }
 .EventCard.vertical section > *:first-child {
@@ -65,7 +96,8 @@ const { event, layout = "horizontal" } = defineProps<Props>();
 }
 
 @media only screen and (min-width: 600px) {
-  .EventCard.horizontal {
+  .EventCard.horizontal .content {
+    flex-grow: 1;
     flex-direction: row;
     justify-content: space-between;
   }

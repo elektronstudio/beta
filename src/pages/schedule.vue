@@ -20,6 +20,7 @@ const { upcomingProjects } = useProjects();
           v-if="project.upcomingEvents"
           v-for="event in project.upcomingEvents"
           layout="horizontal"
+          :project-thumbnail="project.thumbnail"
           :event="event"
         />
       </EScheduleEvent>

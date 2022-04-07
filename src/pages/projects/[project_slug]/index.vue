@@ -50,9 +50,11 @@ const project = useProjectBySlug(project_slug);
       >
         <template v-if="project.upcomingEvents">
           <ETitle el="h3" size="lg" :title="l('Events', 'Üritused')" />
+
           <EventCard
             v-for="event in project.upcomingEvents"
             :event="event"
+            :project-thumbnail="project.thumbnail"
             layout="vertical"
           />
         </template>
@@ -66,6 +68,7 @@ const project = useProjectBySlug(project_slug);
           <EventCard
             v-for="event in project.pastEvents"
             :event="event"
+            :project-thumbnail="project.thumbnail"
             layout="vertical"
           />
         </template>
