@@ -11,14 +11,14 @@ const formattedDistance = computed(() =>
 </script>
 
 <template>
-  <a
+  <RouterLink
     class="NavLive"
-    :href="event.route"
+    :to="event.route"
     :class="{ isLive: event?.urgency === 'now' }"
     v-if="event"
   >
     {{ formattedDistance }}: <span class="eventTitle">{{ event.title }}</span>
-  </a>
+  </RouterLink>
 </template>
 
 <style scoped>
