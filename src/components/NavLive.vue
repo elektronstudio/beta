@@ -14,7 +14,6 @@ const formattedDistance = computed(() =>
   <a
     class="NavLive"
     :href="event.route"
-    target="_blank"
     :class="{ isLive: event?.urgency === 'now' }"
     v-if="event"
   >
