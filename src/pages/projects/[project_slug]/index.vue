@@ -44,7 +44,7 @@ const project = useProjectBySlug(project_slug);
         <EContent :content="project.description" />
       </EBox>
       <EBox
-        v-if="project.upcomingEvents || project.press"
+        v-if="project.upcomingEvents || project.press || project.pastEvents"
         class="SideContent"
         el="aside"
       >
@@ -52,6 +52,19 @@ const project = useProjectBySlug(project_slug);
           <ETitle el="h3" size="lg" :title="l('Events', 'Üritused')" />
           <EventCard
             v-for="event in project.upcomingEvents"
+            :event="event"
+            layout="vertical"
+          />
+        </template>
+
+        <template v-if="project.pastEvents">
+          <ETitle
+            el="h3"
+            size="lg"
+            :title="l('Past events', 'Toimunud üritused')"
+          />
+          <EventCard
+            v-for="event in project.pastEvents"
             :event="event"
             layout="vertical"
           />
