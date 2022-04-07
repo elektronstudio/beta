@@ -11,24 +11,25 @@ const formattedDistance = computed(() =>
 </script>
 
 <template>
-  <a
+  <RouterLink
     class="NavLive"
-    :href="event.route"
+    :to="event.route"
     :class="{ isLive: event?.urgency === 'now' }"
     v-if="event"
   >
     {{ formattedDistance }}: <span class="eventTitle">{{ event.title }}</span>
-  </a>
+  </RouterLink>
 </template>
 
 <style scoped>
 .NavLive {
+  /* display: inline-flex; */
   height: var(--h-9);
   padding: var(--p-1) var(--p-3);
   border: var(--border-DEFAULT) solid var(--gray-500);
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
   background-color: var(--bg);
+  font-size: var(--text-xs);
   text-transform: uppercase;
   color: var(--gray-300);
   line-height: 1;
@@ -54,9 +55,9 @@ const formattedDistance = computed(() =>
 }
 @media only screen and (max-width: 599px) {
   .NavLive {
+    position: fixed;
+    bottom: 0;
     width: 100%;
-    order: 10;
-    border-top: none;
   }
 }
 @media only screen and (min-width: 600px) {
