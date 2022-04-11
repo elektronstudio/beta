@@ -59,8 +59,11 @@ watch(setUserName, (newName) => {
   z-index: 1000;
   border: 1px solid var(--gray-500);
   border-bottom: 0;
+  transform: 0;
+  transition: 0.3s ease-in-out;
   cursor: pointer;
 }
+
 .userIndicator {
   position: absolute;
   top: 50%;
@@ -86,5 +89,11 @@ watch(setUserName, (newName) => {
 .dialog-enter-active :deep(*),
 .dialog-leave-active :deep(*) {
   opacity: 0;
+}
+
+@media only screen and (min-width: 900px) {
+  .idle .EDraggableTitlebar.userTab {
+    transform: translateY(100%);
+  }
 }
 </style>

@@ -4,7 +4,6 @@ import { ref } from "vue";
 import DraggableContent from "@/components/DraggableContent.vue";
 import IconArrowLeft from "~icons/radix-icons/arrow-left";
 import { computed } from "@vue/reactivity";
-import { useIdle } from "@vueuse/core";
 
 type Props = {
   data: Draggable[];
@@ -26,17 +25,11 @@ const mobile = breakpoints.smaller("large");
 const draggableMaximised = computed(
   () => !!draggablesState.value.find((draggable) => draggable.isMaximised),
 );
-const { idle } = useIdle(3000); // 3 seconds idle
 </script>
 
 <template>
   <EBreadBoard>
-    <RouterLink
-      v-if="event"
-      :to="event.route"
-      :class="{ idle: idle }"
-      class="backToEvent"
-    >
+    <RouterLink v-if="event" :to="event.route" class="backToEvent">
       <IconArrowLeft />
       Back to event
     </RouterLink>
@@ -77,7 +70,6 @@ const { idle } = useIdle(3000); // 3 seconds idle
 
     <EDraggablesDock
       v-if="mobile"
-      :idle="idle"
       :draggable-maximised="draggableMaximised"
       :draggables="draggablesState"
       :mobile="mobile"
@@ -85,7 +77,6 @@ const { idle } = useIdle(3000); // 3 seconds idle
     />
     <EDraggablesDock
       v-else
-      :idle="idle"
       :draggable-maximised="draggableMaximised"
       :draggables="draggablesState"
       @update-draggables="updateDraggablesDesktop"
@@ -127,7 +118,7 @@ const { idle } = useIdle(3000); // 3 seconds idle
     transition: opacity 0.3s ease-in-out;
     color: var(--gray-300);
   }
-  .backToEvent.idle {
+  .idle .backToEvent {
     opacity: 0;
   }
 }
