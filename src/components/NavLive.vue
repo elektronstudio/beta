@@ -28,7 +28,6 @@ const formattedDistance = computed(() =>
 .NavLive {
   display: inline;
   overflow: hidden;
-  line-height: 1;
   background-color: var(--bg);
   margin-top: calc(var(--border-DEFAULT) * -1);
 }

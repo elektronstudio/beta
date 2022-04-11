@@ -71,6 +71,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   padding: var(--p-1) var(--p-3);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
+  line-height: 1;
   text-transform: uppercase;
   color: var(--gray-300);
   border: var(--border-DEFAULT) solid var(--gray-500);
