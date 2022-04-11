@@ -44,15 +44,7 @@ const muted = ref(true);
     <div style="position: absolute; bottom: var(--p-4); left: var(--p-4)">
       <slot />
     </div>
-    <div
-      style="
-        position: absolute;
-        bottom: var(--p-4);
-        right: var(--p-4);
-        display: flex;
-        gap: var(--gap-2);
-      "
-    >
+    <div class="controls">
       <EButton
         v-if="muted"
         size="xs"
@@ -102,3 +94,22 @@ const muted = ref(true);
     </div>
   </div>
 </template>
+
+<style scoped>
+.controls {
+  position: absolute;
+  bottom: var(--p-4);
+  right: var(--p-4);
+  display: flex;
+  gap: var(--gap-2);
+  opacity: 1;
+  transition: 0.3s ease-in-out;
+}
+.idle .isMaximised .controls {
+  opacity: 0;
+}
+.isMaximised .controls {
+  bottom: var(--p-8);
+  right: var(--p-4);
+}
+</style>
