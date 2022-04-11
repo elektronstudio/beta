@@ -22,18 +22,17 @@ const formattedDistance = computed(() =>
 </template>
 
 <style scoped>
-a.NavLive {
+.menuItem.NavLive {
+  display: inline;
+}
+.NavLive {
   display: inline;
   overflow: hidden;
   line-height: 1;
-  border: var(--border-DEFAULT) solid var(--gray-500);
   background-color: var(--bg);
+  margin-top: calc(var(--border-DEFAULT) * -1);
 }
 
-.NavLive:hover {
-  border-image: url("/images/bg-texture-xs.gif") 1;
-  z-index: 2;
-}
 .eventTitle {
   color: var(--fg);
 }
@@ -58,6 +57,7 @@ a.NavLive {
   .NavLive {
     width: 20rem;
     padding: var(--p-1);
+    margin-top: 0;
   }
 }
 @media only screen and (min-width: 1000px) {

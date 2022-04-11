@@ -103,7 +103,7 @@ const pinnedProject = computed(() => {
   padding: var(--p-3);
   z-index: 1;
   color: var(--gray-300);
-  mix-blend-mode: difference;
+  /* mix-blend-mode: difference; */
 }
 .video {
   position: absolute;

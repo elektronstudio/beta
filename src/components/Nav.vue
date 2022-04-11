@@ -37,6 +37,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
         <!-- @TODO: Consider using client-side mediaQuery component -->
         <Lang class="menuItem languageSwitcher largeScreen" />
       </nav>
+      <span class="menuItem spacer"></span>
       <Lang class="menuItem languageSwitcher smallScreen" />
       <NavLive class="menuItem" />
       <button class="toggleNav" @click="navState = !navState">
@@ -55,11 +56,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* border: var(--border-DEFAULT) solid var(--gray-500); */
-  border-bottom: var(--border-DEFAULT) solid var(--gray-500);
   background-color: var(--bg);
-  /* @TODO: This does not animate */
-  /* transform does not allow position fixed children to position correctly */
   transform: none;
 }
 
@@ -76,14 +73,13 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   font-size: var(--text-xs);
   text-transform: uppercase;
   color: var(--gray-300);
+  border: var(--border-DEFAULT) solid var(--gray-500);
 }
 .languageSwitcher {
   margin-left: auto;
   width: 4rem;
 }
 .languageSwitcher.smallScreen {
-  border-left: var(--border-DEFAULT) solid var(--gray-500);
-  border: var(--border-DEFAULT) solid var(--gray-500);
   margin-right: calc(var(--border-DEFAULT) * -1);
 }
 .languageSwitcher.largeScreen {
@@ -100,12 +96,18 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   place-content: center;
   padding: var(--p-3);
   height: var(--h-9);
-  border-left: var(--border-DEFAULT) solid var(--gray-500);
+  border: var(--border-DEFAULT) solid var(--gray-500);
 }
 .toggleNav svg {
   color: var(--gray-300);
   width: var(--w-7);
   height: var(--h-7);
+}
+
+.spacer {
+  flex-grow: 1;
+  margin-left: calc(var(--border-DEFAULT) * -1);
+  pointer-events: none;
 }
 
 /* @TODO: Add breakpoints system */
@@ -123,11 +125,11 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
     position: fixed;
     top: var(--h-9);
     width: 100%;
-    /* margin-top: calc(var(--border-DEFAULT) * -1); */
+    margin-top: calc(var(--border-DEFAULT) * -1);
     z-index: 100;
   }
-  .Nav > .menuItem {
-    margin-bottom: calc(var(--border-DEFAULT) * -1);
+  .Nav > *:not(:first-child, .menu) {
+    margin-right: calc(var(--border-DEFAULT) * -1);
   }
 
   .menu > .menuItem:not(:first-child) {
@@ -147,6 +149,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   .menuItem {
     padding: var(--p-1);
   }
+  .toggleNav:hover,
   .menuItem.router-link-active,
   .menuItem:hover {
     border-image: url("/images/bg-texture-xs.gif") 1;
@@ -154,9 +157,6 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   }
   .languageSwitcher {
     margin-right: 0;
-  }
-  .toggleNav {
-    border-left: 0;
   }
 }
 @media only screen and (min-width: 1000px) {
@@ -175,7 +175,6 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   }
   .menuItem {
     width: var(--menu-item-width);
-    border: var(--border-DEFAULT) solid var(--gray-500);
   }
   .menu > .menuItem:not(:first-child) {
     margin-left: calc(var(--border-DEFAULT) * -1);
@@ -197,6 +196,9 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   }
   .languageSwitcher.largeScreen {
     display: inline-flex;
+  }
+  .spacer {
+    display: none;
   }
 }
 
