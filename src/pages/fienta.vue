@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { processEvent, validateTicket } from "@/utils";
+import { getTicketableStatus, processEvent, validateTicket } from "@/utils";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -15,6 +15,7 @@ const onValidate = () => {
   if (code.value) {
     validateTicket(code.value).then((event: any) => {
       if (event) {
+        console.log(getTicketableStatus([event, event.festival]));
         // TODO: Remove festival rename when on strapi4
         event.project = event.festival;
         event.festival = null;

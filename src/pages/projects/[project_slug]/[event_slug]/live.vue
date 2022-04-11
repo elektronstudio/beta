@@ -14,12 +14,6 @@ type Props = {
 const { event_slug } = defineProps<Props>();
 const event = useEventBySlug(event_slug);
 
-watch(event, () => {
-  if (event.value && !event.value.userHasLiveAccess) {
-    router.push(event.value.route);
-  }
-});
-
 // TODO: support multiple videos
 const stream = computed(() => event?.value?.videostreams[0]);
 const data = computed(() =>
