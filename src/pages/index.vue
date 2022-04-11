@@ -117,9 +117,9 @@ const pinnedProject = computed(() => {
 }
 
 .muteButton {
-  position: fixed;
+  position: absolute;
   left: var(--p-3);
-  bottom: calc(var(--p-3) + var(--h-9));
+  bottom: var(--p-3);
 }
 
 @media only screen and (min-width: 600px) {
@@ -128,10 +128,6 @@ const pinnedProject = computed(() => {
   }
   .videoWrapper {
     height: calc(100vh - var(--h-9));
-  }
-  .muteButton {
-    position: absolute;
-    bottom: var(--p-3);
   }
 }
 

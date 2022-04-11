@@ -38,7 +38,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
         <Lang class="menuItem languageSwitcher largeScreen" />
       </nav>
       <Lang class="menuItem languageSwitcher smallScreen" />
-      <NavLive />
+      <NavLive class="menuItem" />
       <button class="toggleNav" @click="navState = !navState">
         <IconHamburgerMenu />
       </button>
@@ -55,7 +55,6 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--h-9);
   /* border: var(--border-DEFAULT) solid var(--gray-500); */
   border-bottom: var(--border-DEFAULT) solid var(--gray-500);
   background-color: var(--bg);
@@ -97,11 +96,11 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   border: var(--border-DEFAULT) solid var(--gray-500);
 }
 .toggleNav {
-  border-left: var(--border-DEFAULT) solid var(--gray-500);
   display: grid;
   place-content: center;
-  height: 100%;
   padding: var(--p-3);
+  height: var(--h-9);
+  border-left: var(--border-DEFAULT) solid var(--gray-500);
 }
 .toggleNav svg {
   color: var(--gray-300);
@@ -127,6 +126,9 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
     /* margin-top: calc(var(--border-DEFAULT) * -1); */
     z-index: 100;
   }
+  .Nav > .menuItem {
+    margin-bottom: calc(var(--border-DEFAULT) * -1);
+  }
 
   .menu > .menuItem:not(:first-child) {
     margin-top: calc(var(--border-DEFAULT) * -1);
@@ -137,7 +139,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
 }
 @media only screen and (min-width: 600px) {
   .Nav {
-    border: var(--border-DEFAULT) solid var(--gray-500);
+    /* border: var(--border-DEFAULT) solid var(--gray-500); */
   }
   .homeButton {
     min-width: 8rem;
