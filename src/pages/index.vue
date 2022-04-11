@@ -16,7 +16,7 @@ const handleMute = () => {
 // @TODO: Get this value from Strapi
 const pinnedEvent = "unusta";
 
-const modalActive = ref<boolean>(true);
+const dialogState = ref<boolean>(true);
 const { projects, firstUpcomingProject } = useProjects();
 
 const upcomingEventSoon = computed(() => {
@@ -40,10 +40,10 @@ const pinnedProject = computed(() => {
 </script>
 <template>
   <div class="Page">
-    <div class="videoWrapper" :class="{ modalActive: modalActive }">
+    <div class="videoWrapper" :class="{ dialogActive: dialogState }">
       <Transition>
         <ETitle
-          v-if="!modalActive"
+          v-if="!dialogState"
           size="lg"
           class="about"
           v-html="page?.data.attributes.description"
@@ -61,17 +61,18 @@ const pinnedProject = computed(() => {
         loop
       />
       <Transition>
-        <button v-if="!modalActive" class="muteButton" @click="handleMute">
+        <button v-if="!dialogState" class="muteButton" @click="handleMute">
           <IconSpeakerOff v-if="muted" />
           <IconSpeakerLoud v-else />
         </button>
       </Transition>
       <EventPreview
-        v-if="modalActive"
+        v-if="dialogState"
         :key="upcomingEventSoon ? upcomingEventSoon.slug : pinnedProject?.slug"
         :event="upcomingEventSoon ? upcomingEventSoon : pinnedProject"
+        :dialog-state="dialogState"
         :is-event="upcomingEventSoon ? true : false"
-        @closeModal="modalActive = false"
+        @close-dialog="dialogState = false"
       />
     </div>
   </div>
@@ -90,7 +91,7 @@ const pinnedProject = computed(() => {
   overflow-y: auto;
   padding: var(--p-3);
 }
-.videoWrapper.modalActive > *:not(.ELivePreview) {
+.videoWrapper.dialogActive > *:not(.ELivePreview) {
   filter: blur(8px);
   opacity: 0.6;
 }
@@ -102,7 +103,7 @@ const pinnedProject = computed(() => {
   padding: var(--p-3);
   z-index: 1;
   color: var(--gray-300);
-  mix-blend-mode: difference;
+  /* mix-blend-mode: difference; */
 }
 .video {
   position: absolute;
@@ -116,9 +117,9 @@ const pinnedProject = computed(() => {
 }
 
 .muteButton {
-  position: fixed;
-  right: var(--p-3);
-  bottom: calc(var(--p-3) + var(--h-9));
+  position: absolute;
+  left: var(--p-3);
+  bottom: var(--p-3);
 }
 
 @media only screen and (min-width: 600px) {
@@ -127,10 +128,6 @@ const pinnedProject = computed(() => {
   }
   .videoWrapper {
     height: calc(100vh - var(--h-9));
-  }
-  .muteButton {
-    position: absolute;
-    bottom: var(--p-3);
   }
 }
 

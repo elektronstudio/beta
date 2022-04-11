@@ -37,8 +37,9 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
         <!-- @TODO: Consider using client-side mediaQuery component -->
         <Lang class="menuItem languageSwitcher largeScreen" />
       </nav>
+      <span class="menuItem spacer"></span>
       <Lang class="menuItem languageSwitcher smallScreen" />
-      <NavLive />
+      <NavLive class="menuItem" />
       <button class="toggleNav" @click="navState = !navState">
         <IconHamburgerMenu />
       </button>
@@ -55,11 +56,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--h-9);
-  border: var(--border-DEFAULT) solid var(--gray-500);
   background-color: var(--bg);
-  /* @TODO: This does not animate */
-  /* transform does not allow position fixed children to position correctly */
   transform: none;
 }
 
@@ -72,11 +69,11 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   display: inline-flex;
   height: var(--h-9);
   padding: var(--p-1) var(--p-3);
-  border: var(--border-DEFAULT) solid var(--gray-500);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   text-transform: uppercase;
   color: var(--gray-300);
+  border: var(--border-DEFAULT) solid var(--gray-500);
 }
 .languageSwitcher {
   margin-left: auto;
@@ -93,14 +90,13 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   color: var(--gray-300);
   padding: var(--p-1) var(--p-3);
   border: var(--border-DEFAULT) solid var(--gray-500);
-  margin-left: calc(var(--border-DEFAULT) * -1);
 }
 .toggleNav {
-  border-left: var(--border-DEFAULT) solid var(--gray-500);
   display: grid;
   place-content: center;
-  height: 100%;
   padding: var(--p-3);
+  height: var(--h-9);
+  border: var(--border-DEFAULT) solid var(--gray-500);
 }
 .toggleNav svg {
   color: var(--gray-300);
@@ -108,10 +104,19 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   height: var(--h-7);
 }
 
+.spacer {
+  flex-grow: 1;
+  margin-left: calc(var(--border-DEFAULT) * -1);
+  pointer-events: none;
+}
+
 /* @TODO: Add breakpoints system */
 @media only screen and (max-width: 599px) {
   .menu.navActive {
     display: flex;
+  }
+  .Nav {
+    flex-wrap: wrap;
   }
 }
 @media only screen and (max-width: 999px) {
@@ -123,35 +128,42 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
     margin-top: calc(var(--border-DEFAULT) * -1);
     z-index: 100;
   }
+  .Nav > *:not(:first-child, .menu) {
+    margin-right: calc(var(--border-DEFAULT) * -1);
+  }
 
   .menu > .menuItem:not(:first-child) {
     margin-top: calc(var(--border-DEFAULT) * -1);
   }
+  .menu > .menuItem {
+    border-bottom: var(--border-DEFAULT) solid var(--gray-500);
+  }
 }
 @media only screen and (min-width: 600px) {
+  .Nav {
+    /* border: var(--border-DEFAULT) solid var(--gray-500); */
+  }
   .homeButton {
     min-width: 8rem;
   }
   .menuItem {
     padding: var(--p-1);
   }
+  .toggleNav:hover,
   .menuItem.router-link-active,
   .menuItem:hover {
     border-image: url("/images/bg-texture-xs.gif") 1;
     z-index: 2;
   }
   .languageSwitcher {
-    margin-right: calc(var(--border-DEFAULT) * -1);
     margin-right: 0;
-  }
-  .toggleNav {
-    border-left: 0;
   }
 }
 @media only screen and (min-width: 1000px) {
   .Nav {
     display: flex;
     transform: translateY(0);
+    border-bottom: none;
     transition: transform 0.2s ease;
   }
   .menu {
@@ -173,6 +185,8 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   }
   .homeButton {
     min-width: 10rem;
+    margin-left: calc(var(--border-DEFAULT) * -1);
+    border: var(--border-DEFAULT) solid var(--gray-500);
   }
   .toggleNav {
     display: none;
@@ -182,6 +196,9 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   }
   .languageSwitcher.largeScreen {
     display: inline-flex;
+  }
+  .spacer {
+    display: none;
   }
 }
 

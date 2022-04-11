@@ -22,24 +22,17 @@ const formattedDistance = computed(() =>
 </template>
 
 <style scoped>
+.menuItem.NavLive {
+  display: inline;
+}
 .NavLive {
-  /* display: inline-flex; */
-  height: var(--h-9);
-  padding: var(--p-1) var(--p-3);
-  border: var(--border-DEFAULT) solid var(--gray-500);
-  font-family: var(--font-mono);
-  background-color: var(--bg);
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  color: var(--gray-300);
-  line-height: 1;
+  display: inline;
   overflow: hidden;
+  line-height: 1;
+  background-color: var(--bg);
+  margin-top: calc(var(--border-DEFAULT) * -1);
 }
 
-.NavLive:hover {
-  border-image: url("/images/bg-texture-xs.gif") 1;
-  z-index: 2;
-}
 .eventTitle {
   color: var(--fg);
 }
@@ -55,15 +48,16 @@ const formattedDistance = computed(() =>
 }
 @media only screen and (max-width: 599px) {
   .NavLive {
-    position: fixed;
-    bottom: 0;
+    border-top: none;
     width: 100%;
+    order: 99;
   }
 }
 @media only screen and (min-width: 600px) {
   .NavLive {
     width: 20rem;
     padding: var(--p-1);
+    margin-top: 0;
   }
 }
 @media only screen and (min-width: 1000px) {

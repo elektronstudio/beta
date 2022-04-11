@@ -21,13 +21,6 @@ const {
   textareaRef,
   //@ts-ignore
 } = useChat(channel, userId, userName);
-
-const onUserNameChange = () => {
-  const newName = window.prompt("Enter your name", userName.value);
-  if (newName) {
-    userName.value = newName;
-  }
-};
 </script>
 
 <template>
@@ -52,10 +45,6 @@ const onUserNameChange = () => {
         {{ l("Send", "Saada") }}
       </EButton>
     </div>
-    <p class="name">{{ l("I am", "Nimi:") }} {{ userName }}</p>
-    <EButton size="xs" color="transparent" el="a" @click="onUserNameChange">
-      {{ l("Change", "Muuda") }}
-    </EButton>
   </div>
 </template>
 

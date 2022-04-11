@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import UserInfo from "./components/UserInfo.vue";
+
 const navItems = [
   {
     name_english: "Schedule",
@@ -33,5 +35,7 @@ const navItems = [
   <Suspense>
     <router-view :key="$route.fullPath" />
   </Suspense>
+  <UserInfo />
+
   <EWindowBorder />
 </template>
