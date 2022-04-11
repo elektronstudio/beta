@@ -15,7 +15,7 @@ const { event_slug } = defineProps<Props>();
 const event = useEventBySlug(event_slug);
 
 watch(event, () => {
-  if (event.value?.userNeedsTicket) {
+  if (event.value && !event.value.userHasLiveAccess) {
     router.push(event.value.route);
   }
 });

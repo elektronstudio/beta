@@ -17,7 +17,7 @@ const { event } = defineProps<Props>();
     </EButton>
   </router-link>
   <EButton
-    v-if="event.userNeedsTicket && event.urgency !== 'past'"
+    v-if="event.userCanBuyTicket"
     el="a"
     size="xs"
     color="accent"

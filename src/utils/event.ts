@@ -52,8 +52,8 @@ type EventComputed = {
   liveRoute: string;
   videostreams: ReturnType<typeof processStreamkey> | null;
   ticketableStatus: ReturnType<typeof getTicketableStatus>;
-  userCanLive: boolean;
-  userNeedsTicket: boolean;
+  userHasLiveAccess: boolean;
+  userCanBuyTicket: boolean;
 } & ReturnType<typeof useRange>;
 
 export type Event = EventSchema & EventComputed;
@@ -125,11 +125,13 @@ export function processEvent(event: Event): Event {
 
   const ticketableStatus = getTicketableStatus([event, event.project]);
 
-  const userCanLive =
+  const userHasLiveAccess =
     ticketableStatus === "FREE" || ticketableStatus === "HAS_TICKET";
 
-  const userNeedsTicket: boolean =
-    !!ticketUrl && ticketableStatus !== "HAS_TICKET";
+  const userCanBuyTicket: boolean =
+    !!ticketUrl &&
+    ticketableStatus !== "HAS_TICKET" &&
+    eventDates?.urgency.value !== "past";
 
   return {
     ...event,
@@ -139,7 +141,7 @@ export function processEvent(event: Event): Event {
     ...routes,
     videostreams,
     ticketableStatus,
-    userCanLive,
-    userNeedsTicket,
+    userHasLiveAccess,
+    userCanBuyTicket,
   };
 }

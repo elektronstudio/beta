@@ -64,7 +64,7 @@ const event = useEventBySlug(event_slug);
         el="aside"
       >
         <EButton
-          v-if="event.userCanLive"
+          v-if="event.userHasLiveAccess"
           size="xs"
           el="a"
           color="transparent"
@@ -74,7 +74,7 @@ const event = useEventBySlug(event_slug);
           {{ l("View live event", "Vaata üritust") }}
         </EButton>
         <EButton
-          v-if="event.userNeedsTicket"
+          v-if="event.userNeedsTicket && event.urgency !== 'past'"
           size="xs"
           el="a"
           color="accent"
