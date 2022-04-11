@@ -33,8 +33,14 @@ const { idle } = useIdle(3000); // 3 seconds idle
 
 <template>
   <EBreadBoard>
-    <RouterLink v-if="event" :to="event.route" class="backToEvent">
-      <EButton size="xs" color="transparent" el="a">
+    <RouterLink v-if="event" :to="event.route">
+      <EButton
+        :class="{ idle: idle }"
+        class="backToEvent"
+        size="xs"
+        color="transparent"
+        el="a"
+      >
         <IconArrowLeft />
         Back to event
       </EButton>

@@ -42,10 +42,14 @@ const emit = defineEmits<{
         </template>
       </footer>
     </aside>
-    <EImage
-      v-if="event.thumbnail"
-      :sizes="event.thumbnail.sizes"
-      :alt="event.thumbnail.alt"
+    <img
+      v-if="event.images[0]"
+      :src="
+        event.images[0].formats.medium?.url
+          ? event.images[0].formats.medium.url
+          : event.images[0].formats.images[0].url
+      "
+      :alt="event.images[0].alt"
     />
   </div>
 </template>
@@ -55,7 +59,7 @@ const emit = defineEmits<{
   position: relative;
   display: flex;
   flex-direction: column-reverse;
-  border: 1px solid var(--gray-300);
+  border: 1px solid var(--gray-500);
   border-radius: var(--rounded-3xl);
   overflow: hidden;
   z-index: 10;
@@ -98,6 +102,10 @@ const emit = defineEmits<{
   right: var(--gap-2);
   top: var(--gap-2);
   z-index: 1;
+  color: var(--gray-300);
+}
+.closeButton:hover {
+  opacity: var(--opacity-60);
 }
 
 @media only screen and (min-width: 600px) {

@@ -11,15 +11,14 @@ const formattedDistance = computed(() =>
 </script>
 
 <template>
-  <a
+  <RouterLink
     class="NavLive"
-    :href="event.route"
-    target="_blank"
+    :to="event.route"
     :class="{ isLive: event?.urgency === 'now' }"
     v-if="event"
   >
     {{ formattedDistance }}: <span class="eventTitle">{{ event.title }}</span>
-  </a>
+  </RouterLink>
 </template>
 
 <style scoped>
@@ -36,14 +35,22 @@ const formattedDistance = computed(() =>
   line-height: 1;
   overflow: hidden;
 }
+
+.NavLive:hover {
+  border-image: url("/images/bg-texture-xs.gif") 1;
+  z-index: 2;
+}
 .eventTitle {
   color: var(--fg);
 }
-.NavLive:hover {
+.NavLive.isLive {
   color: var(--bg);
   background-color: var(--gray-200);
 }
-.NavLive:hover .eventTitle {
+.NavLive.isLive:hover {
+  background-color: var(--gray-100);
+}
+.NavLive.isLive .eventTitle {
   color: var(--bg);
 }
 @media only screen and (max-width: 599px) {
