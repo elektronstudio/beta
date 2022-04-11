@@ -16,13 +16,8 @@ const { event } = defineProps<Props>();
       {{ l("Read more", "Loe lähemalt") }}
     </EButton>
   </router-link>
-  <!-- @TODO: Fix type error -->
   <EButton
-    v-if="
-      event.ticketUrl &&
-      event.ticketableStatus !== 'HAS_TICKET' &&
-      event.urgency !== 'past'
-    "
+    v-if="event.userNeedsTicket && event.urgency !== 'past'"
     el="a"
     size="xs"
     color="accent"

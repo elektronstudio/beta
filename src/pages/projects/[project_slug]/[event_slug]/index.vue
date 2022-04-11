@@ -63,13 +63,18 @@ const event = useEventBySlug(event_slug);
         class="SideContent buttons"
         el="aside"
       >
-        <!-- TODO: Add ticket check -->
-        <EButton size="xs" el="a" color="transparent" :href="event.liveRoute">
+        <EButton
+          v-if="event.userCanLive"
+          size="xs"
+          el="a"
+          color="transparent"
+          :href="event.liveRoute"
+        >
           <IconArrowRight />
           {{ l("View live event", "Vaata üritust") }}
         </EButton>
         <EButton
-          v-if="event.ticketUrl && event.ticketableStatus !== 'HAS_TICKET'"
+          v-if="event.userNeedsTicket"
           size="xs"
           el="a"
           color="accent"

@@ -2,7 +2,10 @@
 import { Draggable } from "elektro";
 import { useEventBySlug } from "@/utils";
 import { computed } from "vue";
+import { watchOnce } from "@vueuse/core";
 import LiveView from "../../../../components/LiveView.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 type Props = {
   project_slug: string;
@@ -10,6 +13,12 @@ type Props = {
 };
 const { event_slug } = defineProps<Props>();
 const event = useEventBySlug(event_slug);
+
+watchOnce(event, () => {
+  if (!event.value?.userNeedsTicket) {
+    router.push(event.value.route);
+  }
+});
 
 // TODO: support multiple videos
 const stream = computed(() => event?.value?.videostreams[0]);
