@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // TODO: Move to elektro
 
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 import IconEnterFullscreen from "~icons/radix-icons/enter-full-screen";
@@ -27,6 +27,19 @@ const {
 } = useFullscreen(videoWindowRef);
 
 const muted = ref(true);
+const volume = ref(0.8);
+
+watch(volume, () => {
+  if (videoRef.value) {
+    videoRef.value.volume = volume.value;
+    if (videoRef.value.volume === 0) {
+      muted.value = true;
+    }
+    if (videoRef.value.volume > 0) {
+      muted.value = false;
+    }
+  }
+});
 
 const trackedEnterPip = () => {
   enterPip();
@@ -63,10 +76,15 @@ const trackedEnterFullscreen = () => {
         <IconMuted />
         Click to unmute
       </EButton>
-      <EButton v-else size="xs" color="transparent" @click="muted = !muted">
+      <EButton
+        v-if="!muted"
+        size="xs"
+        color="transparent"
+        @click="muted = !muted"
+      >
         <IconUnmuted />
       </EButton>
-
+      <EFormRange v-if="!muted" v-model="volume" :max="1" step="any" />
       <EButton
         v-if="status === 'playing' && isPipAvailable && !isPip"
         size="xs"
