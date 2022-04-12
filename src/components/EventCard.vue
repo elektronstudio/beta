@@ -14,14 +14,8 @@ const { event, projectThumbnail, layout = "horizontal" } = defineProps<Props>();
 <template>
   <article class="EventCard" :class="layout">
     <figure>
-      <img
-        v-if="event.thumbnail"
-        :src="event.thumbnail?.formats?.thumbnail?.url"
-      />
-      <img
-        v-if="projectThumbnail"
-        :src="projectThumbnail?.formats?.thumbnail?.url"
-      />
+      <EImage v-if="event.thumbnail" :sizes="event.thumbnail.sizes" />
+      <EImage v-if="projectThumbnail" :sizes="projectThumbnail?.sizes" />
     </figure>
     <div class="content">
       <header>
