@@ -3,6 +3,7 @@ import { $fetch } from "ohmyfetch";
 import merge from "lodash.merge";
 
 import { config, lang, l, sortProject, processProject, processEvent } from ".";
+import { useIntervalFn } from "@vueuse/core";
 
 export function useProjects() {
   const projects = ref<any>([]);
@@ -62,15 +63,34 @@ export function useProjectBySlug(slug: string) {
 export function useEventBySlug(slug: string) {
   const event = ref<any>();
   $fetch(`${config.strapiUrl}/events?slug=${slug}`).then((res) => {
-    // Temporarily rename event.festival to event.project
     // TODO: Remove it when migrating data to v4
-    const e = {
+    event.value = processEvent({
       ...res[0],
       project: processProject(res[0].festival),
       festival: null,
-    };
-    event.value = processEvent(e);
+    });
   });
+  return event;
+}
+
+const UPDATE_RATE = 1000 * 5; // 5 minutes
+
+export function useUpdatingEventBySlug(slug: string) {
+  const event = ref<any>();
+  useIntervalFn(
+    () => {
+      // TODO: Avoid fetch code duplication
+      $fetch(`${config.strapiUrl}/events?slug=${slug}`).then((res) => {
+        event.value = processEvent({
+          ...res[0],
+          project: processProject(res[0].festival),
+          festival: null,
+        });
+      });
+    },
+    UPDATE_RATE,
+    { immediateCallback: true },
+  );
   return event;
 }
 
