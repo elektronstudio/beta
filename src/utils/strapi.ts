@@ -41,15 +41,26 @@ export function useProjects() {
     return sortByDate;
   });
 
-  const firstUpcomingProject = computed(() => {
+  const upcomingLiveEvents = computed(() => {
     if (!upcomingEvents.value) {
       return null;
     }
-
-    return upcomingEvents.value[0];
+    return upcomingEvents.value.filter((e) => e.live !== false);
   });
 
-  return { projects, upcomingProjects, firstUpcomingProject };
+  const firstUpcomingLiveEvent = computed(() => {
+    if (!upcomingLiveEvents.value) {
+      return null;
+    }
+    return upcomingLiveEvents.value[0];
+  });
+
+  return {
+    projects,
+    upcomingProjects,
+    upcomingLiveEvents,
+    firstUpcomingLiveEvent,
+  };
 }
 
 export function useProjectBySlug(slug: string) {
