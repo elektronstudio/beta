@@ -68,10 +68,10 @@ const event = useEventBySlug(event_slug);
           size="xs"
           el="a"
           color="transparent"
-          :href="event.liveRoute"
+          :href="event.live_url || event.liveRoute"
         >
           <IconArrowRight />
-          {{ l("View live event", "Vaata üritust") }}
+          {{ l("View event", "Vaata üritust") }}
         </EButton>
         <EButton
           v-if="event.userNeedsTicket && event.urgency !== 'past'"

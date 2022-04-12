@@ -37,6 +37,8 @@ type EventSchema = {
   //intro: string | null;
   intro_english: string | null;
   images: Image[] | null;
+  live: boolean | null;
+  live_url: string | null;
 };
 
 type EventComputed = {
@@ -83,7 +85,8 @@ export function processEvent(event: Event): Event {
   event.description = computed(() =>
     l(description_english, description_estonian),
   );
-
+  // TODO: Fix typings
+  //@ts-ignore
   event.details = event.details
     ? event.details.split("\n").map((item: any) => {
         const [key, value] = item.split(": ");
@@ -124,12 +127,6 @@ export function processEvent(event: Event): Event {
     liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
   };
 
-  // TODO When new live page is ahem, live
-  const liveUrl = replaceTokens(config.liveUrl as string, {
-    projectSlug: event.project.slug || "",
-    eventSlug: event.slug || "",
-  });
-
   const videostreams = event.streamkey
     ? processStreamkey(event.streamkey)
     : null;
@@ -148,7 +145,6 @@ export function processEvent(event: Event): Event {
     ...event,
     ...eventDates,
     ticketUrl,
-    liveUrl, // TODO Remove when live page is ready
     ...routes,
     videostreams,
     ticketableStatus,
