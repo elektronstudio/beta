@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Draggable } from "elektro";
-import { useEventBySlug, useUpdatingEventBySlug } from "@/utils";
-import { watch, computed } from "vue";
+import { useUpdatingEventBySlug } from "@/utils";
+import { computed } from "vue";
 import LiveView from "../../../../components/LiveView.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
