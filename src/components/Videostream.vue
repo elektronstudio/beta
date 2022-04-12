@@ -11,7 +11,7 @@ import IconEnterPip from "~icons/ph/picture-in-picture";
 import IconExitPip from "~icons/ph/picture-in-picture-fill";
 import { useFullscreen } from "@vueuse/core";
 import { useVideostream } from "elektro";
-import { usePip } from "@/utils";
+import { plausible, usePip } from "@/utils";
 
 type Props = {
   src: string;
@@ -19,7 +19,6 @@ type Props = {
 const { src } = defineProps<Props>();
 const { videoRef, width, height, status } = useVideostream(src);
 const { isPipAvailable, isPip, enterPip, exitPip } = usePip(videoRef);
-// TODO: move to a Draggable feature
 const videoWindowRef = ref<HTMLElement | null>(null);
 const {
   isFullscreen,
@@ -28,6 +27,16 @@ const {
 } = useFullscreen(videoWindowRef);
 
 const muted = ref(true);
+
+const trackedEnterPip = () => {
+  enterPip();
+  plausible.trackEvent("user_video_pip");
+};
+
+const trackedEnterFullscreen = () => {
+  enterFullscreen();
+  plausible.trackEvent("user_video_fullscreen");
+};
 </script>
 
 <template>
@@ -62,7 +71,7 @@ const muted = ref(true);
         v-if="status === 'playing' && isPipAvailable && !isPip"
         size="xs"
         color="transparent"
-        @click="enterPip"
+        @click="trackedEnterPip"
       >
         <IconEnterPip />
       </EButton>
@@ -79,7 +88,7 @@ const muted = ref(true);
         v-if="!isFullscreen"
         size="xs"
         color="transparent"
-        @click="enterFullscreen"
+        @click="trackedEnterFullscreen"
       >
         <IconEnterFullscreen />
       </EButton>

@@ -45,12 +45,15 @@ type EventComputed = {
   intro: Ref<string> | string | null;
   description: Ref<string>;
   ticketUrl: string | null;
+  // TODO: Remove when new live page is ahem, live
   liveUrl: string;
   projectRoute: string;
   route: string;
-  hiddenLiveRoute: string;
+  liveRoute: string;
   videostreams: ReturnType<typeof processStreamkey> | null;
   ticketableStatus: ReturnType<typeof getTicketableStatus>;
+  userHasLiveAccess: boolean;
+  userCanBuyTicket: boolean;
 } & ReturnType<typeof useRange>;
 
 export type Event = EventSchema & EventComputed;
@@ -107,9 +110,10 @@ export function processEvent(event: Event): Event {
   const routes = {
     projectRoute: `/projects/${event.project.slug}`,
     route: `/projects/${event.project.slug}/${event.slug}`,
-    hiddenLiveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
+    liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
   };
 
+  // TODO When new live page is ahem, live
   const liveUrl = replaceTokens(config.liveUrl as string, {
     projectSlug: event.project.slug || "",
     eventSlug: event.slug || "",
@@ -121,6 +125,14 @@ export function processEvent(event: Event): Event {
 
   const ticketableStatus = getTicketableStatus([event, event.project]);
 
+  const userHasLiveAccess =
+    ticketableStatus === "FREE" || ticketableStatus === "HAS_TICKET";
+
+  const userCanBuyTicket: boolean =
+    !!ticketUrl &&
+    ticketableStatus !== "HAS_TICKET" &&
+    eventDates?.urgency.value !== "past";
+
   return {
     ...event,
     ...eventDates,
@@ -129,5 +141,7 @@ export function processEvent(event: Event): Event {
     ...routes,
     videostreams,
     ticketableStatus,
+    userHasLiveAccess,
+    userCanBuyTicket,
   };
 }

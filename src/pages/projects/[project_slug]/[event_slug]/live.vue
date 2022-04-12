@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { Draggable } from "elektro";
 import { useEventBySlug } from "@/utils";
-import { computed } from "vue";
+import { watch, computed } from "vue";
 import LiveView from "../../../../components/LiveView.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 type Props = {
   project_slug: string;
   event_slug: string;
 };
+
 const { event_slug } = defineProps<Props>();
 const event = useEventBySlug(event_slug);
 
