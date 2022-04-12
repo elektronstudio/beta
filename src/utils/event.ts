@@ -50,6 +50,7 @@ type EventComputed = {
   projectRoute: string;
   route: string;
   liveRoute: string;
+  details: string | null;
   videostreams: ReturnType<typeof processStreamkey> | null;
   ticketableStatus: ReturnType<typeof getTicketableStatus>;
   userHasLiveAccess: boolean;
@@ -82,6 +83,16 @@ export function processEvent(event: Event): Event {
   event.description = computed(() =>
     l(description_english, description_estonian),
   );
+
+  event.details = event.details
+    ? event.details.split("\n").map((item: any) => {
+        const [key, value] = item.split(": ");
+        return {
+          detail: key,
+          value,
+        };
+      })
+    : null;
 
   // TODO: Handle missing values better
   const eventDates =
