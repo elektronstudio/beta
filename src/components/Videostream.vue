@@ -27,6 +27,7 @@ const {
 } = useFullscreen(videoWindowRef);
 
 const muted = ref(true);
+const volume = ref(0);
 
 const trackedEnterPip = () => {
   enterPip();
@@ -63,7 +64,14 @@ const trackedEnterFullscreen = () => {
         <IconMuted />
         Click to unmute
       </EButton>
-      <EButton v-else size="xs" color="transparent" @click="muted = !muted">
+      <EFormRange v-model="volume" :max="1" :step="any" />
+      {{ volume }}
+      <EButton
+        v-if="!muted"
+        size="xs"
+        color="transparent"
+        @click="muted = !muted"
+      >
         <IconUnmuted />
       </EButton>
 
