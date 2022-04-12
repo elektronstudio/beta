@@ -59,7 +59,7 @@ const event = useEventBySlug(event_slug);
       </EBox>
       <!-- TODO: Should it be a separate component? -->
       <EBox
-        v-if="event.ticketUrl || event.liveRoute"
+        v-if="event.ticketUrl || event.liveRoute || event.live_url"
         class="SideContent buttons"
         el="aside"
       >
@@ -68,7 +68,7 @@ const event = useEventBySlug(event_slug);
           size="xs"
           el="a"
           color="transparent"
-          :href="event.live_url || event.liveRoute"
+          :href="event.liveRoute || event.live_url"
         >
           <IconArrowRight />
           {{ l("View event", "Vaata üritust") }}
