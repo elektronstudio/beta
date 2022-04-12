@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useIdle } from "@vueuse/core";
+import { onMounted, watch } from "vue";
 import UserInfo from "./components/UserInfo.vue";
+import { useWindowSize } from "@vueuse/core";
 
 const navItems = [
   {
@@ -30,6 +32,18 @@ const navItems = [
 ];
 
 const { idle } = useIdle(3000); // 3 seconds idle
+const { height } = useWindowSize();
+
+watch(
+  height,
+  (newHeight) => {
+    document.documentElement.style.setProperty(
+      "--app-height",
+      `${newHeight}px`,
+    );
+  },
+  { immediate: true },
+);
 </script>
 <template>
   <main :class="{ idle: idle }">

@@ -84,7 +84,7 @@ const pinnedProject = computed(() => {
 }
 .videoWrapper {
   /* @TODO: Add global navbutton size variable for consistency */
-  height: calc(100vh - var(--h-9) * 2);
+  height: calc(var(--app-height, 100vh) - var(--h-9) * 2);
   overflow-y: auto;
   display: grid;
   place-content: center;
@@ -127,7 +127,7 @@ const pinnedProject = computed(() => {
     padding: var(--p-5);
   }
   .videoWrapper {
-    height: calc(100vh - var(--h-9));
+    height: calc(var(--app-height, 100vh) - var(--h-9));
   }
 }
 
