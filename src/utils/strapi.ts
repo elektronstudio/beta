@@ -73,7 +73,7 @@ export function useEventBySlug(slug: string) {
   return event;
 }
 
-const UPDATE_RATE = 1000 * 5; // 5 minutes
+const UPDATE_RATE = 1000 * 60 * 5; // 5 minutes
 
 export function useUpdatingEventBySlug(slug: string) {
   const event = ref<any>();
