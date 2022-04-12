@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useIdle } from "@vueuse/core";
+import { onMounted } from "vue";
 import UserInfo from "./components/UserInfo.vue";
 
 const navItems = [
@@ -30,6 +31,15 @@ const navItems = [
 ];
 
 const { idle } = useIdle(3000); // 3 seconds idle
+
+onMounted(() => {
+  const appHeight = () => {
+    const doc = document.documentElement;
+    doc.style.setProperty("--app-height", `${window.innerHeight}px`);
+  };
+  window.addEventListener("resize", appHeight);
+  appHeight();
+});
 </script>
 <template>
   <main :class="{ idle: idle }">

@@ -122,4 +122,7 @@ const draggableMaximised = computed(
     opacity: 0;
   }
 }
+.EBreadBoard {
+  height: var(--app-height, 100vh);
+}
 </style>
