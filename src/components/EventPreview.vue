@@ -4,31 +4,44 @@ import { l } from "@/utils";
 import IconCross1 from "~icons/radix-icons/cross-1";
 import EventButtons from "./EventButtons.vue";
 import IconArrowRight from "~icons/radix-icons/arrow-right";
+import { computed, ref } from "vue";
 
 type Props = {
   event: any;
+  dialogState: boolean;
   isEvent: boolean;
 };
 
 const { event, isEvent } = defineProps<Props>();
-
+// @TODO: Consider using more solid comparison for pinned event
+const label = computed(() => {
+  if (isEvent && event?.value?.urgency === "soon") {
+    return l("tulemas", "tulemas");
+  } else if (isEvent && event?.value?.urgency === "now") {
+    return l("live", "live");
+  } else {
+    return l("new", "uus");
+  }
+});
 const emit = defineEmits<{
-  (e: "closeModal"): void;
+  (e: "close-dialog"): void;
 }>();
 </script>
 <template>
-  <div class="ELivePreview" v-if="event">
-    <button class="closeButton" @click="emit('closeModal')">
-      <IconCross1 />
-    </button>
-
+  <EDialog
+    v-if="event"
+    class="ELivePreview"
+    :title="label"
+    :dialog-state="dialogState"
+    @close-dialog="emit('close-dialog')"
+  >
     <aside>
       <header>
-        <ETitle v-if="event.formattedDistance" el="h6" size="sm">
+        <ETitle v-if="isEvent && event.formattedDistance" el="h6" size="sm">
           {{ event.formattedDistance }}
         </ETitle>
         <ETitle el="h3">{{ event.title }}</ETitle>
-        <EContent :content="event.intro" />
+        <EContent :content="event.intro" el="div" />
       </header>
       <footer>
         <EventButtons v-if="isEvent" :event="event" />
@@ -51,21 +64,21 @@ const emit = defineEmits<{
       "
       :alt="event.images[0].alt"
     />
-  </div>
+  </EDialog>
 </template>
 
 <style scoped>
 .ELivePreview {
   position: relative;
-  display: flex;
-  flex-direction: column-reverse;
-  border: 1px solid var(--gray-500);
-  border-radius: var(--rounded-3xl);
   overflow: hidden;
-  z-index: 10;
   background-color: var(--bg);
   width: 100%;
   max-width: 40rem;
+}
+.ELivePreview :deep(article) {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
 }
 .ELivePreview .ETitle {
   margin-bottom: var(--m-3);
@@ -109,7 +122,7 @@ const emit = defineEmits<{
 }
 
 @media only screen and (min-width: 600px) {
-  .ELivePreview {
+  .ELivePreview :deep(article) {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }

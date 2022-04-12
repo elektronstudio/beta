@@ -4,7 +4,6 @@ import { ref } from "vue";
 import DraggableContent from "@/components/DraggableContent.vue";
 import IconArrowLeft from "~icons/radix-icons/arrow-left";
 import { computed } from "@vue/reactivity";
-import { useIdle } from "@vueuse/core";
 
 type Props = {
   data: Draggable[];
@@ -15,12 +14,10 @@ type Props = {
 const { data, event } = defineProps<Props>();
 
 const draggablesState = ref<Draggable[]>(data);
-const minimisedDraggables = ref<Draggable[]>([]);
 
 const { updateDraggablesDesktop, updateDraggablesMobile } = useLive({
   data,
   draggablesState,
-  minimisedDraggables,
 });
 
 const mobile = breakpoints.smaller("large");
@@ -28,22 +25,13 @@ const mobile = breakpoints.smaller("large");
 const draggableMaximised = computed(
   () => !!draggablesState.value.find((draggable) => draggable.isMaximised),
 );
-const { idle } = useIdle(3000); // 3 seconds idle
 </script>
 
 <template>
   <EBreadBoard>
-    <RouterLink v-if="event" :to="event.route">
-      <EButton
-        :class="{ idle: idle }"
-        class="backToEvent"
-        size="xs"
-        color="transparent"
-        el="a"
-      >
-        <IconArrowLeft />
-        Back to event
-      </EButton>
+    <RouterLink v-if="event" :to="event.route" class="backToEvent">
+      <IconArrowLeft />
+      Back to event
     </RouterLink>
     <template v-if="mobile">
       <template
@@ -82,16 +70,15 @@ const { idle } = useIdle(3000); // 3 seconds idle
 
     <EDraggablesDock
       v-if="mobile"
-      :idle="idle"
       :draggable-maximised="draggableMaximised"
-      :draggables="minimisedDraggables"
+      :draggables="draggablesState"
+      :mobile="mobile"
       @update-draggables="updateDraggablesMobile"
     />
     <EDraggablesDock
       v-else
-      :idle="idle"
       :draggable-maximised="draggableMaximised"
-      :draggables="minimisedDraggables"
+      :draggables="draggablesState"
       @update-draggables="updateDraggablesDesktop"
     />
   </EBreadBoard>
@@ -99,14 +86,27 @@ const { idle } = useIdle(3000); // 3 seconds idle
 
 <style scoped>
 .backToEvent {
-  z-index: 1000;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  z-index: 1;
+  display: flex;
+  align-items: center;
 }
+.backToEvent svg {
+  margin-right: var(--m-1);
+  width: 1em;
+  height: 1em;
+}
+
 @media only screen and (max-width: 899px) {
   .backToEvent {
     width: 100%;
     height: var(--h-6);
     background-color: var(--bg);
     border-bottom: 1px solid var(--gray-500);
+    padding-left: var(--p-2);
+    padding-right: var(--p-6);
   }
 }
 @media only screen and (min-width: 900px) {
@@ -116,8 +116,9 @@ const { idle } = useIdle(3000); // 3 seconds idle
     left: var(--p-2);
     opacity: 1;
     transition: opacity 0.3s ease-in-out;
+    color: var(--gray-300);
   }
-  .backToEvent.idle {
+  .idle .backToEvent {
     opacity: 0;
   }
 }

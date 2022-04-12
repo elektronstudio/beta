@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useIdle } from "@vueuse/core";
+import UserInfo from "./components/UserInfo.vue";
+
 const navItems = [
   {
     name_english: "Schedule",
@@ -25,13 +28,19 @@ const navItems = [
     path: "/podcast",
   },
 ];
+
+const { idle } = useIdle(3000); // 3 seconds idle
 </script>
 <template>
-  <Nav :navItems="navItems" />
-  <!-- Wrap into <Suspense> if you want to use -->
-  <!-- toplevel await it script setup -->
-  <Suspense>
-    <router-view :key="$route.fullPath" />
-  </Suspense>
-  <EWindowBorder />
+  <main :class="{ idle: idle }">
+    <Nav :navItems="navItems" />
+    <!-- Wrap into <Suspense> if you want to use -->
+    <!-- toplevel await it script setup -->
+    <Suspense>
+      <router-view :key="$route.fullPath" />
+    </Suspense>
+    <UserInfo />
+
+    <EWindowBorder />
+  </main>
 </template>
