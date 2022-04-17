@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useProjects } from "../utils";
+import { l, useProjects } from "../utils";
 
-const { firstUpcomingProject } = useProjects();
-const event = computed(() => firstUpcomingProject.value);
+const { firstUpcomingLiveEvent: event } = useProjects();
 // @TODO: Maybe this should come from elektro useDate
 const formattedDistance = computed(() =>
-  event.value?.urgency === "now" ? "LIVE NOW!" : event.value?.formattedDistance,
+  event.value?.urgency === "now"
+    ? l("LIVE NOW!", "LIVE")
+    : event.value?.formattedDistance,
 );
 </script>
 

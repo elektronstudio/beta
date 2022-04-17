@@ -46,7 +46,12 @@ const event = useEventBySlug(event_slug);
       <!-- TODO: Should it be a separate component? -->
 
       <div
-        v-if="event.ticketUrl || event.liveRoute || event.userCanBuyTicket"
+        v-if="
+          event.ticketUrl ||
+          event.liveRoute ||
+          event.userCanBuyTicket ||
+          event.live_url
+        "
         class="SideContent buttons"
         el="aside"
       >
@@ -68,10 +73,10 @@ const event = useEventBySlug(event_slug);
           size="sm"
           el="a"
           color="accent"
-          :href="event.liveRoute"
+          :href="event.liveRoute || event.live_url"
         >
           <IconArrowRight />
-          {{ l("View live event", "Vaata üritust") }}
+          {{ l("View event", "Vaata üritust") }}
         </EButton>
       </div>
     </header>
