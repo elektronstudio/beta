@@ -17,7 +17,7 @@ const { event } = defineProps<Props>();
     </EButton>
   </router-link>
   <EButton
-    v-if="event.userCanBuyTicket"
+    v-if="event.userCanBuyTicket && event.urgency !== 'past'"
     el="a"
     size="xs"
     color="accent"
@@ -26,5 +26,18 @@ const { event } = defineProps<Props>();
   >
     <IconArrowRight />
     {{ l("Get a ticket", "Osta pilet") }}
+  </EButton>
+  <EButton
+    v-else-if="
+      event.userHasLiveAccess &&
+      (event.urgency === 'now' || event.urgency === 'soon')
+    "
+    size="xs"
+    el="a"
+    color="accent"
+    :href="event.liveRoute"
+  >
+    <IconArrowRight />
+    {{ l("View live event", "Vaata üritust") }}
   </EButton>
 </template>

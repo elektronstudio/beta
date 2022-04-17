@@ -84,6 +84,7 @@ export function processEvent(event: Event): Event {
     l(description_english, description_estonian),
   );
 
+  // @TODO: Need stype fix
   event.details = event.details
     ? event.details.split("\n").map((item: any) => {
         const [key, value] = item.split(": ");
