@@ -141,9 +141,6 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   }
 }
 @media only screen and (min-width: 600px) {
-  .Nav {
-    /* border: var(--border-DEFAULT) solid var(--gray-500); */
-  }
   .homeButton {
     min-width: 8rem;
   }
@@ -174,15 +171,13 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
     grid-template-columns: repeat(var(--menu-items-count), 1fr);
     margin-left: calc(var(--border-DEFAULT) * -1);
   }
-  .menuItem {
-    width: var(--menu-item-width);
-  }
   .menu > .menuItem:not(:first-child) {
     margin-left: calc(var(--border-DEFAULT) * -1);
   }
   .languageSwitcher {
     margin-left: calc(var(--border-DEFAULT) * -1);
     margin-right: 0;
+    width: auto;
   }
   .homeButton {
     min-width: 10rem;
