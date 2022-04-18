@@ -17,14 +17,15 @@ const handleMute = () => {
 const pinnedEvent = "unusta";
 
 const dialogState = ref<boolean>(true);
-const { projects, firstUpcomingProject } = useProjects();
+const { projects, firstUpcomingLiveEvent } = useProjects();
 
+// TODO: Add this filter to project/event loader
 const upcomingEventSoon = computed(() => {
   if (
-    firstUpcomingProject?.value?.urgency === "soon" ||
-    firstUpcomingProject?.value?.urgency === "now"
+    firstUpcomingLiveEvent?.value?.urgency === "soon" ||
+    firstUpcomingLiveEvent?.value?.urgency === "now"
   ) {
-    return firstUpcomingProject.value;
+    return firstUpcomingLiveEvent.value;
   } else {
     return null;
   }
