@@ -43,39 +43,21 @@ const event = useEventBySlug(event_slug);
         size="lg"
         :content="event.intro"
       />
-    </header>
-    <EImageSlider v-if="event.images" :images="event.images" />
-    <main>
-      <EBox class="MainContent">
-        <!-- @TODO: Add metadata -->
-        <EDetailsList v-if="event.details" :details="event.details" />
-        <EContent :content="event.description" />
-      </EBox>
-      <EBox
-        v-if="event.upcomingEvents || event.press"
-        class="SideContent"
-        el="aside"
-      >
-      </EBox>
       <!-- TODO: Should it be a separate component? -->
-      <EBox
-        v-if="event.ticketUrl || event.liveRoute || event.live_url"
+
+      <div
+        v-if="
+          event.ticketUrl ||
+          event.liveRoute ||
+          event.userCanBuyTicket ||
+          event.live_url
+        "
         class="SideContent buttons"
         el="aside"
       >
         <EButton
-          v-if="event.userHasLiveAccess"
-          size="xs"
-          el="a"
-          color="transparent"
-          :href="event.liveRoute || event.live_url"
-        >
-          <IconArrowRight />
-          {{ l("View event", "Vaata üritust") }}
-        </EButton>
-        <EButton
-          v-if="event.userNeedsTicket && event.urgency !== 'past'"
-          size="xs"
+          v-if="event.userCanBuyTicket && event.urgency !== 'past'"
+          size="sm"
           el="a"
           color="accent"
           :href="event.ticketUrl"
@@ -83,6 +65,27 @@ const event = useEventBySlug(event_slug);
           <IconArrowRight />
           {{ l("Get ticket", "Osta pilet") }}
         </EButton>
+        <EButton
+          v-else-if="
+            event.userHasLiveAccess &&
+            (event.urgency === 'now' || event.urgency === 'soon')
+          "
+          size="sm"
+          el="a"
+          color="accent"
+          :href="event.liveRoute || event.live_url"
+        >
+          <IconArrowRight />
+          {{ l("View event", "Vaata üritust") }}
+        </EButton>
+      </div>
+    </header>
+    <EImageSlider v-if="event.images" :images="event.images" />
+    <main>
+      <EBox class="MainContent">
+        <!-- @TODO: Add metadata -->
+        <EDetailsList v-if="event.details" :details="event.details" />
+        <EContent :content="event.description" />
       </EBox>
     </main>
   </article>
@@ -102,7 +105,8 @@ const event = useEventBySlug(event_slug);
   grid-template-areas:
     "title"
     "subtitle"
-    "description";
+    "description"
+    "buttons";
 }
 .Page.SingleProduction main {
   align-content: start;
@@ -146,6 +150,7 @@ const event = useEventBySlug(event_slug);
   display: flex;
   align-items: flex-start;
   gap: var(--gap-5);
+  grid-area: buttons;
 }
 
 /* @TODO: Add breakpoints system */
@@ -161,8 +166,8 @@ const event = useEventBySlug(event_slug);
   }
   .Page.SingleProduction header {
     grid-template-areas:
-      "title description description description"
-      "subtitle description description description";
+      "title description description buttons"
+      "subtitle description description buttons";
   }
 
   .Page.SingleProduction main {
@@ -186,7 +191,7 @@ const event = useEventBySlug(event_slug);
   }
   .Page.SingleProduction header {
     grid-template-areas:
-      "title title description description description description . ."
+      "title title description description description description buttons buttons"
       "subtitle subtitle description description description description . .";
   }
   .Page.SingleProduction main {
