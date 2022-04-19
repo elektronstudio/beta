@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import Videostream from "./Videostream.vue";
-import Chat from "./Chat.vue";
+import { useStorage } from "@vueuse/core";
+import { randomString } from "elektro";
+import { randomName } from "@/utils";
 
 export type ContentType = "chat" | "text" | "image" | "video" | "event";
 
@@ -10,10 +12,17 @@ type Props = {
 };
 
 const { contentType, data } = defineProps<Props>();
+const userId = useStorage("elektron_user_id", randomString());
+const userName = useStorage("elektron_user_name", randomName());
 </script>
 <template>
   <!-- Chat draggable -->
-  <Chat v-if="data && contentType === 'chat'" :channel="data.channel" />
+  <EChat
+    v-if="contentType === 'chat'"
+    :channel="data.channel"
+    :userId="userId"
+    :userName="userName"
+  />
 
   <!-- Video draggable -->
   <Videostream v-else-if="data && contentType === 'video'" :src="data.src" />
