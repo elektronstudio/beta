@@ -57,7 +57,6 @@ const event = useEventBySlug(event_slug);
           v-if="event.userHasLiveAccess"
           size="sm"
           el="a"
-          color="transparent"
           :href="event.liveRoute || event.live_url"
         >
           <IconArrowRight />
