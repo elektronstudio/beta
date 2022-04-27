@@ -4,6 +4,7 @@ import { ref } from "vue";
 import DraggableContent from "@/components/DraggableContent.vue";
 import IconArrowLeft from "~icons/radix-icons/arrow-left";
 import { computed } from "@vue/reactivity";
+import { l } from "../utils";
 
 type Props = {
   data: Draggable[];
@@ -31,7 +32,7 @@ const draggableMaximised = computed(
   <EBreadBoard>
     <RouterLink v-if="event" :to="event.route" class="backToEvent">
       <IconArrowLeft />
-      Back to event
+      {{ l("Back to event", "Tagasi sündmuse juurde") }}
     </RouterLink>
     <template v-if="mobile">
       <template
