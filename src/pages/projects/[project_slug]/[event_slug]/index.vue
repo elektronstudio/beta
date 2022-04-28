@@ -57,13 +57,23 @@ const event = useEventBySlug(event_slug);
           v-if="event.userHasLiveAccess"
           size="sm"
           el="a"
+          :color="event.urgency === 'now' ? 'accent' : ''"
           :href="event.liveRoute || event.live_url"
         >
           <IconArrowRight />
-          {{ l("View event", "Vaata üritust") }}
+          <template v-if="event.urgency === 'now'">
+            {{ l("Live!", "Live!") }}
+          </template>
+          <template v-else-if="event.urgency === 'soon'">
+            {{ l("Event starts in: ", "Üritus algab: ") }}
+            {{ event.formattedDistance }}
+          </template>
+          <template v-else>
+            {{ l("View event", "Vaata üritust") }}
+          </template>
         </EButton>
         <EButton
-          v-else-if="event.userCanBuyTicket && event.urgency !== 'past'"
+          v-else-if="event.userCanBuyTicket"
           size="sm"
           el="a"
           color="accent"
@@ -149,6 +159,7 @@ const event = useEventBySlug(event_slug);
 .buttons {
   display: flex;
   align-items: flex-start;
+  justify-content: flex-end;
   gap: var(--gap-5);
   grid-area: buttons;
 }
