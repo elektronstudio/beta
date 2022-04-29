@@ -13,6 +13,7 @@ import {
   replaceTokens,
 } from ".";
 import type { Image } from ".";
+import { locale } from "./lang";
 
 // TODO: Unify optional data typings;
 type EventSchema = {
@@ -98,13 +99,16 @@ export function processEvent(event: Event): Event {
     : null;
 
   // TODO: Handle missing values better
-  const eventDates =
-    event.start_at && event.end_at
+  // TODO: This is not reactive.
+  const eventDates = computed(() => {
+    return event.start_at
       ? useRange(
           event.start_at ? new Date(event.start_at) : new Date(),
           event.end_at ? new Date(event.end_at) : new Date(),
+          locale.value,
         )
       : undefined;
+  });
 
   const fientaId = event.fienta_id
     ? event.fienta_id
@@ -139,11 +143,11 @@ export function processEvent(event: Event): Event {
   const userCanBuyTicket: boolean =
     !!ticketUrl &&
     ticketableStatus !== "HAS_TICKET" &&
-    eventDates?.urgency.value !== "past";
+    eventDates.value?.urgency.value !== "past";
 
   return {
     ...event,
-    ...eventDates,
+    ...eventDates.value,
     ticketUrl,
     ...routes,
     videostreams,
