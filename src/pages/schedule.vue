@@ -5,7 +5,7 @@ const { upcomingProjects } = useProjects();
 </script>
 
 <template>
-  <main class="Page Projects">
+  <main class="Page Schedule">
     <template
       v-if="upcomingProjects?.length > 0"
       v-for="project in upcomingProjects"
@@ -13,7 +13,12 @@ const { upcomingProjects } = useProjects();
       <EScheduleEvent :description="project.intro" :path="''">
         <template #title>
           <RouterLink :to="project.route">
-            <ETitle size="lg" :title="project.title" class="projectTitle" />
+            <ETitle
+              el="h2"
+              size="lg"
+              :title="project.title"
+              class="projectTitle"
+            />
           </RouterLink>
         </template>
         <EventCard
@@ -33,17 +38,16 @@ const { upcomingProjects } = useProjects();
 </template>
 
 <style scoped>
-.Page.Projects {
+.Page.Schedule {
   display: grid;
   grid-template-columns: 1fr;
   padding: var(--p-4);
 }
-.Page.Projects > section {
+.Page.Schedule > section {
   margin-bottom: var(--m-12);
 }
-
 .projectTitle {
-  margin-bottom: var(--m-2);
+  margin-bottom: var(--m-6);
 }
 .EscheduleEvent a {
   color: var(--gray-300);
@@ -53,16 +57,16 @@ const { upcomingProjects } = useProjects();
 }
 /* @TODO: Add breakpoints system */
 @media only screen and (min-width: 600px) {
-  .Page.Projects > section {
+  .Page.Schedule > * {
     grid-column: 4 / -1;
-    margin-bottom: var(--m-24);
+    margin-bottom: var(--m-16);
   }
 }
 @media only screen and (min-width: 1000px) {
-  .Page.Projects {
+  .Page.Schedule {
     grid-template-columns: repeat(8, 1fr);
   }
-  .Page.Projects > section {
+  .Page.Schedule > * {
     grid-column: 4 / -1;
   }
 }

@@ -19,7 +19,7 @@ const { event, projectThumbnail, layout = "horizontal" } = defineProps<Props>();
     </figure>
     <div class="content">
       <header>
-        <time v-if="event.start_at" :datetime="event.start_at">
+        <time v-if="event.live && event.start_at" :datetime="event.start_at">
           {{ event.formattedFromDatetime }}
         </time>
         <router-link :to="event.route">
@@ -40,6 +40,9 @@ const { event, projectThumbnail, layout = "horizontal" } = defineProps<Props>();
   display: flex;
   padding: var(--p-3) 0;
   border-top: 1px solid var(--gray-500);
+}
+.EventCard:last-child {
+  /* border-bottom: 1px solid var(--gray-500); */
 }
 
 .EventCard figure {

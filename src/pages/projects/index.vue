@@ -24,7 +24,8 @@ const archivedProjects = computed(() =>
             :title="project.title"
             :thumbnail="project.thumbnail"
             :next-event="
-              project.upcomingEvents && {
+              project.upcomingEvents &&
+              project.upcomingEvents[0].live && {
                 startAt: project.upcomingEvents[0].formattedFromDatetime,
               }
             "
