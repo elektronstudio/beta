@@ -43,13 +43,13 @@ const event = useEventBySlug(event_slug);
         size="lg"
         :content="event.intro"
       />
-
       <div
         v-if="
-          event.ticketUrl ||
-          event.liveRoute ||
-          event.live_url ||
-          event.userHasLiveAccess
+          event.live &&
+          (event.ticketUrl ||
+            event.liveRoute ||
+            event.live_url ||
+            event.userHasLiveAccess)
         "
         class="buttons"
       >
