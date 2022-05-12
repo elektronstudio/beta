@@ -55,6 +55,9 @@ const { upcomingProjects } = useProjects();
 .EscheduleEvent a:hover {
   color: var(--fg);
 }
+.Page.Schedule > * {
+  margin-bottom: var(--m-8);
+}
 /* @TODO: Add breakpoints system */
 @media only screen and (min-width: 600px) {
   .Page.Schedule > * {
