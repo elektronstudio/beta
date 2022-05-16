@@ -1,6 +1,5 @@
 export * from "./array";
 export * from "./config";
-export * from "./draggablechat";
 export * from "./event";
 export * from "./fienta";
 export * from "./image";
