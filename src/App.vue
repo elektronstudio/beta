@@ -3,6 +3,7 @@ import { useCssVar, useIdle } from "@vueuse/core";
 import { onMounted, watch } from "vue";
 import UserInfo from "./components/UserInfo.vue";
 import { useWindowSize } from "@vueuse/core";
+import Draggablechat from "./components/Draggablechat.vue";
 
 const navItems = [
   {
@@ -49,5 +50,6 @@ watch(height, (newHeight) => (appHeight.value = `${newHeight}px`), {
     <UserInfo />
 
     <EWindowBorder />
+    <Draggablechat />
   </main>
 </template>
