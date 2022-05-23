@@ -14,7 +14,7 @@ const handleMute = () => {
 };
 
 // @TODO: Get this value from Strapi
-const pinnedEvent = "unusta";
+const pinnedEvent = "kiirabiauto";
 
 const dialogState = ref<boolean>(true);
 const { projects, firstUpcomingLiveEvent } = useProjects();
