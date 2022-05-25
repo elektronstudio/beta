@@ -9,9 +9,11 @@ import IconExitFullscreen from "~icons/radix-icons/exit-full-screen";
 // Radix does not have PIP icons so we have to borrow them from Phospor set
 import IconEnterPip from "~icons/ph/picture-in-picture";
 import IconExitPip from "~icons/ph/picture-in-picture-fill";
-import { useFullscreen } from "@vueuse/core";
-import { useVideostream } from "elektro";
-import { plausible, usePip, stats } from "@/utils";
+import { debouncedWatch, useFullscreen } from "@vueuse/core";
+import { useMessage, useVideostream } from "elektro";
+import { plausible, usePip, stats, statsSynced } from "@/utils";
+
+const { sendMessage } = useMessage();
 
 type Props = {
   streamurl: any;
@@ -20,9 +22,28 @@ type Props = {
 };
 const { streamurl, streamkey } = defineProps<Props>();
 
-const viewers = computed(() =>
-  streamkey && stats.value[streamkey] ? stats.value[streamkey] : -1,
-);
+const viewers = computed(() => {
+  const stat = stats.value.find((s: any) => (s.streamkey = streamkey));
+  //@ts-ignore
+  return stat && stat.viewers ? stat.viewers : null;
+});
+
+const viewersSynced = computed(() => {
+  const stat = statsSynced.value.find((s: any) => (s.streamkey = streamkey));
+  //@ts-ignore
+  return stat && stat.viewers ? stat.viewers : null;
+});
+
+const sync = ref(1);
+const syncStat = () => {
+  sendMessage({
+    type: "STATS_SYNC",
+    channel: "",
+    value: { streamkey, sync: sync.value },
+  });
+};
+
+debouncedWatch(sync, () => syncStat(), { debounce: 100 });
 
 const { videoRef, width, height, status } = useVideostream(streamurl);
 const { isPipAvailable, isPip, enterPip, exitPip } = usePip(videoRef);
@@ -76,9 +97,21 @@ const trackedEnterFullscreen = () => {
         bottom: var(--p-4);
         left: var(--p-4);
         color: red;
+        display: flex;
       "
     >
-      Viewers: {{ viewers }}
+      <div style="width: 100px">Viewers: {{ viewers }}&emsp;x</div>
+      <div style="width: 180px">
+        <input
+          type="range"
+          v-model.number="sync"
+          min="-10"
+          max="10"
+          step="0.05"
+        />
+        {{ sync }}
+      </div>
+      = {{ viewersSynced }}
       <slot />
     </div>
     <div class="controls">

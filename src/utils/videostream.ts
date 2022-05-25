@@ -23,28 +23,40 @@ const formatStreamUrl = (streamkey = "") => {
   }
 };
 
-export const stats = ref<any>({});
-const statsSync = ref<any>({});
+export const stats = ref([]);
 
 function processStats(stats: any) {
-  return Object.fromEntries(
-    stats.map((s: any) => {
-      const key = formatStreamkey(s.group);
-      const sync = statsSync && statsSync[key] ? parseFloat(statsSync[key]) : 1;
-      return [key, parseFloat(s.count) * sync];
-    }),
-  );
+  return stats.map((s: any) => {
+    return {
+      streamkey: formatStreamkey(s.group),
+      viewers: parseFloat(s.count),
+    };
+  });
 }
+
+const statsSync = ref<any>({});
+
+export const statsSynced = computed(() => {
+  return stats.value.map((s: any) => {
+    console.log(s.streamkey, statsSync.value.streamkey);
+    const sync =
+      s.streamkey === statsSync.value.streamkey ? statsSync.value.sync : 1;
+    return {
+      streamkey: s.streamkey,
+      viewers: Math.max(0, Math.floor(s.viewers * sync)),
+    };
+  });
+});
 
 export function initStats() {
   const { ws } = useMessage();
   ws.addEventListener("message", ({ data }: any) => {
     const message = JSON.parse(data);
-    if (message.type === "STATS_SYNC") {
-      statsSync.value = message.value;
-    }
     if (message.type === "STATS") {
       stats.value = processStats(message.value);
+    }
+    if (message.type === "STATS_SYNC") {
+      statsSync.value = message.value;
     }
   });
 }
