@@ -1,5 +1,6 @@
 // TODO: Move to elektro
 
+import { safeJsonParse } from "elektro";
 import { Ref, ref } from "vue";
 import { config, replaceTokens, split } from ".";
 
@@ -21,7 +22,18 @@ const formatStreamUrl = (streamkey = "") => {
   }
 };
 
-export const processStreamkey = (streamkey = "") => {
+// export const stats = ref([]);
+
+// export function initStats() {
+//   ws.addEventListener("message", message: any) => {
+//     const message = safeJsonParse(data);
+//     if (message.type === "STATS") {
+//       stats.value = message.value;
+//     }
+//   });
+// }
+
+export function processStreamkey(streamkey = "") {
   const streamkeys = split(streamkey);
   return streamkeys.map(formatStreamkey).map((streamkey: string) => {
     // TODO: Support actual stats
@@ -32,7 +44,7 @@ export const processStreamkey = (streamkey = "") => {
       viewers,
     };
   });
-};
+}
 
 // TODO: Move to Elektro
 

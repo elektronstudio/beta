@@ -32,7 +32,9 @@ const data = computed(() =>
           hideTitleBarOnIdle: true,
           order: 0,
           data: {
-            src: stream?.value?.streamurl,
+            streamurl: stream?.value?.streamurl,
+            streamkey: stream?.value?.streamkey,
+            viewers: stream?.value?.viewers,
           },
         },
         {

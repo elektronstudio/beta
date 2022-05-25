@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // TODO: Move to elektro
 
-import { ref, watch } from "vue";
+import { Ref, ref, watch, watchEffect } from "vue";
 import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 import IconEnterFullscreen from "~icons/radix-icons/enter-full-screen";
@@ -14,10 +14,13 @@ import { useVideostream } from "elektro";
 import { plausible, usePip } from "@/utils";
 
 type Props = {
-  src: string;
+  streamurl: any;
+  streamkey: any;
+  viewers: any;
 };
-const { src } = defineProps<Props>();
-const { videoRef, width, height, status } = useVideostream(src);
+const { streamurl, streamkey, viewers } = defineProps<Props>();
+
+const { videoRef, width, height, status } = useVideostream(streamurl);
 const { isPipAvailable, isPip, enterPip, exitPip } = usePip(videoRef);
 const videoWindowRef = ref<HTMLElement | null>(null);
 const {
