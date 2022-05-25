@@ -8,7 +8,6 @@ import type { Message } from "elektro";
 import { useStorage } from "@vueuse/core";
 import { randomString, EFormTextArea } from "elektro";
 import { useMagicKeys } from "@vueuse/core";
-import { watch } from "fs";
 
 const { ws, sendMessage } = useMessage();
 
