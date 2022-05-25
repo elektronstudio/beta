@@ -1,7 +1,8 @@
 // TODO: Move to elektro
 
-import { safeJsonParse } from "elektro";
-import { Ref, ref } from "vue";
+import { computed, Ref, ref } from "vue";
+import { useMessage, safeJsonParse } from "elektro";
+import type { Message } from "elektro";
 import { config, replaceTokens, split } from ".";
 
 function formatStreamkey(streamkey = "") {
@@ -22,22 +23,39 @@ const formatStreamUrl = (streamkey = "") => {
   }
 };
 
-// export const stats = ref([]);
+export const stats = ref<any>({});
+const statsSync = ref<any>({});
 
-// export function initStats() {
-//   ws.addEventListener("message", message: any) => {
-//     const message = safeJsonParse(data);
-//     if (message.type === "STATS") {
-//       stats.value = message.value;
-//     }
-//   });
-// }
+function processStats(stats: any) {
+  return Object.fromEntries(
+    stats.map((s: any) => {
+      const key = formatStreamkey(s.group);
+      const sync = statsSync && statsSync[key] ? parseFloat(statsSync[key]) : 1;
+      return [key, parseFloat(s.count) * sync];
+    }),
+  );
+}
+
+export function initStats() {
+  const { ws } = useMessage();
+  ws.addEventListener("message", ({ data }: any) => {
+    const message = JSON.parse(data);
+    if (message.type === "STATS_SYNC") {
+      statsSync.value = message.value;
+    }
+    if (message.type === "STATS") {
+      stats.value = processStats(message.value);
+    }
+  });
+}
 
 export function processStreamkey(streamkey = "") {
   const streamkeys = split(streamkey);
   return streamkeys.map(formatStreamkey).map((streamkey: string) => {
-    // TODO: Support actual stats
-    const viewers = ref(0);
+    const viewers = computed(() => {
+      console.log(stats.value[streamkey] || null);
+      return stats.value[streamkey] || null;
+    });
     return {
       streamkey,
       streamurl: formatStreamUrl(streamkey),

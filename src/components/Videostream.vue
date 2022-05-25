@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // TODO: Move to elektro
 
-import { Ref, ref, watch, watchEffect } from "vue";
+import { computed, Ref, ref, watch, watchEffect } from "vue";
 import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 import IconEnterFullscreen from "~icons/radix-icons/enter-full-screen";
@@ -11,14 +11,18 @@ import IconEnterPip from "~icons/ph/picture-in-picture";
 import IconExitPip from "~icons/ph/picture-in-picture-fill";
 import { useFullscreen } from "@vueuse/core";
 import { useVideostream } from "elektro";
-import { plausible, usePip } from "@/utils";
+import { plausible, usePip, stats } from "@/utils";
 
 type Props = {
   streamurl: any;
   streamkey: any;
   viewers: any;
 };
-const { streamurl, streamkey, viewers } = defineProps<Props>();
+const { streamurl, streamkey } = defineProps<Props>();
+
+const viewers = computed(() =>
+  streamkey && stats.value[streamkey] ? stats.value[streamkey] : -1,
+);
 
 const { videoRef, width, height, status } = useVideostream(streamurl);
 const { isPipAvailable, isPip, enterPip, exitPip } = usePip(videoRef);
@@ -66,7 +70,15 @@ const trackedEnterFullscreen = () => {
       :height="height"
       style="width: 100%"
     />
-    <div style="position: absolute; bottom: var(--p-4); left: var(--p-4)">
+    <div
+      style="
+        position: absolute;
+        bottom: var(--p-4);
+        left: var(--p-4);
+        color: red;
+      "
+    >
+      Viewers: {{ viewers }}
       <slot />
     </div>
     <div class="controls">
