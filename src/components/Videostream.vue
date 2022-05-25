@@ -38,8 +38,8 @@ const sync = ref(1);
 const syncStat = () => {
   sendMessage({
     type: "STATS_SYNC",
-    channel: "",
-    value: { streamkey, sync: sync.value },
+    channel: "elektron",
+    value: `${streamkey}: ${sync.value}`,
   });
 };
 

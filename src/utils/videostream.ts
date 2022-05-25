@@ -38,7 +38,6 @@ const statsSync = ref<any>({});
 
 export const statsSynced = computed(() => {
   return stats.value.map((s: any) => {
-    console.log(s.streamkey, statsSync.value.streamkey);
     const sync =
       s.streamkey === statsSync.value.streamkey ? statsSync.value.sync : 1;
     return {
@@ -56,7 +55,9 @@ export function initStats() {
       stats.value = processStats(message.value);
     }
     if (message.type === "STATS_SYNC") {
-      statsSync.value = message.value;
+      const m = message.value.split(":").map((s) => s.trim());
+      statsSync.value = { streamkey: m[0], sync: parseFloat(m[1]) || 1 };
+      console.log(statsSync.value);
     }
   });
 }
