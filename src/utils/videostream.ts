@@ -46,12 +46,6 @@ const statsSync = ref<any>({});
 
 export const statsSynced = computed(() => {
   return stats.value.map((s: any) => {
-    console.log(
-      statsSync.value,
-      s.streamkey,
-      statsSync.value.streamkey,
-      s.streamkey === statsSync.value.streamkey,
-    );
     const sync =
       s.streamkey === statsSync.value.streamkey ? statsSync.value.sync : 1;
     return {
@@ -82,7 +76,6 @@ export function processStreamkey(streamkey = "") {
   const streamkeys = split(streamkey);
   return streamkeys.map(formatStreamkey).map((streamkey: string) => {
     const viewers = computed(() => {
-      console.log(stats.value[streamkey] || null);
       return stats.value[streamkey] || null;
     });
     return {
@@ -100,7 +93,6 @@ export function usePip(videoRef: Ref<HTMLVideoElement | null>) {
     typeof document !== undefined && "pictureInPictureEnabled" in document;
   const isPip = ref(false);
   const enterPip = () => {
-    console.log("enter");
     if (isPipAvailable && videoRef?.value) {
       videoRef.value
         .requestPictureInPicture()
