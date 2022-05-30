@@ -68,6 +68,8 @@ function useDraggableChat(
   } = useDraggable(userRef, {
     // TODO: Initialize with random values
     initialValue: userPosition.value,
+    onEnd: ({ x, y }) =>
+      (userPosition.value = { x: Math.floor(x), y: Math.floor(y) }),
   });
 
   const { width, height } = useWindowSize();
@@ -77,12 +79,8 @@ function useDraggableChat(
 
   const chat = ref("");
 
-  watch([x, y], () => {
-    userPosition.value = { x: x.value, y: y.value };
-  });
-
   debouncedWatch(
-    [x, y, chat],
+    [x, y, userMessage],
     () => {
       const message: Message = {
         channel,
@@ -92,7 +90,7 @@ function useDraggableChat(
         value: {
           x: x.value - center.value.x,
           y: y.value - center.value.y,
-          // chat: userMessage.value,
+          chat: userMessage.value,
         },
       };
       sendMessage(message);

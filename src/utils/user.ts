@@ -453,8 +453,8 @@ export function randomName() {
 
 export const userId = useStorage("elektron_user_id", randomString());
 export const userName = useStorage("elektron_user_name", randomName());
-export const userMessage = ref("");
-export const userPosition = ref({
+export const userMessage = useStorage("elektron_user_message", "");
+export const userPosition = useStorage("elektron_user_position", {
   x: 100,
   y: 100,
 });
