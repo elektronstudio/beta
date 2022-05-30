@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useCssVar, useIdle } from "@vueuse/core";
-import { onMounted, watch } from "vue";
+import { onMounted, watch, watchEffect } from "vue";
 import UserInfo from "./components/UserInfo.vue";
 import { useWindowSize } from "@vueuse/core";
 import Draggablechat from "./components/Draggablechat.vue";
+import { draggableChatState } from "@/utils";
+import DraggableChat2 from "./components/DraggableChat2.vue";
 
 const navItems = [
   {
@@ -38,6 +40,8 @@ const appHeight = useCssVar("--app-height");
 watch(height, (newHeight) => (appHeight.value = `${newHeight}px`), {
   immediate: true,
 });
+
+watchEffect(() => draggableChatState.value);
 </script>
 <template>
   <main :class="{ idle: idle }">
@@ -47,6 +51,6 @@ watch(height, (newHeight) => (appHeight.value = `${newHeight}px`), {
     </Suspense>
     <UserInfo />
     <EWindowBorder />
-    <!-- <DraggableChat /> -->
+    <DraggableChat2 />
   </main>
 </template>

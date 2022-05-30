@@ -1,14 +1,15 @@
 import { useStorage } from "@vueuse/core";
 import { randomString } from "elektro";
+import { ref } from "vue";
 import { any, randomInt } from ".";
 
-export const userId = useStorage("elektron_user_id", randomString());
-export const userName = useStorage("elektron_user_name", randomString());
-export const userMessage = useStorage("elektron_user_message", "");
-export const userPosition = useStorage("elektron_user_position", {
-  x: randomInt(-100, 100),
-  y: randomInt(-100, 100),
-});
+// export const userId = useStorage("elektron_user_id", randomString());
+// export const userName = useStorage("elektron_user_name", randomName());
+// export const userMessage = useStorage("elektron_user_message", "");
+// export const userPosition = useStorage("elektron_user_position", {
+//   x: randomInt(-100, 100),
+//   y: randomInt(-100, 100),
+// });
 
 export const adjectives = [
   "Active",
@@ -449,3 +450,11 @@ export const animals = [
 export function randomName() {
   return `${any(adjectives)} ${any(animals)}`;
 }
+
+export const userId = useStorage("elektron_user_id", randomString());
+export const userName = useStorage("elektron_user_name", randomName());
+export const userMessage = useStorage("elektron_user_message", "");
+export const userPosition = useStorage("elektron_user_position", {
+  x: 100,
+  y: 100,
+});
