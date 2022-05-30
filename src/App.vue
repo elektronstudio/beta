@@ -45,8 +45,8 @@ watch(height, (newHeight) => (appHeight.value = `${newHeight}px`), {
     <Suspense>
       <router-view :key="$route.fullPath" />
     </Suspense>
-    <UserInfo />
+    <!-- <UserInfo /> -->
     <EWindowBorder />
-    <DraggableChat />
+    <!-- <DraggableChat /> -->
   </main>
 </template>
