@@ -455,6 +455,6 @@ export const userId = ref(randomString());
 export const userName = ref(randomName());
 export const userMessage = ref("");
 export const userPosition = ref({
-  x: randomInt(-100, 100),
-  y: randomInt(-100, 100),
+  x: 100,
+  y: 100,
 });
