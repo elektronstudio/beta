@@ -159,7 +159,7 @@ const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
         "
         :style="{ opacity: draggableChatState ? 0.5 : 0.2 }"
       />
-      <!-- <div
+      <div
         style="pointer-events: none; user-select: none"
         :style="{ opacity: draggableChatState ? 1 : 0 }"
       >
@@ -167,7 +167,7 @@ const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
           {{ user.userName }}
         </div>
         <div style="opacity: 0.6">{{ user.chat }}</div>
-      </div> -->
+      </div>
     </div>
     <div
       ref="userRef"
