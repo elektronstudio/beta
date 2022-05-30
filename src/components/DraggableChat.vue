@@ -72,6 +72,10 @@ function useDraggableChat(
 
   const chat = ref("");
 
+  watch([x, y], () => {
+    userPosition.value = { x: x.value, y: y.value };
+  });
+
   debouncedWatch(
     [x, y, chat],
     () => {
@@ -87,7 +91,6 @@ function useDraggableChat(
         },
       };
       sendMessage(message);
-      userPosition.value = { x: x.value, y: y.value };
     },
     {
       immediate: true,
