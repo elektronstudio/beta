@@ -1,13 +1,10 @@
 <script setup lang="ts">
-// TODO: Move to elektro
-
-import { computed, Ref, ref, watchEffect } from "vue";
+import { computed, Ref, ref, watch } from "vue";
 import { debouncedWatch, useDraggable, useWindowSize } from "@vueuse/core";
-import { useMessage, safeJsonParse } from "elektro";
+import { useMessage, safeJsonParse, EFormTextArea } from "elektro";
 import type { Message } from "elektro";
-import { useStorage } from "@vueuse/core";
-import { randomString, EFormTextArea } from "elektro";
 import { useMagicKeys } from "@vueuse/core";
+import { userId, userName, userMessage, draggableChatState } from "@/utils";
 
 const { ws, sendMessage } = useMessage();
 
@@ -39,7 +36,7 @@ function useDraggableChat(
         userName: message.userName,
         x: message.value.x,
         y: message.value.y,
-        chat: message.value.chat,
+        chat: userMessage.value,
       };
       const existingUserIndex = users.value?.findIndex((u) => {
         return u.userId === user.userId;
@@ -81,7 +78,7 @@ function useDraggableChat(
         value: {
           x: x.value - center.value.x,
           y: y.value - center.value.y,
-          chat: chat.value,
+          chat: userMessage.value,
         },
       };
       sendMessage(message);
@@ -118,28 +115,20 @@ function useDraggableChat(
   };
 }
 
-// ---
-
-const userId = useStorage("elektron_user_id", randomString());
-const userName = useStorage("elektron_user_name", randomString());
-
 const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
   useDraggableChat("draggablechat", userId, userName);
 
-const enabled = ref(false);
-const { meta, shift, c } = useMagicKeys();
-watchEffect(() => {
-  if (shift.value && c.value) {
-    enabled.value = !enabled.value;
-  }
-});
+const active = ref(false);
+// @TODO desactivate on idle
+watch(draggableChatState, () => (active.value = draggableChatState.value));
 </script>
 
 <template>
-  <div v-if="enabled">
+  <div style="transition: opacity linear 0.2">
     <div
+      v-if="active"
       style="
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.75);
         position: fixed;
         top: 0;
         right: 0;
@@ -159,10 +148,13 @@ watchEffect(() => {
           background: white;
           border-radius: 10000px;
           flex-shrink: 0;
-          opacity: 0.5;
         "
+        :style="{ opacity: active ? 0.5 : 0.2 }"
       />
-      <div style="pointer-events: none; user-select: none">
+      <div
+        style="pointer-events: none; user-select: none"
+        :style="{ opacity: active ? 1 : 0 }"
+      >
         <div style="font-size: var(--text-xs); opacity: 0.3">
           {{ user.userName }}
         </div>
@@ -178,27 +170,18 @@ watchEffect(() => {
         style="
           width: 20px;
           height: 20px;
-          background: rgba(255, 0, 0, 0.7);
+          background: red;
           border-radius: 10000px;
           flex-shrink: 0;
         "
+        :style="{ opacity: active ? 1 : 0.2 }"
       />
-      <div>
+      <div :style="{ opacity: active ? 1 : 0 }">
         <div style="font-size: var(--text-xs); opacity: 0.5">
           {{ userName }}
         </div>
-        <div style="letter-spacing: 0.04em">{{ chat }}</div>
+        <div style="letter-spacing: 0.04em">{{ userMessage }}</div>
       </div>
-    </div>
-    <div
-      style="
-        position: fixed;
-        left: var(--p-4);
-        bottom: var(--p-4);
-        width: 300px;
-      "
-    >
-      <EFormTextArea v-model="chat" />
     </div>
   </div>
 </template>

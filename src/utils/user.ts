@@ -1,4 +1,10 @@
+import { useStorage } from "@vueuse/core";
+import { randomString } from "elektro";
 import { any } from ".";
+
+export const userId = useStorage("elektron_user_id", randomString());
+export const userName = useStorage("elektron_user_name", randomString());
+export const userMessage = useStorage("elektron_user_message", "");
 
 export const adjectives = [
   "Active",

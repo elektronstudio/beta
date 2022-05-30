@@ -1,33 +1,26 @@
 <script setup lang="ts">
-import { useStorage } from "@vueuse/core";
-import { randomName, l } from "@/utils";
-import { ref, watch } from "vue";
-
-const userName = useStorage("elektron_user_name", randomName());
-const setUserName = ref<string>(userName.value);
-const dialogState = ref<boolean>(false);
-
-watch(setUserName, (newName) => {
-  userName.value = newName;
-});
+import { l, userName, userMessage, draggableChatState } from "@/utils";
 </script>
 
 <template>
   <Transition name="dialog">
     <EDialog
-      v-if="dialogState"
+      v-if="draggableChatState"
       class="UserInfo"
-      :title="l('Your username', 'Sinu kasutajanimi')"
-      :dialog-state="dialogState"
-      @close-dialog="dialogState = false"
+      :title="l('Chat', 'Chat')"
+      :dialog-state="draggableChatState"
+      @close-dialog="draggableChatState = false"
     >
-      <EInput v-model="setUserName" />
+      <p style="font-size: 0.8em">Your name</p>
+      <EInput v-model="userName" />
+      <p style="font-size: 0.8em; margin-top: 0.5em">Your message</p>
+      <EInput v-model="userMessage" />
     </EDialog>
   </Transition>
   <EDraggableTitlebar
-    :title="userName"
+    :title="l('Chat', 'Chat')"
     class="userTab"
-    @click="dialogState = !dialogState"
+    @click="draggableChatState = !draggableChatState"
   >
     <span class="userIndicator" />
   </EDraggableTitlebar>

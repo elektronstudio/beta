@@ -42,14 +42,11 @@ watch(height, (newHeight) => (appHeight.value = `${newHeight}px`), {
 <template>
   <main :class="{ idle: idle }">
     <Nav :navItems="navItems" />
-    <!-- Wrap into <Suspense> if you want to use -->
-    <!-- toplevel await it script setup -->
     <Suspense>
       <router-view :key="$route.fullPath" />
     </Suspense>
     <UserInfo />
-
     <EWindowBorder />
-    <Draggablechat />
+    <DraggableChat />
   </main>
 </template>
