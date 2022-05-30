@@ -139,8 +139,10 @@ const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
 </script>
 
 <template>
-  <div v-if="draggableChatState">
+  <div>
     <div
+      v-if="draggableChatState"
+      :chat="{ chatActive: draggableChatState }"
       style="
         background: rgba(0, 0, 0, 0.75);
         position: fixed;
@@ -155,24 +157,16 @@ const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
       :style="otherUserStyle(user)"
       style="position: fixed; display: flex; gap: var(--gap-2); width: 200px"
     >
+      <div class="userIndicator" :class="{ chatActive: draggableChatState }" />
       <div
-        style="
-          width: 20px;
-          height: 20px;
-          background: white;
-          border-radius: 10000px;
-          flex-shrink: 0;
-        "
-        :style="{ opacity: draggableChatState ? 0.5 : 0.2 }"
-      />
-      <div
+        class="userContent"
         style="pointer-events: none; user-select: none"
         :style="{ opacity: draggableChatState ? 1 : 0 }"
       >
-        <div style="font-size: var(--text-xs); opacity: 0.3">
+        <span class="userName">
           {{ user.userName }}
-        </div>
-        <div style="opacity: 0.6">{{ user.chat }}</div>
+        </span>
+        <span>{{ user.chat }}</span>
       </div>
     </div>
     <div
@@ -187,20 +181,14 @@ const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
       "
     >
       <div
-        style="
-          width: 20px;
-          height: 20px;
-          background: red;
-          border-radius: 10000px;
-          flex-shrink: 0;
-        "
-        :style="{ opacity: draggableChatState ? 1 : 0.2 }"
+        class="userIndicator draggable"
+        :class="{ chatActive: draggableChatState }"
       />
-      <div :style="{ opacity: draggableChatState ? 1 : 0 }">
-        <div style="font-size: var(--text-xs); opacity: 0.5">
+      <div class="userContent" :style="{ opacity: draggableChatState ? 1 : 0 }">
+        <span class="userName">
           {{ userName }}
-        </div>
-        <div style="letter-spacing: 0.04em">{{ userMessage }}</div>
+        </span>
+        <span>{{ userMessage }}</span>
       </div>
     </div>
     <!-- <pre
@@ -217,3 +205,41 @@ const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
     </pre>-->
   </div>
 </template>
+
+<style scoped>
+.userIndicator {
+  width: var(--w-4);
+  height: var(--h-4);
+  flex-shrink: 0;
+  border-radius: 999999px;
+  background-color: var(--gray-300);
+}
+.userIndicator.chatActive {
+  pointer-events: none;
+}
+.userIndicator:not(.chatActive) {
+  /* filter: blur(5px);
+  opacity: 1;
+  transform: scale(2); */
+  background-color: transparent;
+  border: 1px solid var(--accent);
+}
+.userContent {
+  /* margin-top: -0.1em; */
+}
+.userContent span {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  display: block;
+}
+.userName {
+  color: var(--gray-300);
+}
+.userIndicator.draggable:not(.chatActive) {
+  pointer-events: none;
+}
+.userIndicator.draggable.chatActive {
+  background-color: var(--accent);
+}
+</style>

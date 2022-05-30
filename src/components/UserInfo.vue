@@ -1,25 +1,17 @@
 <script setup lang="ts">
 import { l, userName, userMessage, draggableChatState } from "@/utils";
 import { ref } from "vue";
-const show = ref(false);
 </script>
 
 <template>
   <Transition name="dialog">
     <EDialog
-      v-if="show"
+      v-if="draggableChatState"
       class="UserInfo"
       :title="l('Chat', 'Chat')"
-      :dialog-state="show"
-      @close-dialog="show = false"
+      :dialog-state="draggableChatState"
+      @close-dialog="draggableChatState = false"
     >
-      <EButton
-        size="xs"
-        color="accent"
-        @click="draggableChatState = !draggableChatState"
-      >
-        {{ draggableChatState ? "Disable chat" : "Enable chat" }}
-      </EButton>
       <p style="font-size: 0.8em">Your name</p>
       <EInput v-model="userName" />
       <p style="font-size: 0.8em; margin-top: 0.5em">Your message</p>
@@ -27,9 +19,9 @@ const show = ref(false);
     </EDialog>
   </Transition>
   <EDraggableTitlebar
-    :title="l('Chat', 'Chat')"
+    :title="userName"
     class="userTab"
-    @click="show = !show"
+    @click="draggableChatState = !draggableChatState"
   >
     <span class="userIndicator" />
   </EDraggableTitlebar>
@@ -72,8 +64,8 @@ const show = ref(false);
   transform: translateY(-50%);
   right: var(--gap-1);
   display: block;
-  width: var(--w-3);
-  height: var(--h-3);
+  width: var(--w-4);
+  height: var(--h-4);
   border-radius: var(--rounded-full);
   background-color: var(--accent);
 }
@@ -94,8 +86,8 @@ const show = ref(false);
 }
 
 @media only screen and (min-width: 900px) {
-  .idle .EDraggableTitlebar.userTab {
+  /* .idle .EDraggableTitlebar.userTab {
     transform: translateY(100%);
-  }
+  } */
 }
 </style>
