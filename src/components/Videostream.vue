@@ -35,16 +35,16 @@ const viewersSynced = computed(() => {
   return stat && stat.viewers ? stat.viewers : null;
 });
 
-// const sync = ref(1);
-// const syncStat = () => {
-//   sendMessage({
-//     type: "STATS_SYNC",
-//     channel: "elektron",
-//     value: `${streamkey}: ${sync.value}`,
-//   });
-// };
+const sync = ref(1);
+const syncStat = () => {
+  sendMessage({
+    type: "STATS_SYNC",
+    channel: "elektron",
+    value: `${streamkey}: ${sync.value}`,
+  });
+};
 
-// debouncedWatch(sync, () => syncStat(), { debounce: 100 });
+debouncedWatch(sync, () => syncStat(), { debounce: 100 });
 
 const { videoRef, width, height, status } = useVideostream(streamurl);
 const { isPipAvailable, isPip, enterPip, exitPip } = usePip(videoRef);
@@ -105,6 +105,7 @@ const trackedEnterFullscreen = () => {
       "
     >
       <IconViewers v-if="viewersSynced" />
+      <!-- <input style="background: black" v-model="sync" /> -->
       <div>{{ viewersSynced }}</div>
       <slot />
     </div>
