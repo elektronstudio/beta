@@ -27,7 +27,8 @@ type DraggableChatUser = {
   chat: string;
 };
 
-const UPDATE_RATE = 1000; // TODO: Make it a function of user count
+const UPDATE_RATE_BASE = 1000;
+const UPDATE_RATE_PER_USER = 200;
 const ANIMATION_RATE = 500;
 // https://cubic-bezier.com/#.48,.76,.78,.95
 const ANIMATION_EASING = "cubic-bezier(.48,.76,.78,.95)";
@@ -80,7 +81,15 @@ function useDraggableChat(
 
   const chat = ref("");
 
-  throttledWatch(
+  const otherUsers = computed(() =>
+    users.value.filter((u) => u.userId !== userId.value),
+  );
+
+  const debounce = computed(
+    () => UPDATE_RATE_BASE + users.value.length * UPDATE_RATE_PER_USER,
+  );
+
+  debouncedWatch(
     [x, y, userMessage],
     () => {
       const message: Message = {
@@ -98,12 +107,8 @@ function useDraggableChat(
     },
     {
       immediate: true,
-      throttle: UPDATE_RATE,
+      debounce: debounce.value,
     },
-  );
-
-  const otherUsers = computed(() =>
-    users.value.filter((u) => u.userId !== userId.value),
   );
 
   const otherUserStyle = (user: DraggableChatUser) => {
@@ -124,10 +129,11 @@ function useDraggableChat(
     otherUserStyle,
     chat,
     _users: users,
+    debounce,
   };
 }
 
-const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
+const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
   useDraggableChat("draggablechat", userId, userName);
 </script>
 
@@ -171,7 +177,13 @@ const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
     <div
       ref="userRef"
       :style="userStyle"
-      style="position: fixed; display: flex; gap: var(--gap-2); width: 200px"
+      style="
+        position: fixed;
+        display: flex;
+        gap: var(--gap-2);
+        width: 200px;
+        touch-action: none;
+      "
     >
       <div
         style="
@@ -190,10 +202,17 @@ const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
         <div style="letter-spacing: 0.04em">{{ userMessage }}</div>
       </div>
     </div>
-    <pre
-      style="position: fixed; top: 0; left: 0; pointer-events: none; opacity: 1"
+    <!-- <pre
+      style="
+        position: fixed;
+        top: 100px;
+        left: 0;
+        pointer-events: none;
+        opacity: 0.3;
+      "
     >
+      debounce: {{ debounce }}
       {{ otherUsers }}
-    </pre>
+    </pre>-->
   </div>
 </template>
