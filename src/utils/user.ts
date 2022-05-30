@@ -451,7 +451,7 @@ export function randomName() {
   return `${any(adjectives)} ${any(animals)}`;
 }
 
-export const userId = ref(randomString());
+export const userId = useStorage("elektron_user_id", randomString());
 export const userName = ref(randomName());
 export const userMessage = ref("");
 export const userPosition = ref({
