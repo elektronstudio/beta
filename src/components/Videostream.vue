@@ -24,27 +24,27 @@ type Props = {
 const { streamurl, streamkey } = defineProps<Props>();
 
 const viewers = computed(() => {
-  const stat = stats.value.find((s: any) => (s.streamkey = streamkey));
+  const stat = stats.value.find((s: any) => s.streamkey === streamkey);
   //@ts-ignore
   return stat && stat.viewers ? stat.viewers : null;
 });
 
 const viewersSynced = computed(() => {
-  const stat = statsSynced.value.find((s: any) => (s.streamkey = streamkey));
+  const stat = statsSynced.value.find((s: any) => s.streamkey === streamkey);
   //@ts-ignore
   return stat && stat.viewers ? stat.viewers : null;
 });
 
-const sync = ref(1);
-const syncStat = () => {
-  sendMessage({
-    type: "STATS_SYNC",
-    channel: "elektron",
-    value: `${streamkey}: ${sync.value}`,
-  });
-};
+// const sync = ref(1);
+// const syncStat = () => {
+//   sendMessage({
+//     type: "STATS_SYNC",
+//     channel: "elektron",
+//     value: `${streamkey}: ${sync.value}`,
+//   });
+// };
 
-debouncedWatch(sync, () => syncStat(), { debounce: 100 });
+// debouncedWatch(sync, () => syncStat(), { debounce: 100 });
 
 const { videoRef, width, height, status } = useVideostream(streamurl);
 const { isPipAvailable, isPip, enterPip, exitPip } = usePip(videoRef);
@@ -104,8 +104,8 @@ const trackedEnterFullscreen = () => {
         opacity: 0.5;
       "
     >
-      <IconViewers v-if="viewers" />
-      <div>{{ viewers }}</div>
+      <IconViewers v-if="viewersSynced" />
+      <div>{{ viewersSynced }}</div>
       <slot />
     </div>
     <div class="controls">
