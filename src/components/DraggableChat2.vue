@@ -54,7 +54,7 @@ function useDraggableChat(
       if (users.value && existingUserIndex > -1) {
         users.value[existingUserIndex] = user;
       } else {
-        users.value = [...users.value, user];
+        users.value.push(user);
       }
     }
   });
