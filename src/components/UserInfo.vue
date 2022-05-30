@@ -1,27 +1,26 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { l, userName, userMessage } from "@/utils";
-
-const dialogState = ref<boolean>(false);
+import { l, userName, userMessage, draggableChatState } from "@/utils";
 </script>
 
 <template>
   <Transition name="dialog">
     <EDialog
-      v-if="dialogState"
+      v-if="draggableChatState"
       class="UserInfo"
-      :title="l('Your username', 'Sinu kasutajanimi')"
-      :dialog-state="dialogState"
-      @close-dialog="dialogState = false"
+      :title="l('Chat', 'Chat')"
+      :dialog-state="draggableChatState"
+      @close-dialog="draggableChatState = false"
     >
+      <p style="font-size: 0.8em">Your name</p>
       <EInput v-model="userName" />
+      <p style="font-size: 0.8em; margin-top: 0.5em">Your message</p>
       <EInput v-model="userMessage" />
     </EDialog>
   </Transition>
   <EDraggableTitlebar
-    :title="userName"
+    :title="l('Chat', 'Chat')"
     class="userTab"
-    @click="dialogState = !dialogState"
+    @click="draggableChatState = !draggableChatState"
   >
     <span class="userIndicator" />
   </EDraggableTitlebar>

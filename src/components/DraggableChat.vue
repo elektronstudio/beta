@@ -1,12 +1,10 @@
 <script setup lang="ts">
-// TODO: Move to elektro
-
-import { computed, Ref, ref, watchEffect } from "vue";
+import { computed, Ref, ref, watch } from "vue";
 import { debouncedWatch, useDraggable, useWindowSize } from "@vueuse/core";
 import { useMessage, safeJsonParse, EFormTextArea } from "elektro";
 import type { Message } from "elektro";
 import { useMagicKeys } from "@vueuse/core";
-import { userId, userName, userMessage } from "@/utils";
+import { userId, userName, userMessage, draggableChatState } from "@/utils";
 
 const { ws, sendMessage } = useMessage();
 
@@ -120,28 +118,17 @@ function useDraggableChat(
 const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
   useDraggableChat("draggablechat", userId, userName);
 
-// @TODO: Remove then launch
-const enabled = ref(false);
-
-const active = ref(true);
-
-const { shift, a, c } = useMagicKeys();
-watchEffect(() => {
-  if (shift.value && c.value) {
-    enabled.value = !enabled.value;
-  }
-  if (shift.value && a.value) {
-    active.value = !active.value;
-  }
-});
+const active = ref(false);
+// @TODO desactivate on idle
+watch(draggableChatState, () => (active.value = draggableChatState.value));
 </script>
 
 <template>
-  <div v-if="enabled" style="transition: opacity linear 0.2">
+  <div style="transition: opacity linear 0.2">
     <div
       v-if="active"
       style="
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(0, 0, 0, 0.75);
         position: fixed;
         top: 0;
         right: 0;
@@ -162,7 +149,7 @@ watchEffect(() => {
           border-radius: 10000px;
           flex-shrink: 0;
         "
-        :style="{ opacity: active ? 0.5 : 0.1 }"
+        :style="{ opacity: active ? 0.5 : 0.2 }"
       />
       <div
         style="pointer-events: none; user-select: none"
