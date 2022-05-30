@@ -1,16 +1,25 @@
 <script setup lang="ts">
 import { l, userName, userMessage, draggableChatState } from "@/utils";
+import { ref } from "vue";
+const show = ref(false);
 </script>
 
 <template>
   <Transition name="dialog">
     <EDialog
-      v-if="draggableChatState"
+      v-if="show"
       class="UserInfo"
       :title="l('Chat', 'Chat')"
-      :dialog-state="draggableChatState"
-      @close-dialog="draggableChatState = false"
+      :dialog-state="show"
+      @close-dialog="show = false"
     >
+      <EButton
+        size="xs"
+        color="accent"
+        @click="draggableChatState = !draggableChatState"
+      >
+        Enable chat
+      </EButton>
       <p style="font-size: 0.8em">Your name</p>
       <EInput v-model="userName" />
       <p style="font-size: 0.8em; margin-top: 0.5em">Your message</p>
@@ -20,7 +29,7 @@ import { l, userName, userMessage, draggableChatState } from "@/utils";
   <EDraggableTitlebar
     :title="l('Chat', 'Chat')"
     class="userTab"
-    @click="draggableChatState = !draggableChatState"
+    @click="show = !show"
   >
     <span class="userIndicator" />
   </EDraggableTitlebar>
