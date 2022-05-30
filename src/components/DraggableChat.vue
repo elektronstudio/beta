@@ -7,7 +7,7 @@ import {
   userId,
   userName,
   userMessage,
-  userLocation,
+  userPosition,
   draggableChatState,
 } from "@/utils";
 
@@ -21,8 +21,8 @@ type DraggableChatUser = {
   chat: string;
 };
 
-const UPDATE_RATE = 1000; // TODO: Make it a function of user count
-const ANIMATION_RATE = 500;
+const UPDATE_RATE = 2000; // TODO: Make it a function of user count
+const ANIMATION_RATE = 1000;
 // https://cubic-bezier.com/#.48,.76,.78,.95
 const ANIMATION_EASING = "cubic-bezier(.48,.76,.78,.95)";
 
@@ -62,7 +62,7 @@ function useDraggableChat(
     style: userStyle,
   } = useDraggable(userRef, {
     // TODO: Initialize with random values
-    initialValue: { x: 100, y: 100 },
+    initialValue: userPosition.value,
   });
 
   const { width, height } = useWindowSize();
@@ -87,7 +87,7 @@ function useDraggableChat(
         },
       };
       sendMessage(message);
-      // TODO: Store user locaction locally?
+      userPosition.value = { x: x.value, y: y.value };
     },
     {
       immediate: true,
