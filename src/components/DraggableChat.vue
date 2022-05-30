@@ -2,6 +2,7 @@
 import { computed, Ref, ref, watch, watchEffect } from "vue";
 import {
   debouncedWatch,
+  throttledWatch,
   useDraggable,
   useWindowSize,
   useMagicKeys,
@@ -26,8 +27,9 @@ type DraggableChatUser = {
   chat: string;
 };
 
-const UPDATE_RATE = 2000; // TODO: Make it a function of user count
-const ANIMATION_RATE = 1000;
+const UPDATE_RATE_BASE = 1000;
+const UPDATE_RATE_PER_USER = 200;
+const ANIMATION_RATE = 500;
 // https://cubic-bezier.com/#.48,.76,.78,.95
 const ANIMATION_EASING = "cubic-bezier(.48,.76,.78,.95)";
 
@@ -54,7 +56,7 @@ function useDraggableChat(
       if (users.value && existingUserIndex > -1) {
         users.value[existingUserIndex] = user;
       } else {
-        users.value = [...users.value, user];
+        users.value.push(user);
       }
     }
   });
@@ -68,6 +70,9 @@ function useDraggableChat(
   } = useDraggable(userRef, {
     // TODO: Initialize with random values
     initialValue: userPosition.value,
+    preventDefault: true,
+    onEnd: ({ x, y }) =>
+      (userPosition.value = { x: Math.floor(x), y: Math.floor(y) }),
   });
 
   const { width, height } = useWindowSize();
@@ -77,12 +82,16 @@ function useDraggableChat(
 
   const chat = ref("");
 
-  watch([x, y], () => {
-    userPosition.value = { x: x.value, y: y.value };
-  });
+  const otherUsers = computed(() =>
+    users.value.filter((u) => u.userId !== userId.value),
+  );
+
+  const debounce = computed(
+    () => UPDATE_RATE_BASE + users.value.length * UPDATE_RATE_PER_USER,
+  );
 
   debouncedWatch(
-    [x, y, chat],
+    [x, y, userMessage],
     () => {
       const message: Message = {
         channel,
@@ -99,12 +108,8 @@ function useDraggableChat(
     },
     {
       immediate: true,
-      debounce: UPDATE_RATE,
+      debounce: debounce.value,
     },
-  );
-
-  const otherUsers = computed(() =>
-    users.value.filter((u) => u.userId !== userId.value),
   );
 
   const otherUserStyle = (user: DraggableChatUser) => {
@@ -125,29 +130,17 @@ function useDraggableChat(
     otherUserStyle,
     chat,
     _users: users,
+    debounce,
   };
 }
 
-const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
+const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
   useDraggableChat("draggablechat", userId, userName);
-
-const active = ref(false);
-// @TODO desactivate on idle
-watch(draggableChatState, () => (active.value = draggableChatState.value));
-
-const enabled = ref(false);
-const { shift, c } = useMagicKeys();
-watchEffect(() => {
-  if (shift.value && c.value) {
-    enabled.value = !enabled.value;
-  }
-});
 </script>
 
 <template>
-  <div v-if="enabled">
+  <div v-if="draggableChatState">
     <div
-      v-if="active"
       style="
         background: rgba(0, 0, 0, 0.75);
         position: fixed;
@@ -170,11 +163,11 @@ watchEffect(() => {
           border-radius: 10000px;
           flex-shrink: 0;
         "
-        :style="{ opacity: active ? 0.5 : 0.2 }"
+        :style="{ opacity: draggableChatState ? 0.5 : 0.2 }"
       />
       <div
         style="pointer-events: none; user-select: none"
-        :style="{ opacity: active ? 1 : 0 }"
+        :style="{ opacity: draggableChatState ? 1 : 0 }"
       >
         <div style="font-size: var(--text-xs); opacity: 0.3">
           {{ user.userName }}
@@ -185,7 +178,13 @@ watchEffect(() => {
     <div
       ref="userRef"
       :style="userStyle"
-      style="position: fixed; display: flex; gap: var(--gap-2); width: 200px"
+      style="
+        position: fixed;
+        display: flex;
+        gap: var(--gap-2);
+        width: 200px;
+        touch-action: none;
+      "
     >
       <div
         style="
@@ -195,14 +194,26 @@ watchEffect(() => {
           border-radius: 10000px;
           flex-shrink: 0;
         "
-        :style="{ opacity: active ? 1 : 0.2 }"
+        :style="{ opacity: draggableChatState ? 1 : 0.2 }"
       />
-      <div :style="{ opacity: active ? 1 : 0 }">
+      <div :style="{ opacity: draggableChatState ? 1 : 0 }">
         <div style="font-size: var(--text-xs); opacity: 0.5">
           {{ userName }}
         </div>
         <div style="letter-spacing: 0.04em">{{ userMessage }}</div>
       </div>
     </div>
+    <!-- <pre
+      style="
+        position: fixed;
+        top: 100px;
+        left: 0;
+        pointer-events: none;
+        opacity: 0.3;
+      "
+    >
+      debounce: {{ debounce }}
+      {{ otherUsers }}
+    </pre>-->
   </div>
 </template>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useStorage } from "@vueuse/core";
-import { randomString, newMessages } from "elektro";
-import { randomName, l, userId, userName } from "@/utils";
+import { newMessages } from "elektro";
+import { l, userId, userName } from "@/utils";
 import Videostream from "./Videostream.vue";
+import Chat from "./Chat.vue";
 
 export type ContentType = "chat" | "text" | "image" | "video" | "event";
 
@@ -23,7 +23,7 @@ const newMessagesString = computed(() => {
 </script>
 <template>
   <!-- Chat draggable -->
-  <EChat
+  <Chat
     v-if="contentType === 'chat'"
     :channel="data.channel"
     :userId="userId"

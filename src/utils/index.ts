@@ -1,4 +1,5 @@
 export * from "./array";
+export * from "./chat";
 export * from "./config";
 export * from "./event";
 export * from "./fienta";

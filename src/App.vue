@@ -5,7 +5,7 @@ import UserInfo from "./components/UserInfo.vue";
 import { useWindowSize } from "@vueuse/core";
 import Draggablechat from "./components/Draggablechat.vue";
 import { draggableChatState } from "@/utils";
-import DraggableChat2 from "./components/DraggableChat2.vue";
+import DraggableChat from "./components/DraggableChat.vue";
 
 const navItems = [
   {
@@ -51,6 +51,6 @@ watchEffect(() => draggableChatState.value);
     </Suspense>
     <UserInfo />
     <EWindowBorder />
-    <DraggableChat2 />
+    <DraggableChat />
   </main>
 </template>
