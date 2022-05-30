@@ -102,7 +102,7 @@ const pinnedProject = computed(() => {
   left: 0;
   /* @TODO: Add global gutter variables system for consistency */
   padding: var(--p-3);
-  z-index: 1;
+  z-index: 0; /* Changed from 1 */
   color: var(--gray-300);
   /* mix-blend-mode: difference; */
 }

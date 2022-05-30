@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { useCssVar, useIdle } from "@vueuse/core";
-import { onMounted, watch } from "vue";
+import { onMounted, watch, watchEffect } from "vue";
 import UserInfo from "./components/UserInfo.vue";
 import { useWindowSize } from "@vueuse/core";
+import Draggablechat from "./components/Draggablechat.vue";
+import { draggableChatState } from "@/utils";
+import DraggableChat from "./components/DraggableChat.vue";
 
 const navItems = [
   {
@@ -37,17 +40,17 @@ const appHeight = useCssVar("--app-height");
 watch(height, (newHeight) => (appHeight.value = `${newHeight}px`), {
   immediate: true,
 });
+
+watchEffect(() => draggableChatState.value);
 </script>
 <template>
   <main :class="{ idle: idle }">
     <Nav :navItems="navItems" />
-    <!-- Wrap into <Suspense> if you want to use -->
-    <!-- toplevel await it script setup -->
     <Suspense>
       <router-view :key="$route.fullPath" />
     </Suspense>
     <UserInfo />
-
     <EWindowBorder />
+    <DraggableChat />
   </main>
 </template>

@@ -52,7 +52,7 @@ const menuItemsLength = computed(() => (navItems ? navItems.length + 1 : 0));
   position: sticky;
   top: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 100; /* Changed from 100 */
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -53,6 +53,7 @@ const event = useEventBySlug(event_slug);
         "
         class="buttons"
       >
+        <!-- @TODO: event.liveRout needs to use router-link -->
         <EButton
           v-if="event.userHasLiveAccess"
           size="sm"

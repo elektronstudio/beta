@@ -1,33 +1,27 @@
 <script setup lang="ts">
-import { useStorage } from "@vueuse/core";
-import { randomName, l } from "@/utils";
-import { ref, watch } from "vue";
-
-const userName = useStorage("elektron_user_name", randomName());
-const setUserName = ref<string>(userName.value);
-const dialogState = ref<boolean>(false);
-
-watch(setUserName, (newName) => {
-  userName.value = newName;
-});
+import { l, userName, userMessage, draggableChatState } from "@/utils";
+import { ref } from "vue";
 </script>
 
 <template>
   <Transition name="dialog">
     <EDialog
-      v-if="dialogState"
+      v-if="draggableChatState"
       class="UserInfo"
-      :title="l('Your username', 'Sinu kasutajanimi')"
-      :dialog-state="dialogState"
-      @close-dialog="dialogState = false"
+      :title="l('Chat', 'Chat')"
+      :dialog-state="draggableChatState"
+      @close-dialog="draggableChatState = false"
     >
-      <EInput v-model="setUserName" />
+      <p style="font-size: 0.8em">Your name</p>
+      <EInput v-model="userName" />
+      <p style="font-size: 0.8em; margin-top: 0.5em">Your message</p>
+      <EInput v-model="userMessage" />
     </EDialog>
   </Transition>
   <EDraggableTitlebar
     :title="userName"
     class="userTab"
-    @click="dialogState = !dialogState"
+    @click="draggableChatState = !draggableChatState"
   >
     <span class="userIndicator" />
   </EDraggableTitlebar>
@@ -70,8 +64,8 @@ watch(setUserName, (newName) => {
   transform: translateY(-50%);
   right: var(--gap-1);
   display: block;
-  width: var(--w-3);
-  height: var(--h-3);
+  width: var(--w-4);
+  height: var(--h-4);
   border-radius: var(--rounded-full);
   background-color: var(--accent);
 }
@@ -92,8 +86,8 @@ watch(setUserName, (newName) => {
 }
 
 @media only screen and (min-width: 900px) {
-  .idle .EDraggableTitlebar.userTab {
+  /* .idle .EDraggableTitlebar.userTab {
     transform: translateY(100%);
-  }
+  } */
 }
 </style>

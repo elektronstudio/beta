@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { computed } from "vue";
+import { newMessages } from "elektro";
+import { l, userId, userName } from "@/utils";
 import Videostream from "./Videostream.vue";
-import { useStorage } from "@vueuse/core";
-import { randomString, newMessages } from "elektro";
-import { randomName, l } from "@/utils";
-import { computed } from "@vue/reactivity";
+import Chat from "./Chat.vue";
 
 export type ContentType = "chat" | "text" | "image" | "video" | "event";
 
@@ -13,8 +13,6 @@ type Props = {
 };
 
 const { contentType, data } = defineProps<Props>();
-const userId = useStorage("elektron_user_id", randomString());
-const userName = useStorage("elektron_user_name", randomName());
 const newMessagesString = computed(() => {
   if (newMessages.value > 1) {
     return l("new messages", "uut sõnumit");
@@ -25,7 +23,7 @@ const newMessagesString = computed(() => {
 </script>
 <template>
   <!-- Chat draggable -->
-  <EChat
+  <Chat
     v-if="contentType === 'chat'"
     :channel="data.channel"
     :userId="userId"
