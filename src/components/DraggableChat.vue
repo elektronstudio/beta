@@ -3,11 +3,10 @@
 
 import { computed, Ref, ref, watchEffect } from "vue";
 import { debouncedWatch, useDraggable, useWindowSize } from "@vueuse/core";
-import { useMessage, safeJsonParse } from "elektro";
+import { useMessage, safeJsonParse, EFormTextArea } from "elektro";
 import type { Message } from "elektro";
-import { useStorage } from "@vueuse/core";
-import { randomString, EFormTextArea } from "elektro";
 import { useMagicKeys } from "@vueuse/core";
+import { userId, userName, userMessage } from "@/utils";
 
 const { ws, sendMessage } = useMessage();
 
@@ -39,7 +38,7 @@ function useDraggableChat(
         userName: message.userName,
         x: message.value.x,
         y: message.value.y,
-        chat: message.value.chat,
+        chat: userMessage.value,
       };
       const existingUserIndex = users.value?.findIndex((u) => {
         return u.userId === user.userId;
@@ -81,7 +80,7 @@ function useDraggableChat(
         value: {
           x: x.value - center.value.x,
           y: y.value - center.value.y,
-          chat: chat.value,
+          chat: userMessage.value,
         },
       };
       sendMessage(message);
@@ -118,18 +117,13 @@ function useDraggableChat(
   };
 }
 
-// ---
-
-const userId = useStorage("elektron_user_id", randomString());
-const userName = useStorage("elektron_user_name", randomString());
-
 const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
   useDraggableChat("draggablechat", userId, userName);
 
 // @TODO: Remove then launch
 const enabled = ref(false);
 
-const active = ref(false);
+const active = ref(true);
 
 const { shift, a, c } = useMagicKeys();
 watchEffect(() => {
@@ -199,18 +193,8 @@ watchEffect(() => {
         <div style="font-size: var(--text-xs); opacity: 0.5">
           {{ userName }}
         </div>
-        <div style="letter-spacing: 0.04em">{{ chat }}</div>
+        <div style="letter-spacing: 0.04em">{{ userMessage }}</div>
       </div>
-    </div>
-    <div
-      style="
-        position: fixed;
-        left: var(--p-4);
-        bottom: var(--p-4);
-        width: 300px;
-      "
-    >
-      <EFormTextArea v-model="chat" />
     </div>
   </div>
 </template>

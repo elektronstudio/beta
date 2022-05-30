@@ -5,7 +5,7 @@ export * from "./fienta";
 export * from "./image";
 export * from "./lang";
 export * from "./markdown";
-export * from "./name";
+export * from "./user";
 export * from "./plausible";
 export * from "./podcast";
 export * from "./project";

@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import { useStorage } from "@vueuse/core";
-import { randomName, l } from "@/utils";
-import { ref, watch } from "vue";
+import { ref } from "vue";
+import { l, userName, userMessage } from "@/utils";
 
-const userName = useStorage("elektron_user_name", randomName());
-const setUserName = ref<string>(userName.value);
 const dialogState = ref<boolean>(false);
-
-watch(setUserName, (newName) => {
-  userName.value = newName;
-});
 </script>
 
 <template>
@@ -21,7 +14,8 @@ watch(setUserName, (newName) => {
       :dialog-state="dialogState"
       @close-dialog="dialogState = false"
     >
-      <EInput v-model="setUserName" />
+      <EInput v-model="userName" />
+      <EInput v-model="userMessage" />
     </EDialog>
   </Transition>
   <EDraggableTitlebar
