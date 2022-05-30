@@ -6,6 +6,7 @@ import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 import IconEnterFullscreen from "~icons/radix-icons/enter-full-screen";
 import IconExitFullscreen from "~icons/radix-icons/exit-full-screen";
+import IconViewers from "~icons/radix-icons/eye-open";
 // Radix does not have PIP icons so we have to borrow them from Phospor set
 import IconEnterPip from "~icons/ph/picture-in-picture";
 import IconExitPip from "~icons/ph/picture-in-picture-fill";
@@ -96,22 +97,15 @@ const trackedEnterFullscreen = () => {
         position: absolute;
         bottom: var(--p-4);
         left: var(--p-4);
-        color: red;
         display: flex;
+        gap: var(--gap-2);
+        align-items: center;
+        font-size: 0.8em;
+        opacity: 0.5;
       "
     >
-      <div style="width: 100px">Viewers: {{ viewers }}&emsp;x</div>
-      <div style="width: 180px">
-        <input
-          type="range"
-          v-model.number="sync"
-          min="-10"
-          max="10"
-          step="0.05"
-        />
-        {{ sync }}
-      </div>
-      = {{ viewersSynced }}
+      <IconViewers v-if="viewers" />
+      <div>{{ viewers }}</div>
       <slot />
     </div>
     <div class="controls">
