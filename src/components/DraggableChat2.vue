@@ -26,8 +26,8 @@ type DraggableChatUser = {
   chat: string;
 };
 
-const UPDATE_RATE = 2000; // TODO: Make it a function of user count
-const ANIMATION_RATE = 1000;
+const UPDATE_RATE = 1000; // TODO: Make it a function of user count
+const ANIMATION_RATE = 500;
 // https://cubic-bezier.com/#.48,.76,.78,.95
 const ANIMATION_EASING = "cubic-bezier(.48,.76,.78,.95)";
 
@@ -191,5 +191,10 @@ const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
         <div style="letter-spacing: 0.04em">{{ userMessage }}</div>
       </div>
     </div>
+    <pre
+      style="position: fixed; top: 0; left: 0; pointer-events: none; opacity: 1"
+    >
+      {{ otherUsers }}
+    </pre>
   </div>
 </template>
