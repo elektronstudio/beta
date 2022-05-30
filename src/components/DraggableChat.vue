@@ -129,10 +129,18 @@ const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
 const active = ref(false);
 // @TODO desactivate on idle
 watch(draggableChatState, () => (active.value = draggableChatState.value));
+
+const enabled = ref(false);
+const { shift, c } = useMagicKeys();
+watchEffect(() => {
+  if (shift.value && c.value) {
+    enabled.value = !enabled.value;
+  }
+});
 </script>
 
 <template>
-  <div style="transition: opacity linear 0.2">
+  <div v-if="enabled">
     <div
       v-if="active"
       style="
