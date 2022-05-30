@@ -2,6 +2,7 @@
 import { computed, Ref, ref, watch, watchEffect } from "vue";
 import {
   debouncedWatch,
+  throttledWatch,
   useDraggable,
   useWindowSize,
   useMagicKeys,
@@ -79,7 +80,7 @@ function useDraggableChat(
 
   const chat = ref("");
 
-  debouncedWatch(
+  throttledWatch(
     [x, y, userMessage],
     () => {
       const message: Message = {
@@ -97,7 +98,7 @@ function useDraggableChat(
     },
     {
       immediate: true,
-      debounce: UPDATE_RATE,
+      throttle: UPDATE_RATE,
     },
   );
 

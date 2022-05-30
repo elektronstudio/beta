@@ -18,7 +18,7 @@ const show = ref(false);
         color="accent"
         @click="draggableChatState = !draggableChatState"
       >
-        Enable chat
+        {{ draggableChatState ? "Disable chat" : "Enable chat" }}
       </EButton>
       <p style="font-size: 0.8em">Your name</p>
       <EInput v-model="userName" />
