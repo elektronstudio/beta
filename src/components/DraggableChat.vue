@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { computed, Ref, ref, watch } from "vue";
 import { debouncedWatch, useDraggable, useWindowSize } from "@vueuse/core";
-import { useMessage, safeJsonParse, EFormTextArea } from "elektro";
+import { useMessage, safeJsonParse } from "elektro";
 import type { Message } from "elektro";
-import { useMagicKeys } from "@vueuse/core";
-import { userId, userName, userMessage, draggableChatState } from "@/utils";
+import {
+  userId,
+  userName,
+  userMessage,
+  userLocation,
+  draggableChatState,
+} from "@/utils";
 
 const { ws, sendMessage } = useMessage();
 
@@ -16,8 +21,8 @@ type DraggableChatUser = {
   chat: string;
 };
 
-const UPDATE_RATE = 600; // TODO: Make it a function of user count
-const ANIMATION_RATE = 300;
+const UPDATE_RATE = 1000; // TODO: Make it a function of user count
+const ANIMATION_RATE = 500;
 // https://cubic-bezier.com/#.48,.76,.78,.95
 const ANIMATION_EASING = "cubic-bezier(.48,.76,.78,.95)";
 
@@ -36,7 +41,7 @@ function useDraggableChat(
         userName: message.userName,
         x: message.value.x,
         y: message.value.y,
-        chat: userMessage.value,
+        chat: message.value.chat,
       };
       const existingUserIndex = users.value?.findIndex((u) => {
         return u.userId === user.userId;
