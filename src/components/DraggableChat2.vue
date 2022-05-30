@@ -111,6 +111,10 @@ function useDraggableChat(
     },
   );
 
+  const otherUsers = computed(() =>
+    users.value.filter((u) => u.userId !== userId.value),
+  );
+
   const otherUserStyle = (user: DraggableChatUser) => {
     const x = user.x + center.value.x;
     const y = user.y + center.value.y;
@@ -213,6 +217,6 @@ const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
     >
       debounce: {{ debounce }}
       {{ otherUsers }}
-    </pre> -->
+    </pre>
   </div>
 </template>
