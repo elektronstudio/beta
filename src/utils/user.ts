@@ -11,14 +11,6 @@ import { any, randomInt } from ".";
 //   y: randomInt(-100, 100),
 // });
 
-export const userId = ref(randomString());
-export const userName = ref(randomName());
-export const userMessage = ref("");
-export const userPosition = ref({
-  x: randomInt(-100, 100),
-  y: randomInt(-100, 100),
-});
-
 export const adjectives = [
   "Active",
   "Adored",
@@ -458,3 +450,11 @@ export const animals = [
 export function randomName() {
   return `${any(adjectives)} ${any(animals)}`;
 }
+
+export const userId = ref(randomString());
+export const userName = ref(randomName());
+export const userMessage = ref("");
+export const userPosition = ref({
+  x: randomInt(-100, 100),
+  y: randomInt(-100, 100),
+});
