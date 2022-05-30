@@ -9,8 +9,6 @@ type Props = {
 
 const { channel, newMessagesString = "new message" } = defineProps<Props>();
 
-console.log("CHAT", userName);
-
 const {
   chatMessages,
   newChatMessage,
