@@ -4,7 +4,7 @@ import routes from "virtual:generated-pages";
 import App from "./App.vue";
 import "elektro/style.css";
 import { config } from "elektro";
-import { plausible } from "@/utils";
+import { initStats, plausible } from "@/utils";
 
 // TODO: Move to createConfig() function and unify with art config
 
@@ -16,6 +16,7 @@ config.fientaToken = import.meta.env.VITE_FIENTA_TOKEN as string;
 config.fientaTicketUrl = import.meta.env.VITE_FIENTA_TICKET_URL as string;
 
 plausible.enableAutoPageviews();
+initStats();
 
 const router = createRouter({
   history: createWebHistory(),
