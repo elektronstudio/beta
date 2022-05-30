@@ -126,20 +126,28 @@ const userName = useStorage("elektron_user_name", randomString());
 const { userRef, userStyle, otherUsers, otherUserStyle, chat } =
   useDraggableChat("draggablechat", userId, userName);
 
+// @TODO: Remove then launch
 const enabled = ref(false);
-const { meta, shift, c } = useMagicKeys();
+
+const active = ref(false);
+
+const { shift, a, c } = useMagicKeys();
 watchEffect(() => {
   if (shift.value && c.value) {
     enabled.value = !enabled.value;
+  }
+  if (shift.value && a.value) {
+    active.value = !active.value;
   }
 });
 </script>
 
 <template>
-  <div v-if="enabled">
+  <div v-if="enabled" style="transition: opacity linear 0.2">
     <div
+      v-if="active"
       style="
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.8);
         position: fixed;
         top: 0;
         right: 0;
@@ -159,10 +167,13 @@ watchEffect(() => {
           background: white;
           border-radius: 10000px;
           flex-shrink: 0;
-          opacity: 0.5;
         "
+        :style="{ opacity: active ? 0.5 : 0.1 }"
       />
-      <div style="pointer-events: none; user-select: none">
+      <div
+        style="pointer-events: none; user-select: none"
+        :style="{ opacity: active ? 1 : 0 }"
+      >
         <div style="font-size: var(--text-xs); opacity: 0.3">
           {{ user.userName }}
         </div>
@@ -178,12 +189,13 @@ watchEffect(() => {
         style="
           width: 20px;
           height: 20px;
-          background: rgba(255, 0, 0, 0.7);
+          background: red;
           border-radius: 10000px;
           flex-shrink: 0;
         "
+        :style="{ opacity: active ? 1 : 0.2 }"
       />
-      <div>
+      <div :style="{ opacity: active ? 1 : 0 }">
         <div style="font-size: var(--text-xs); opacity: 0.5">
           {{ userName }}
         </div>
