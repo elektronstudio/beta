@@ -1,5 +1,13 @@
 // TODO: Move to elektro
 
+const debounce = (fn: Function, ms = 300) => {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  return function (this: any, ...args: any[]) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+};
+
 import { computed, Ref, ref } from "vue";
 import { useMessage, safeJsonParse } from "elektro";
 import type { Message } from "elektro";
@@ -55,16 +63,19 @@ export const statsSynced = computed(() => {
 
 export function initStats() {
   const { ws } = useMessage();
-  ws.addEventListener("message", ({ data }: any) => {
-    const message = JSON.parse(data);
-    if (message.type === "STATS") {
-      stats.value = processStats(message.value);
-    }
-    if (message.type === "STATS_SYNC") {
-      const m = message.value.split(":").map((s) => s.trim());
-      statsSync.value = { streamkey: m[0], sync: parseFloat(m[1]) || 1 };
-    }
-  });
+  ws.addEventListener(
+    "message",
+    debounce(({ data }: any) => {
+      const message = JSON.parse(data);
+      if (message.type === "STATS") {
+        stats.value = processStats(message.value);
+      }
+      if (message.type === "STATS_SYNC") {
+        const m = message.value.split(":").map((s) => s.trim());
+        statsSync.value = { streamkey: m[0], sync: parseFloat(m[1]) || 1 };
+      }
+    }, 1000),
+  );
 }
 
 export function processStreamkey(streamkey = "") {
