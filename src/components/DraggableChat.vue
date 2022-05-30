@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import { computed, Ref, ref, watch } from "vue";
-import { debouncedWatch, useDraggable, useWindowSize } from "@vueuse/core";
+import { computed, Ref, ref, watch, watchEffect } from "vue";
+import {
+  debouncedWatch,
+  useDraggable,
+  useWindowSize,
+  useMagicKeys,
+} from "@vueuse/core";
 import { useMessage, safeJsonParse } from "elektro";
 import type { Message } from "elektro";
 import {
