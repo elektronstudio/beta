@@ -26,8 +26,8 @@ type DraggableChatUser = {
   chat: string;
 };
 
-const UPDATE_RATE = 2000; // TODO: Make it a function of user count
-const ANIMATION_RATE = 1000;
+const UPDATE_RATE = 4000; // TODO: Make it a function of user count
+const ANIMATION_RATE = 2000;
 // https://cubic-bezier.com/#.48,.76,.78,.95
 const ANIMATION_EASING = "cubic-bezier(.48,.76,.78,.95)";
 
@@ -135,7 +135,7 @@ const active = ref(false);
 // @TODO desactivate on idle
 watch(draggableChatState, () => (active.value = draggableChatState.value));
 
-const enabled = ref(false);
+const enabled = ref(true);
 const { shift, c } = useMagicKeys();
 watchEffect(() => {
   if (shift.value && c.value) {
@@ -146,7 +146,7 @@ watchEffect(() => {
 
 <template>
   <div v-if="enabled">
-    <div
+    <!-- <div
       v-if="active"
       style="
         background: rgba(0, 0, 0, 0.75);
@@ -156,7 +156,7 @@ watchEffect(() => {
         bottom: 0;
         left: 0;
       "
-    />
+    /> -->
     <div
       v-for="user in otherUsers"
       :style="otherUserStyle(user)"

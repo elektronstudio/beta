@@ -47,6 +47,6 @@ watch(height, (newHeight) => (appHeight.value = `${newHeight}px`), {
     </Suspense>
     <UserInfo />
     <EWindowBorder />
-    <!-- <DraggableChat /> -->
+    <DraggableChat />
   </main>
 </template>
