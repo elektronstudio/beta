@@ -177,7 +177,13 @@ const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
     <div
       ref="userRef"
       :style="userStyle"
-      style="position: fixed; display: flex; gap: var(--gap-2); width: 200px"
+      style="
+        position: fixed;
+        display: flex;
+        gap: var(--gap-2);
+        width: 200px;
+        touch-action: none;
+      "
     >
       <div
         style="
