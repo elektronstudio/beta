@@ -1,5 +1,13 @@
 // TODO: Move to elektro
 
+const debounce = (fn: Function, ms = 300) => {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  return function (this: any, ...args: any[]) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+};
+
 import { computed, Ref, ref } from "vue";
 import { useMessage, safeJsonParse } from "elektro";
 import type { Message } from "elektro";
@@ -38,12 +46,6 @@ const statsSync = ref<any>({});
 
 export const statsSynced = computed(() => {
   return stats.value.map((s: any) => {
-    console.log(
-      statsSync.value,
-      s.streamkey,
-      statsSync.value.streamkey,
-      s.streamkey === statsSync.value.streamkey,
-    );
     const sync =
       s.streamkey === statsSync.value.streamkey ? statsSync.value.sync : 1;
     return {
@@ -55,23 +57,25 @@ export const statsSynced = computed(() => {
 
 export function initStats() {
   const { ws } = useMessage();
-  ws.addEventListener("message", ({ data }: any) => {
-    const message = JSON.parse(data);
-    if (message.type === "STATS") {
-      stats.value = processStats(message.value);
-    }
-    if (message.type === "STATS_SYNC") {
-      const m = message.value.split(":").map((s) => s.trim());
-      statsSync.value = { streamkey: m[0], sync: parseFloat(m[1]) || 1 };
-    }
-  });
+  ws.addEventListener(
+    "message",
+    debounce(({ data }: any) => {
+      const message = JSON.parse(data);
+      if (message.type === "STATS") {
+        stats.value = processStats(message.value);
+      }
+      if (message.type === "STATS_SYNC") {
+        const m = message.value.split(":").map((s) => s.trim());
+        statsSync.value = { streamkey: m[0], sync: parseFloat(m[1]) || 1 };
+      }
+    }, 1000),
+  );
 }
 
 export function processStreamkey(streamkey = "") {
   const streamkeys = split(streamkey);
   return streamkeys.map(formatStreamkey).map((streamkey: string) => {
     const viewers = computed(() => {
-      console.log(stats.value[streamkey] || null);
       return stats.value[streamkey] || null;
     });
     return {
@@ -89,7 +93,6 @@ export function usePip(videoRef: Ref<HTMLVideoElement | null>) {
     typeof document !== undefined && "pictureInPictureEnabled" in document;
   const isPip = ref(false);
   const enterPip = () => {
-    console.log("enter");
     if (isPipAvailable && videoRef?.value) {
       videoRef.value
         .requestPictureInPicture()
