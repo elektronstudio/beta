@@ -32,7 +32,12 @@ const newMessagesString = computed(() => {
   />
 
   <!-- Video draggable -->
-  <Videostream v-else-if="data && contentType === 'video'" :src="data.src" />
+  <Videostream
+    v-else-if="data && contentType === 'video'"
+    :streamurl="data.streamurl"
+    :streamkey="data.streamkey"
+    :viewers="data.viewers"
+  />
 
   <!-- Event draggable -->
   <EStack
