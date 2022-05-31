@@ -16,6 +16,12 @@ import {
   userPosition,
   draggableChatState,
 } from "@/utils";
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
+const route = useRoute();
+
+console.log(router.currentRoute);
+console.log(route.name);
 
 const { ws, sendMessage } = useMessage();
 
@@ -139,10 +145,18 @@ const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
 </script>
 
 <template>
-  <div>
+  <div
+    class="DraggableChat"
+    :class="{
+      livePage: route.name === 'projects-project_slug-event_slug-live',
+      chatActive: draggableChatState,
+    }"
+  >
     <div
       v-if="draggableChatState"
-      :chat="{ chatActive: draggableChatState }"
+      :chat="{
+        chatActive: draggableChatState,
+      }"
       style="
         background: rgba(0, 0, 0, 0.75);
         position: fixed;
@@ -207,6 +221,13 @@ const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
 </template>
 
 <style scoped>
+.DraggableChat {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+.DraggableChat.livePage:not(.chatActive) {
+  opacity: 0;
+}
 .userIndicator {
   width: var(--w-4);
   height: var(--h-4);

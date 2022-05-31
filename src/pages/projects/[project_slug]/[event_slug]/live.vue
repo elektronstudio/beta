@@ -3,8 +3,6 @@ import { Draggable } from "elektro";
 import { useUpdatingEventBySlug } from "@/utils";
 import { computed } from "vue";
 import LiveView from "../../../../components/LiveView.vue";
-import { useRouter } from "vue-router";
-const router = useRouter();
 
 type Props = {
   project_slug: string;
