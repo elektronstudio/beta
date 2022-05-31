@@ -1,23 +1,52 @@
 <script setup lang="ts">
 // TODO: Move to elektro
 
-import { ref, watch } from "vue";
+import { computed, Ref, ref, watch, watchEffect } from "vue";
 import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 import IconEnterFullscreen from "~icons/radix-icons/enter-full-screen";
 import IconExitFullscreen from "~icons/radix-icons/exit-full-screen";
+import IconViewers from "~icons/radix-icons/eye-open";
 // Radix does not have PIP icons so we have to borrow them from Phospor set
 import IconEnterPip from "~icons/ph/picture-in-picture";
 import IconExitPip from "~icons/ph/picture-in-picture-fill";
-import { useFullscreen } from "@vueuse/core";
-import { useVideostream } from "elektro";
-import { plausible, usePip } from "@/utils";
+import { debouncedWatch, useFullscreen } from "@vueuse/core";
+import { useMessage, useVideostream } from "elektro";
+import { plausible, usePip, stats, statsSynced } from "@/utils";
+
+const { sendMessage } = useMessage();
 
 type Props = {
-  src: string;
+  streamurl: any;
+  streamkey: any;
+  viewers: any;
 };
-const { src } = defineProps<Props>();
-const { videoRef, width, height, status } = useVideostream(src);
+const { streamurl, streamkey } = defineProps<Props>();
+
+const viewers = computed(() => {
+  const stat = stats.value.find((s: any) => s.streamkey === streamkey);
+  //@ts-ignore
+  return stat && stat.viewers ? stat.viewers : null;
+});
+
+const viewersSynced = computed(() => {
+  const stat = statsSynced.value.find((s: any) => s.streamkey === streamkey);
+  //@ts-ignore
+  return stat && stat.viewers ? stat.viewers : null;
+});
+
+const sync = ref(1);
+const syncStat = () => {
+  sendMessage({
+    type: "STATS_SYNC",
+    channel: "elektron",
+    value: `${streamkey}: ${sync.value}`,
+  });
+};
+
+debouncedWatch(sync, () => syncStat(), { debounce: 100 });
+
+const { videoRef, width, height, status } = useVideostream(streamurl);
 const { isPipAvailable, isPip, enterPip, exitPip } = usePip(videoRef);
 const videoWindowRef = ref<HTMLElement | null>(null);
 const {
@@ -63,7 +92,21 @@ const trackedEnterFullscreen = () => {
       :height="height"
       style="width: 100%"
     />
-    <div style="position: absolute; bottom: var(--p-4); left: var(--p-4)">
+    <div
+      style="
+        position: absolute;
+        bottom: var(--p-4);
+        left: var(--p-4);
+        display: flex;
+        gap: var(--gap-2);
+        align-items: center;
+        font-size: 0.8em;
+        opacity: 0.5;
+      "
+    >
+      <IconViewers v-if="viewersSynced" />
+      <!-- <input style="background: black" v-model="sync" /> -->
+      <div>{{ viewersSynced }}</div>
       <slot />
     </div>
     <div class="controls">
