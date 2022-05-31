@@ -27,7 +27,7 @@ export function useChat(
   const onNewChatMessage = () => {
     if (newChatMessage.value) {
       sendMessage({
-        userId: userId,
+        userId: userId.value,
         userName: userName.value,
         type: sentMessageType || "CHAT",
         channel: channel,
@@ -49,14 +49,12 @@ export function useChat(
   const userScrolled = computed(() => !arrivedState.bottom);
 
   watch(arrivedState, (newValue) => {
-    console.log(arrivedState, newValue);
     if (newValue.bottom) {
       lastMessagesCount.value = chatMessages.value.length;
     }
   });
 
   watch([userScrolled, chatMessages], (newValue, oldValue) => {
-    console.log(newValue[0]);
     if (
       !newValue[0] ||
       (newValue[1].length > 1 &&

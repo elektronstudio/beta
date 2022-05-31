@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { scrollToBottom, useChat } from "elektro";
-import { userId, userName } from "@/utils";
+import { scrollToBottom } from "elektro";
+import { userId, userName, useChat } from "@/utils";
 
 type Props = {
   channel: string;
@@ -8,8 +8,6 @@ type Props = {
 };
 
 const { channel, newMessagesString = "new message" } = defineProps<Props>();
-
-console.log("CHAT", userName);
 
 const {
   chatMessages,
