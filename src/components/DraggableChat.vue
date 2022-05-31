@@ -6,6 +6,7 @@ import {
   useDraggable,
   useWindowSize,
   useMagicKeys,
+  useNow,
 } from "@vueuse/core";
 import { useMessage, safeJsonParse } from "elektro";
 import type { Message } from "elektro";
@@ -15,8 +16,10 @@ import {
   userMessage,
   userPosition,
   draggableChatState,
+  remap,
 } from "@/utils";
 import { useRouter, useRoute } from "vue-router";
+import { differenceInSeconds } from "date-fns";
 const router = useRouter();
 const route = useRoute();
 
@@ -31,12 +34,17 @@ type DraggableChatUser = {
   x: number;
   y: number;
   chat: string;
+  datetime: Date;
+  idle?: number | undefined;
+  opacity?: number | undefined;
 };
 
 const UPDATE_RATE_BASE = 1000;
 const UPDATE_RATE_PER_USER = 200;
+const USER_IDLE_LIMIT = 1000 * 60 * 5; // 5 min to fade out
+const USER_IDLE_UPDATE_RATE = 1000 * 5; // 10 sec for each idleness check
+
 const ANIMATION_RATE = 500;
-// https://cubic-bezier.com/#.48,.76,.78,.95
 const ANIMATION_EASING = "cubic-bezier(.48,.76,.78,.95)";
 
 function useDraggableChat(
@@ -55,6 +63,7 @@ function useDraggableChat(
         x: message.value.x,
         y: message.value.y,
         chat: message.value.chat,
+        datetime: message.datetime,
       };
       const existingUserIndex = users.value?.findIndex((u) => {
         return u.userId === user.userId;
@@ -88,8 +97,20 @@ function useDraggableChat(
 
   const chat = ref("");
 
+  const now = useNow({ interval: USER_IDLE_UPDATE_RATE });
+
   const otherUsers = computed(() =>
-    users.value.filter((u) => u.userId !== userId.value),
+    users.value
+      .map((u) => {
+        u.idle = differenceInSeconds(now.value, new Date(u.datetime));
+        u.opacity = remap(u.idle, 0, USER_IDLE_LIMIT / 1000, 1, 0);
+        return u;
+      }) //
+      .filter((u) => {
+        // TODO: Consider filtering out the idle ones
+        // u.idle >= (USER_IDLE_LIMIT / 1000)
+        return u.userId !== userId.value;
+      }),
   );
 
   const debounce = computed(
@@ -168,7 +189,7 @@ const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
     />
     <div
       v-for="user in otherUsers"
-      :style="otherUserStyle(user)"
+      :style="{ ...otherUserStyle(user), opacity: user.opacity }"
       style="position: fixed; display: flex; gap: var(--gap-2); width: 200px"
     >
       <div class="userIndicator" :class="{ chatActive: draggableChatState }" />
@@ -181,6 +202,8 @@ const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
           {{ user.userName }}
         </span>
         <span>{{ user.chat }}</span>
+        <!-- <span>Idle for: {{ user.idle }}s</span>
+        <span>Opacity: {{ user.opacity }}</span> -->
       </div>
     </div>
     <div
