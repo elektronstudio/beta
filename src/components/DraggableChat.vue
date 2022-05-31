@@ -41,8 +41,8 @@ type DraggableChatUser = {
 
 const UPDATE_RATE_BASE = 1000;
 const UPDATE_RATE_PER_USER = 200;
-const USER_IDLE_LIMIT = 1000 * 60 * 10; // 10 min to fade out
-const USER_IDLE_UPDATE_RATE = 1000 * 10; // 10 sec for each idleness check
+const USER_IDLE_LIMIT = 1000 * 60 * 5; // 5 min to fade out
+const USER_IDLE_UPDATE_RATE = 1000 * 5; // 10 sec for each idleness check
 
 const ANIMATION_RATE = 500;
 const ANIMATION_EASING = "cubic-bezier(.48,.76,.78,.95)";
@@ -103,7 +103,7 @@ function useDraggableChat(
     users.value
       .map((u) => {
         u.idle = differenceInSeconds(now.value, new Date(u.datetime));
-        u.opacity = remap(u.idle, 0, USER_IDLE_LIMIT, 1, 0);
+        u.opacity = remap(u.idle, 0, USER_IDLE_LIMIT / 1000, 1, 0);
         return u;
       }) //
       .filter((u) => {
@@ -202,8 +202,8 @@ const { debounce, userRef, userStyle, otherUsers, otherUserStyle, chat } =
           {{ user.userName }}
         </span>
         <span>{{ user.chat }}</span>
-        <span>Idle for: {{ user.idle }}s</span>
-        <span>Opacity: {{ user.opacity }}</span>
+        <!-- <span>Idle for: {{ user.idle }}s</span>
+        <span>Opacity: {{ user.opacity }}</span> -->
       </div>
     </div>
     <div
