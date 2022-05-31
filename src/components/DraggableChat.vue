@@ -105,8 +105,12 @@ function useDraggableChat(
         u.idle = differenceInSeconds(now.value, new Date(u.datetime));
         u.opacity = remap(u.idle, 0, USER_IDLE_LIMIT, 1, 0);
         return u;
-      })
-      .filter((u) => u.userId !== userId.value),
+      }) //
+      .filter((u) => {
+        // TODO: Consider filtering out the idle ones
+        // u.idle >= (USER_IDLE_LIMIT / 1000)
+        return u.userId !== userId.value;
+      }),
   );
 
   const debounce = computed(
