@@ -42,7 +42,7 @@ type DraggableChatUser = {
 const UPDATE_RATE_BASE = 1000;
 const UPDATE_RATE_PER_USER = 200;
 const USER_IDLE_LIMIT = 1000 * 60 * 5; // 5 min to fade out
-const USER_IDLE_UPDATE_RATE = 1000 * 5; // 10 sec for each idleness check
+const USER_IDLE_UPDATE_RATE = 1000 * 10; // 10 sec for each idleness check
 
 const ANIMATION_RATE = 500;
 const ANIMATION_EASING = "cubic-bezier(.48,.76,.78,.95)";
