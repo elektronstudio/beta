@@ -2,6 +2,7 @@
 import IconArrowLeft from "~icons/radix-icons/arrow-left";
 import IconArrowRight from "~icons/radix-icons/arrow-right";
 import { useEventBySlug, l } from "@/utils";
+import { computed } from "vue";
 
 type Props = {
   project_slug: string;
@@ -9,6 +10,18 @@ type Props = {
 };
 const { event_slug } = defineProps<Props>();
 const event = useEventBySlug(event_slug);
+
+const buttonText = computed(() => {
+  if (event.value.urgency === "now") {
+    return l("Live!", "Live!");
+  } else if (event.value.urgency === "soon") {
+    return `${l("Event starts in: ", "Üritus algab: ")} ${
+      event.value.formattedDistance
+    }`;
+  } else {
+    return l("View event", "Vaata üritust");
+  }
+});
 </script>
 
 <template>
@@ -55,24 +68,31 @@ const event = useEventBySlug(event_slug);
       >
         <!-- @TODO: event.liveRout needs to use router-link -->
         <EButton
-          v-if="event.userHasLiveAccess"
+          v-if="event.userHasLiveAccess && event.live_url"
           size="sm"
           el="a"
           :color="event.urgency === 'now' ? 'accent' : ''"
-          :href="event.liveRoute || event.live_url"
+          :href="event.live_url"
         >
           <IconArrowRight />
-          <template v-if="event.urgency === 'now'">
-            {{ l("Live!", "Live!") }}
-          </template>
-          <template v-else-if="event.urgency === 'soon'">
-            {{ l("Event starts in: ", "Üritus algab: ") }}
-            {{ event.formattedDistance }}
-          </template>
-          <template v-else>
-            {{ l("View event", "Vaata üritust") }}
-          </template>
+          {{ buttonText }}
         </EButton>
+        <router-link
+          v-else-if="event.userHasLiveAccess && event.liveRoute"
+          :to="event.liveRoute"
+          v-slot="{ href, navigate }"
+        >
+          <EButton
+            size="sm"
+            el="a"
+            :color="event.urgency === 'now' ? 'accent' : ''"
+            :href="href"
+            @click="navigate"
+          >
+            <IconArrowRight />
+            {{ buttonText }}
+          </EButton>
+        </router-link>
         <EButton
           v-else-if="event.userCanBuyTicket"
           size="sm"
