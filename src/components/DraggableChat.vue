@@ -23,9 +23,6 @@ import { differenceInSeconds } from "date-fns";
 const router = useRouter();
 const route = useRoute();
 
-console.log(router.currentRoute);
-console.log(route.name);
-
 const { ws, sendMessage } = useMessage();
 
 type DraggableChatUser = {
