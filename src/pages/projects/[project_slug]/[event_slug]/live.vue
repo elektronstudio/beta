@@ -71,14 +71,15 @@ const data = computed(() => {
       contentType: "controls",
       tilesWidth: 8,
       tilesHeight: 3,
-      gridPosX: 3,
-      gridPosY: 8,
+      gridPosX: 9,
+      gridPosY: 3,
       order: 3,
       data: {
         event: event,
       },
     });
   }
+  return d;
 });
 </script>
 

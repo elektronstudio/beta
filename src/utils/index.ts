@@ -13,5 +13,6 @@ export * from "./state";
 export * from "./strapi";
 export * from "./math";
 export * from "./string";
+export * from "./controls";
 export * from "./user";
 export * from "./videostream";
