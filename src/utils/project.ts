@@ -47,10 +47,22 @@ export function filterProject(project: any) {
 }
 
 export function processProject(project: Project): Project {
+  if (project.images.data) {
+    project.images = project.images.data.map((i) => i.attributes);
+  }
   project.images = project.images.filter(filterImage).map(processImage);
-  project.thumbnail = project.thumbnail
-    ? processImage(project.thumbnail)
-    : null;
+
+  if (project.thumbnail.data) {
+    project.thumbnail = project.thumbnail.data.attributes;
+  }
+  if (project.thumbnail) {
+    project.thumbnail = processImage(project.thumbnail);
+  } else if (project.images[0]) {
+    project.thumbnail = project.images[0];
+  }
+  if (project.thumbnail.data === null) {
+    project.thumbnail = null;
+  }
 
   const intro_english = formatMarkdown((project.intro_english as string) || "");
   const intro_estonian = formatMarkdown((project.intro as string) || "");
@@ -67,8 +79,10 @@ export function processProject(project: Project): Project {
     l(description_english, description_estonian),
   );
 
-  project.events = (project.events || [])
-    .map((event: any) => {
+  //@ts-ignore
+  project.events = (project.events?.data || [])
+    //@ts-ignore
+    .map(({ attributes: event }) => {
       // In some cases, we do not have event.project
       // data, for example when fetchng events from
       // project.events. In this case we provide subsset
@@ -111,6 +125,5 @@ export function processProject(project: Project): Project {
     : null;
 
   project.route = `/projects/${project.slug}`;
-
   return project;
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useProjects, l } from "@/utils";
 import { computed } from "vue";
+import ProductionCard from "@/components/ProductionCard.vue";
 
 const { projects } = useProjects();
 const upcomingProjects = computed(() =>
@@ -20,7 +21,7 @@ const archivedProjects = computed(() =>
     <div v-if="upcomingProjects.length > 0" class="projects">
       <template v-for="project in projects">
         <router-link v-if="!project.archived" :to="'/projects/' + project.slug">
-          <EProductionCard
+          <ProductionCard
             :title="project.title"
             :thumbnail="project.thumbnail"
             :next-event="
@@ -39,9 +40,9 @@ const archivedProjects = computed(() =>
     <div v-if="archivedProjects.length > 0" class="projects">
       <template v-for="project in projects">
         <router-link v-if="!project.archived" :to="project.route">
-          <EProductionCard
+          <ProductionCard
             :title="project.title"
-            :thumbnail="project.images[0]?.url"
+            :thumbnail="project.thumbnail"
           />
         </router-link>
       </template>

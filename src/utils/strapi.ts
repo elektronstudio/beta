@@ -9,9 +9,12 @@ export function useProjects() {
   const projects = ref<any>([]);
   // TODO use more of Strapi sorting and filtering
   $fetch(
-    `${config.strapiUrl}/festivals?_sort=created_at:DESC&_limit=-1&slug_nin=kohe2022&slug_nin=signal&slug_nin=other`,
+    `${config.strapiV4Url}/api/projects?_sort=created_at:DESC&_limit=-1&slug_nin=kohe2022&slug_nin=signal&slug_nin=other&populate=*`,
   ).then((f) => {
-    projects.value = f.sort(sortProject).map(processProject);
+    projects.value = f.data
+      .map((p) => p.attributes)
+      .sort(sortProject)
+      .map(processProject);
   });
 
   const upcomingProjects = computed(() => {
