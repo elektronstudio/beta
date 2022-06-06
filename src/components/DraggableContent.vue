@@ -4,8 +4,15 @@ import { newMessages } from "elektro";
 import { l, userId, userName } from "@/utils";
 import Videostream from "./Videostream.vue";
 import Chat from "./Chat.vue";
+import Controls from "./Controls.vue";
 
-export type ContentType = "chat" | "text" | "image" | "video" | "event";
+export type ContentType =
+  | "chat"
+  | "text"
+  | "image"
+  | "video"
+  | "event"
+  | "controls";
 
 type Props = {
   contentType: ContentType;
@@ -51,4 +58,6 @@ const newMessagesString = computed(() => {
     </template>
     <!-- TODO What about event.description? -->
   </EStack>
+
+  <Controls v-else-if="data && contentType === 'controls'" :data="data" />
 </template>

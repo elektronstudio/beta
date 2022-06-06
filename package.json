@@ -10,6 +10,7 @@
   "dependencies": {
     "@iconify-json/radix-icons": "^1.1.1",
     "@vueuse/core": "^8.5.0",
+    "d3-dsv": "^3.0.1",
     "date-fns": "^2.28.0",
     "elektro": "^0.0.62-beta.3",
     "marked": "^4.0.12",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.1",
+    "@types/d3-dsv": "^3.0.0",
     "@types/lodash.merge": "^4.6.6",
     "@types/marked": "^4.0.2",
     "@types/node": "^17.0.21",
