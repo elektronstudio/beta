@@ -47,12 +47,12 @@ export function filterProject(project: any) {
 }
 
 export function processProject(project: Project): Project {
-  if (project.images.data) {
+  if (project.images?.data) {
     project.images = project.images.data.map((i) => i.attributes);
   }
   project.images = project.images.filter(filterImage).map(processImage);
 
-  if (project.thumbnail.data) {
+  if (project.thumbnail?.data) {
     project.thumbnail = project.thumbnail.data.attributes;
   }
   if (project.thumbnail) {

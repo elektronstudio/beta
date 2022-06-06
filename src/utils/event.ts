@@ -69,9 +69,22 @@ export function sortEvents(a: Event, b: Event) {
 }
 
 export function processEvent(event: Event): Event {
+  if (event.images.data == null) {
+    event.images = null;
+  } else if (event.images.data) {
+    event.images = event.images.data.map((e) => e.attributes);
+  }
+
   event.images = event.images
     ? event.images.filter(filterImage).map(processImage)
     : null;
+
+  if (event.thumbnail.data == null) {
+    event.thumbnail = null;
+  } else if (event.thumbnail.data) {
+    event.thumbnail = event.thumbnail.data.attributes;
+  }
+
   event.thumbnail = event.thumbnail ? processImage(event.thumbnail) : null;
 
   const intro_english = formatMarkdown(event.intro_english || "");

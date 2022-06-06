@@ -1,6 +1,7 @@
 import { computed, ref } from "vue";
 import { $fetch } from "ohmyfetch";
 import merge from "lodash.merge";
+import qs from "qs";
 
 import {
   config,
@@ -16,9 +17,26 @@ import { useIntervalFn } from "@vueuse/core";
 export function useProjects() {
   const projects = ref<any>([]);
   // TODO use more of Strapi sorting and filtering
-  $fetch(
-    `${config.strapiV4Url}/api/projects?sort[0]=createdAt%3Adesc&_limit=-1&populate=*`,
-  ).then((f) => {
+  const q = qs.stringify(
+    {
+      populate: [
+        "images",
+        "thumbnail",
+        "events",
+        "events.images",
+        "events.thumbnail",
+      ],
+      sort: ["createdAt:desc"],
+      pagination: { limit: -1 },
+    },
+    {
+      encodeValuesOnly: true,
+    },
+  );
+
+  const url = `${config.strapiV4Url}/api/projects?${q}`;
+
+  $fetch(url).then((f) => {
     projects.value = f.data
       .map((p) => p.attributes)
       .sort(sortProject)
@@ -103,13 +121,15 @@ export function useUpdatingEventBySlug(slug: string) {
   useIntervalFn(
     () => {
       // TODO: Avoid fetch code duplication
-      $fetch(`${config.strapiUrl}/events?slug=${slug}`).then((res) => {
-        event.value = processEvent({
-          ...res[0],
-          project: processProject(res[0].festival),
-          festival: null,
-        });
-      });
+      $fetch(`${config.strapiUrl}/events?slug=${slug}&populate=*`).then(
+        (res) => {
+          event.value = processEvent({
+            ...res[0],
+            project: processProject(res[0].festival),
+            festival: null,
+          });
+        },
+      );
     },
     UPDATE_RATE,
     { immediateCallback: true },
@@ -119,9 +139,9 @@ export function useUpdatingEventBySlug(slug: string) {
 
 // TODO: Rearchitect to use reactive data
 export async function getPodcast() {
-  return await $fetch(`${config.strapiUrl}/festivals?slug=signal`).then(
-    (f) => f.map(processProject)[0],
-  );
+  return await $fetch(
+    `${config.strapiUrl}/festivals?slug=signal&populate=*`,
+  ).then((f) => f.map(processProject)[0]);
 }
 
 export function useAboutPage() {
