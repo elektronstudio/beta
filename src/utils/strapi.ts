@@ -95,21 +95,49 @@ export function useProjects() {
 
 export function useProjectBySlug(slug: string) {
   const project = ref<any>();
-  $fetch(`${config.strapiUrl}/festivals?slug=${slug}`).then(
-    (f) => (project.value = f.map(processProject)[0]),
+
+  const q = qs.stringify(
+    {
+      filters: {
+        slug: { $eq: slug },
+      },
+      populate: [
+        "images",
+        "thumbnail",
+        "events",
+        "events.images",
+        "events.thumbnail",
+      ],
+    },
+    {
+      encodeValuesOnly: true,
+    },
   );
+  const url = `${config.strapiV4Url}/api/projects?${q}`;
+  $fetch(url).then((res) => {
+    project.value = processProject(res.data[0].attributes);
+  });
   return project;
 }
 
 export function useEventBySlug(slug: string) {
   const event = ref<any>();
-  $fetch(`${config.strapiUrl}/events?slug=${slug}`).then((res) => {
-    // TODO: Remove it when migrating data to v4
-    event.value = processEvent({
-      ...res[0],
-      project: processProject(res[0].festival),
-      festival: null,
-    });
+
+  const q = qs.stringify(
+    {
+      filters: {
+        slug: { $eq: slug },
+      },
+      populate: ["images", "thumbnail", "projects"],
+    },
+    {
+      encodeValuesOnly: true,
+    },
+  );
+  const url = `${config.strapiV4Url}/api/events?${q}`;
+
+  $fetch(url).then((res) => {
+    event.value = processEvent(res.data[0].attributes);
   });
   return event;
 }
@@ -121,15 +149,23 @@ export function useUpdatingEventBySlug(slug: string) {
   useIntervalFn(
     () => {
       // TODO: Avoid fetch code duplication
-      $fetch(`${config.strapiUrl}/events?slug=${slug}&populate=*`).then(
-        (res) => {
-          event.value = processEvent({
-            ...res[0],
-            project: processProject(res[0].festival),
-            festival: null,
-          });
+      const q = qs.stringify(
+        {
+          filters: {
+            slug: { $eq: slug },
+          },
+          populate: ["images", "thumbnail", "projects"],
+        },
+        {
+          encodeValuesOnly: true,
         },
       );
+      const event = ref<any>();
+      const url = `${config.strapiV4Url}/api/events?${q}`;
+
+      $fetch(url).then((res) => {
+        event.value = processEvent(res.data[0].attributes);
+      });
     },
     UPDATE_RATE,
     { immediateCallback: true },

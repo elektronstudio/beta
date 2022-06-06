@@ -69,7 +69,7 @@ export function sortEvents(a: Event, b: Event) {
 }
 
 export function processEvent(event: Event): Event {
-  if (event.images.data == null) {
+  if (event.images?.data == null) {
     event.images = null;
   } else if (event.images.data) {
     event.images = event.images.data.map((e) => e.attributes);
@@ -79,7 +79,7 @@ export function processEvent(event: Event): Event {
     ? event.images.filter(filterImage).map(processImage)
     : null;
 
-  if (event.thumbnail.data == null) {
+  if (event.thumbnail?.data == null) {
     event.thumbnail = null;
   } else if (event.thumbnail.data) {
     event.thumbnail = event.thumbnail.data.attributes;
@@ -118,10 +118,12 @@ export function processEvent(event: Event): Event {
       )
     : undefined;
 
+  const project = event.projects ? event.projects.data[0].attributes : null;
+
   const fientaId = event.fienta_id
     ? event.fienta_id
-    : event.project.fienta_id
-    ? event.project.fienta_id
+    : project?.fienta_id
+    ? project.fienta_id
     : null;
 
   let ticketUrl = null;
@@ -134,33 +136,41 @@ export function processEvent(event: Event): Event {
   }
 
   const routes = {
-    projectRoute: `/projects/${event.project.slug}`,
-    route: `/projects/${event.project.slug}/${event.slug}`,
-    liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
+    projectRoute: `/projects/${project?.slug}`,
+    route: `/projects/${project?.slug}/${event.slug}`,
+    liveRoute: `/projects/${project?.slug}/${event.slug}/live`,
   };
 
   const videostreams = event.streamkey
     ? processStreamkey(event.streamkey)
     : null;
 
-  const ticketableStatus = getTicketableStatus([event, event.project]);
+  let ticketableStatus = null;
+  let userHasLiveAccess = null;
+  let userCanBuyTicket = null;
 
-  const userHasLiveAccess =
-    ticketableStatus === "FREE" || ticketableStatus === "HAS_TICKET";
+  if (project) {
+    const ticketableStatus = getTicketableStatus([event, project]);
 
-  const userCanBuyTicket: boolean =
-    !!ticketUrl &&
-    ticketableStatus !== "HAS_TICKET" &&
-    eventDates?.urgency.value !== "past";
+    const userHasLiveAccess =
+      ticketableStatus === "FREE" || ticketableStatus === "HAS_TICKET";
 
+    const userCanBuyTicket: boolean =
+      !!ticketUrl &&
+      ticketableStatus !== "HAS_TICKET" &&
+      eventDates?.urgency.value !== "past";
+  }
   return {
     ...event,
     ...eventDates,
     ticketUrl,
     ...routes,
     videostreams,
+    //@ts-ignore
     ticketableStatus,
+    //@ts-ignore
     userHasLiveAccess,
+    //@ts-ignore
     userCanBuyTicket,
   };
 }
