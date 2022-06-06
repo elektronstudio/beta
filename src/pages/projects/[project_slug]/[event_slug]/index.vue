@@ -42,7 +42,7 @@ const buttonText = computed(() => {
             @click="navigate"
           >
             <IconArrowLeft />
-            {{ event.project.title }}
+            <span v-html="event.project.title" />
           </EButton>
         </router-link>
         <ETitle el="h2" size="lg" :title="event.title" />
