@@ -2,18 +2,27 @@ import { computed, ref } from "vue";
 import { $fetch } from "ohmyfetch";
 import merge from "lodash.merge";
 
-import { config, lang, l, sortProject, processProject, processEvent } from ".";
+import {
+  config,
+  lang,
+  l,
+  sortProject,
+  processProject,
+  processEvent,
+  filterProject,
+} from ".";
 import { useIntervalFn } from "@vueuse/core";
 
 export function useProjects() {
   const projects = ref<any>([]);
   // TODO use more of Strapi sorting and filtering
   $fetch(
-    `${config.strapiV4Url}/api/projects?_sort=created_at:DESC&_limit=-1&slug_nin=kohe2022&slug_nin=signal&slug_nin=other&populate=*`,
+    `${config.strapiV4Url}/api/projects?sort[0]=createdAt%3Adesc&_limit=-1&populate=*`,
   ).then((f) => {
     projects.value = f.data
       .map((p) => p.attributes)
       .sort(sortProject)
+      .filter(filterProject)
       .map(processProject);
   });
 
