@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { parseControls } from "@/utils";
+import { parseControls, userId, userName } from "@/utils";
 import { debouncedWatch } from "@vueuse/core";
 import { computed } from "vue";
 import { useMessage, EFormRange } from "elektro";
@@ -26,6 +26,8 @@ debouncedWatch(
             channel: data.event.slug,
             type: c.type,
             value: controlsValue,
+            userId: userId.value,
+            userName: userName.value,
           });
         }
       }
@@ -41,11 +43,13 @@ debouncedWatch(
       <div v-if="c.title">{{ c.title }}</div>
       <div style="opacity: 0.5; font-size: 0.9rem">{{ c.description }}</div>
       <div>
-        <EFormRange
+        <input
+          type="range"
           v-model="c.value.value"
           :min="c.min"
           :max="c.max"
           :step="c.step"
+          style="width: 100%; accent-color: #7bef87"
         />
       </div>
       <div
