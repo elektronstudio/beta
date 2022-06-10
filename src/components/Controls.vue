@@ -49,7 +49,7 @@ debouncedWatch(
           :min="c.min"
           :max="c.max"
           :step="c.step"
-          style="width: 100%; accent-color: #7bef87"
+          style="width: 100%"
         />
       </div>
       <div
@@ -69,7 +69,23 @@ debouncedWatch(
 .Controls > * {
   display: flex;
   flex-direction: column;
-  gap: var(--gap-4);
+  gap: var(--gap-2);
+}
+.Controls input[type="range"] {
+  width: 100%;
+}
+.Controls input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--gray-500);
+  height: 2px;
+}
+
+.Controls input[type="range"]::-moz-range-track {
+  background: var(--gray-500);
+  height: 0.5rem;
+}
+
+.Controls input[type="range"]::-webkit-slider-thumb {
+  margin-top: -6px;
 }
 </style>
 
