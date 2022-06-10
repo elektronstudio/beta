@@ -73,6 +73,7 @@ debouncedWatch(
 }
 .Controls input[type="range"] {
   width: 100%;
+  accent-color: white;
 }
 .Controls input[type="range"]::-webkit-slider-runnable-track {
   background: var(--gray-500);
