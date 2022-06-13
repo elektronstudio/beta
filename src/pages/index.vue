@@ -14,7 +14,7 @@ const handleMute = () => {
 };
 
 // @TODO: Get this value from Strapi
-const pinnedEvent = "kurenniemi";
+const pinnedEvent = "experiment";
 
 const dialogState = ref<boolean>(true);
 const { projects, firstUpcomingLiveEvent } = useProjects();
