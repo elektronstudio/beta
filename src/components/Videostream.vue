@@ -93,7 +93,12 @@ const trackedEnterFullscreen = () => {
 </script>
 
 <template>
-  <div style="position: relative" ref="videoWindowRef" class="videoStream">
+  <div
+    style="position: relative"
+    ref="videoWindowRef"
+    class="videoStream"
+    :class="{ isFullScreen: isFullscreen }"
+  >
     <video
       ref="videoRef"
       :muted="volume == 0"
@@ -191,5 +196,10 @@ const trackedEnterFullscreen = () => {
 .isMaximised .controls {
   bottom: var(--p-8);
   right: var(--p-4);
+}
+
+.videoStream.isFullScreen video {
+  height: 100%;
+  object-fit: contain;
 }
 </style>
