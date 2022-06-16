@@ -11,10 +11,11 @@ import IconViewers from "~icons/radix-icons/eye-open";
 import IconEnterPip from "~icons/ph/picture-in-picture";
 import IconExitPip from "~icons/ph/picture-in-picture-fill";
 import { debouncedWatch, useFullscreen } from "@vueuse/core";
-import { useMessage, useVideostream } from "elektro";
+import { breakpoints, useMessage, useVideostream } from "elektro";
 import { plausible, usePip, stats, statsSynced } from "@/utils";
 
 const { sendMessage } = useMessage();
+const mobile = breakpoints.smaller("large");
 
 type Props = {
   streamurl: any;
@@ -97,6 +98,7 @@ const trackedEnterFullscreen = () => {
       ref="videoRef"
       :muted="volume == 0"
       autoplay
+      :controls="mobile"
       playsinline
       :width="width"
       :height="height"
@@ -119,7 +121,7 @@ const trackedEnterFullscreen = () => {
       <div>{{ viewersSynced }}</div>
       <slot />
     </div>
-    <div class="controls">
+    <div v-if="!mobile" class="controls">
       <EButton
         v-if="initialMuted"
         size="xs"
