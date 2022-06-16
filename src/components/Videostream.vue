@@ -55,18 +55,28 @@ const {
   exit: exitFullscreen,
 } = useFullscreen(videoWindowRef);
 
-const muted = ref(true);
-const volume = ref(0.8);
+const volume = ref(0);
+const lastVolume = ref(0);
+const initialMuted = ref(true);
+
+const handleInitialUnmute = () => {
+  initialMuted.value = false;
+  volume.value = 0.8;
+  lastVolume.value = 0.8;
+};
+
+const handleMuted = () => {
+  if (volume.value == 0) {
+    volume.value = lastVolume.value;
+  } else {
+    lastVolume.value = volume.value;
+    volume.value = 0;
+  }
+};
 
 watch(volume, () => {
   if (videoRef.value) {
     videoRef.value.volume = volume.value;
-    if (videoRef.value.volume === 0) {
-      muted.value = true;
-    }
-    if (videoRef.value.volume > 0) {
-      muted.value = false;
-    }
   }
 });
 
@@ -85,7 +95,7 @@ const trackedEnterFullscreen = () => {
   <div style="position: relative" ref="videoWindowRef" class="videoStream">
     <video
       ref="videoRef"
-      :muted="muted"
+      :muted="volume == 0"
       autoplay
       playsinline
       :width="width"
@@ -111,23 +121,21 @@ const trackedEnterFullscreen = () => {
     </div>
     <div class="controls">
       <EButton
-        v-if="muted"
+        v-if="initialMuted"
         size="xs"
         color="transparent"
-        @click="muted = !muted"
+        @click="handleInitialUnmute()"
       >
         <IconMuted />
         Click to unmute
       </EButton>
-      <EButton
-        v-if="!muted"
-        size="xs"
-        color="transparent"
-        @click="muted = !muted"
-      >
-        <IconUnmuted />
-      </EButton>
-      <EFormRange v-if="!muted" v-model="volume" :max="1" step="any" />
+      <template v-else>
+        <EButton size="xs" color="transparent" @click="handleMuted">
+          <IconMuted v-if="volume == 0" />
+          <IconUnmuted v-else />
+        </EButton>
+        <EFormRange v-model="volume" :max="1" step="any" />
+      </template>
       <EButton
         v-if="status === 'playing' && isPipAvailable && !isPip"
         size="xs"
