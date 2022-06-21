@@ -40,7 +40,7 @@ const emit = defineEmits<{
         <ETitle v-if="isEvent && event.formattedDistance" el="h6" size="sm">
           {{ event.formattedDistance }}
         </ETitle>
-        <ETitle el="h3">{{ event.title }}</ETitle>
+        <ETitle el="h3" v-html="event.title" />
         <EContent :content="event.intro" el="div" />
       </header>
       <footer>
