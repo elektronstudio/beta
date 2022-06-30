@@ -44,8 +44,8 @@ type EventSchema = {
 type EventComputed = {
   project: { slug?: string; fienta_id?: string };
   thumbnail: Image | null;
-  intro: Ref<string> | string | null;
-  description: Ref<string>;
+  intro: any;
+  description: any;
   ticketUrl: string | null;
   // TODO: Remove when new live page is ahem, live
   liveUrl: string;
@@ -69,18 +69,32 @@ export function sortEvents(a: Event, b: Event) {
 }
 
 export function processEvent(event: Event): Event {
+  if (event.images?.data == null) {
+    event.images = null;
+  } else if (event.images.data) {
+    event.images = event.images.data.map((e) => e.attributes);
+  }
+
   event.images = event.images
     ? event.images.filter(filterImage).map(processImage)
     : null;
+
+  if (event.thumbnail?.data == null) {
+    event.thumbnail = null;
+  } else if (event.thumbnail.data) {
+    event.thumbnail = event.thumbnail.data.attributes;
+  }
+
   event.thumbnail = event.thumbnail ? processImage(event.thumbnail) : null;
 
-  const intro_english = formatMarkdown(event.intro_english || "");
-  const intro_estonian = formatMarkdown((event.intro as string) || "");
+  const intro_english = formatMarkdown(event.intro || "");
+  const intro_estonian = formatMarkdown(event.intro || "");
 
   event.intro = computed(() => l(intro_english, intro_estonian));
 
-  const description_english = formatMarkdown(event.description_english || "");
-  const description_estonian = formatMarkdown(event.description_estonian || "");
+  // @TODO: Fix translations
+  const description_english = formatMarkdown(event.description || "");
+  const description_estonian = formatMarkdown(event.description || "");
 
   event.description = computed(() =>
     l(description_english, description_estonian),
@@ -105,10 +119,12 @@ export function processEvent(event: Event): Event {
       )
     : undefined;
 
+  const project = event.projects ? event.projects.data[0].attributes : null;
+
   const fientaId = event.fienta_id
     ? event.fienta_id
-    : event.project.fienta_id
-    ? event.project.fienta_id
+    : project?.fienta_id
+    ? project.fienta_id
     : null;
 
   let ticketUrl = null;
@@ -121,33 +137,41 @@ export function processEvent(event: Event): Event {
   }
 
   const routes = {
-    projectRoute: `/projects/${event.project.slug}`,
-    route: `/projects/${event.project.slug}/${event.slug}`,
-    liveRoute: `/projects/${event.project.slug}/${event.slug}/live`,
+    projectRoute: `/projects/${project?.slug}`,
+    route: `/projects/${project?.slug}/${event.slug}`,
+    liveRoute: `/projects/${project?.slug}/${event.slug}/live`,
   };
 
   const videostreams = event.streamkey
     ? processStreamkey(event.streamkey)
     : null;
 
-  const ticketableStatus = getTicketableStatus([event, event.project]);
+  let ticketableStatus = null;
+  let userHasLiveAccess = null;
+  let userCanBuyTicket = null;
 
-  const userHasLiveAccess =
-    ticketableStatus === "FREE" || ticketableStatus === "HAS_TICKET";
+  if (project) {
+    const ticketableStatus = getTicketableStatus([event, project]);
 
-  const userCanBuyTicket: boolean =
-    !!ticketUrl &&
-    ticketableStatus !== "HAS_TICKET" &&
-    eventDates?.urgency.value !== "past";
+    userHasLiveAccess =
+      ticketableStatus === "FREE" || ticketableStatus === "HAS_TICKET";
 
+    userCanBuyTicket =
+      !!ticketUrl &&
+      ticketableStatus !== "HAS_TICKET" &&
+      eventDates?.urgency.value !== "past";
+  }
   return {
     ...event,
     ...eventDates,
     ticketUrl,
     ...routes,
     videostreams,
+    //@ts-ignore
     ticketableStatus,
+    //@ts-ignore
     userHasLiveAccess,
+    //@ts-ignore
     userCanBuyTicket,
   };
 }

@@ -19,6 +19,7 @@ const { upcomingProjects } = useProjects();
               :title="project.title"
               class="projectTitle"
             />
+            <!-- <pre>{{ project.upcomingEvents[0] }}</pre> -->
           </RouterLink>
         </template>
         <EventCard
