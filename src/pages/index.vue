@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFrontPage, useProjects } from "@/utils";
-import { computed, ref, watch } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 import IconSpeakerOff from "~icons/radix-icons/speaker-off";
 import IconSpeakerLoud from "~icons/radix-icons/speaker-loud";
 import EventPreview from "../components/EventPreview.vue";
@@ -38,6 +38,9 @@ const pinnedProject = computed(() => {
     return null;
   }
 });
+watchEffect(() =>
+  console.log(page.value?.data.attributes.background.data.attributes.url),
+);
 </script>
 <template>
   <div class="Page">
@@ -53,7 +56,12 @@ const pinnedProject = computed(() => {
       <video
         v-if="page"
         class="video"
-        :src="page.data.attributes.background.data.attributes.url"
+        :src="
+          page.data.attributes.background.data.attributes.url.replace(
+            /https:\/\//,
+            '',
+          )
+        "
         :muted="muted"
         autoplay
         playsinline
@@ -105,6 +113,11 @@ const pinnedProject = computed(() => {
   z-index: 1;
   color: var(--gray-300);
   /* mix-blend-mode: difference; */
+}
+@media only screen and (min-width: 600px) {
+  .about {
+    width: 33vw;
+  }
 }
 .video {
   position: absolute;
