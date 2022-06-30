@@ -24,12 +24,13 @@ export type ProjectSchema = {
   intro_english: string | null;
   images: Image[];
   thumbnail: Image | null;
+  localizations: any;
 };
 
 type ProjectComputed = {
   events?: Event[] | null;
-  intro: Ref<string> | string | null;
-  description: Ref<string>;
+  intro: any;
+  description: any;
   upcomingEvents: Event[] | null;
   pastEvents: Event[] | null;
   details: any; // TODO: Proper typings for details
@@ -64,15 +65,19 @@ export function processProject(project: Project): Project {
     project.thumbnail = null;
   }
 
-  const intro_english = formatMarkdown((project.intro_english as string) || "");
-  const intro_estonian = formatMarkdown((project.intro as string) || "");
+  const intro_english = formatMarkdown((project.intro as string) || "");
+  const intro_estonian = formatMarkdown(
+    (project.localizations.data[0].attributes.intro as string) || "",
+  );
 
   project.intro = computed(() => l(intro_english, intro_estonian));
 
   // TODO: Remove when not needed anymore
-  const description_english = formatMarkdown(project.description_english || "");
+  const description_english = formatMarkdown(project.description || "");
   const description_estonian = formatMarkdown(
-    project.description_estonian || "",
+    project.localizations.data[0].attributes.description ||
+      project.description ||
+      "",
   );
 
   project.description = computed(() =>

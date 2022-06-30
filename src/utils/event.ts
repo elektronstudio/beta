@@ -44,8 +44,8 @@ type EventSchema = {
 type EventComputed = {
   project: { slug?: string; fienta_id?: string };
   thumbnail: Image | null;
-  intro: Ref<string> | string | null;
-  description: Ref<string>;
+  intro: any;
+  description: any;
   ticketUrl: string | null;
   // TODO: Remove when new live page is ahem, live
   liveUrl: string;
@@ -87,13 +87,14 @@ export function processEvent(event: Event): Event {
 
   event.thumbnail = event.thumbnail ? processImage(event.thumbnail) : null;
 
-  const intro_english = formatMarkdown(event.intro_english || "");
-  const intro_estonian = formatMarkdown((event.intro as string) || "");
+  const intro_english = formatMarkdown(event.intro || "");
+  const intro_estonian = formatMarkdown(event.intro || "");
 
   event.intro = computed(() => l(intro_english, intro_estonian));
 
-  const description_english = formatMarkdown(event.description_english || "");
-  const description_estonian = formatMarkdown(event.description_estonian || "");
+  // @TODO: Fix translations
+  const description_english = formatMarkdown(event.description || "");
+  const description_estonian = formatMarkdown(event.description || "");
 
   event.description = computed(() =>
     l(description_english, description_estonian),
@@ -152,10 +153,10 @@ export function processEvent(event: Event): Event {
   if (project) {
     const ticketableStatus = getTicketableStatus([event, project]);
 
-    const userHasLiveAccess =
+    userHasLiveAccess =
       ticketableStatus === "FREE" || ticketableStatus === "HAS_TICKET";
 
-    const userCanBuyTicket: boolean =
+    userCanBuyTicket =
       !!ticketUrl &&
       ticketableStatus !== "HAS_TICKET" &&
       eventDates?.urgency.value !== "past";

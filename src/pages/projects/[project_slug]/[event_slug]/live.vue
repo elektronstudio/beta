@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Draggable } from "elektro";
-import { useUpdatingEventBySlug } from "@/utils";
-import { computed } from "vue";
+import { useEventBySlug, useUpdatingEventBySlug } from "@/utils";
+import { computed, watchEffect } from "vue";
 import LiveView from "../../../../components/LiveView.vue";
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const { event_slug } = defineProps<Props>();
-const event = useUpdatingEventBySlug(event_slug);
+const event = useEventBySlug(event_slug);
 
 // TODO: support multiple videos
 const stream = computed(() => event?.value?.videostreams[0]);

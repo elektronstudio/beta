@@ -20,6 +20,7 @@ export function useProjects() {
   const q = qs.stringify(
     {
       populate: [
+        "localizations",
         "images",
         "thumbnail",
         "events",
@@ -102,11 +103,13 @@ export function useProjectBySlug(slug: string) {
         slug: { $eq: slug },
       },
       populate: [
+        "localizations",
         "images",
         "thumbnail",
         "events",
         "events.images",
         "events.thumbnail",
+        "events.projects",
       ],
     },
     {
@@ -128,7 +131,7 @@ export function useEventBySlug(slug: string) {
       filters: {
         slug: { $eq: slug },
       },
-      populate: ["images", "thumbnail", "projects"],
+      populate: ["localizations", "images", "thumbnail", "projects"],
     },
     {
       encodeValuesOnly: true,
@@ -154,7 +157,7 @@ export function useUpdatingEventBySlug(slug: string) {
           filters: {
             slug: { $eq: slug },
           },
-          populate: ["images", "thumbnail", "projects"],
+          populate: ["localizations", "images", "thumbnail", "projects"],
         },
         {
           encodeValuesOnly: true,
