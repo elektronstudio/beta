@@ -19,7 +19,7 @@ const { event, projectThumbnail, layout = "horizontal" } = defineProps<Props>();
     </figure>
     <div class="content">
       <header>
-        <time v-if="event.live && event.start_at" :datetime="event.start_at">
+        <time v-if="event.start_at" :datetime="event.start_at">
           {{ event.formattedFromDatetime }}
         </time>
         <router-link :to="event.route">

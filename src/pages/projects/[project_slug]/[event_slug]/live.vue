@@ -69,7 +69,7 @@ const data = computed(() => {
       title: "Controls",
       draggableId: "controls",
       contentType: "controls",
-      tilesWidth: 8,
+      tilesWidth: 9,
       tilesHeight: 3,
       gridPosX: 9,
       gridPosY: 3,
