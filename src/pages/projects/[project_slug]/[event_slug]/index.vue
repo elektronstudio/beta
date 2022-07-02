@@ -2,7 +2,7 @@
 import IconArrowLeft from "~icons/radix-icons/arrow-left";
 import IconArrowRight from "~icons/radix-icons/arrow-right";
 import { useEventBySlug, l } from "@/utils";
-import { computed } from "vue";
+import { computed, watchEffect } from "vue";
 
 type Props = {
   project_slug: string;
@@ -54,7 +54,12 @@ const buttonText = computed(() => {
         v-if="event.intro"
         class="Description"
         size="lg"
-        :content="event.intro"
+        :content="
+          l(
+            event.intro,
+            '<p>' + event.localizations.data?.[0].attributes.intro + '</p>',
+          )
+        "
       />
       <div
         v-if="
@@ -105,12 +110,19 @@ const buttonText = computed(() => {
         </EButton>
       </div>
     </header>
-    <EImageSlider v-if="event.images" :images="event.images" />
+    <ImageSlider v-if="event.images" :images="event.images" />
     <main>
       <EBox class="MainContent">
         <!-- @TODO: Add metadata -->
         <EDetailsList v-if="event.details" :details="event.details" />
-        <EContent :content="event.description" />
+        <EContent
+          :content="
+            l(
+              event.description,
+              event.localizations.data?.[0].attributes.description,
+            )
+          "
+        />
       </EBox>
       <!-- <EBox
         v-if="event.upcomingEvents || event.press"
