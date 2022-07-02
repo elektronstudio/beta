@@ -22,7 +22,6 @@ const buttonText = computed(() => {
     return l("View event", "Vaata üritust");
   }
 });
-watchEffect(() => console.log(event.value));
 </script>
 
 <template>
