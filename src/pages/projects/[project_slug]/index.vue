@@ -37,7 +37,7 @@ const project = useProjectBySlug(project_slug);
         :content="project.intro"
       />
     </header>
-    <EImageSlider v-if="project.images" :images="project.images" />
+    <ImageSlider v-if="project.images" :images="project.images" />
     <main>
       <EBox class="MainContent">
         <EDetailsList v-if="project.details" :details="project.details" />

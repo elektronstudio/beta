@@ -17,7 +17,7 @@ const project = useProjectBySlug("kohe2022");
         :content="project.description_intro"
       />
     </header>
-    <EImageSlider v-if="project.images" :images="project.images" />
+    <ImageSlider v-if="project.images" :images="project.images" />
     <main>
       <EBox class="MainContent">
         <!-- @TODO: Add metadata -->

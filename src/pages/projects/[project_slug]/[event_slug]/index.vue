@@ -105,7 +105,7 @@ const buttonText = computed(() => {
         </EButton>
       </div>
     </header>
-    <EImageSlider v-if="event.images" :images="event.images" />
+    <ImageSlider v-if="event.images" :images="event.images" />
     <main>
       <EBox class="MainContent">
         <!-- @TODO: Add metadata -->
