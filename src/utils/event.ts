@@ -42,7 +42,8 @@ type EventSchema = {
 };
 
 type EventComputed = {
-  project: { slug?: string; fienta_id?: string };
+  project: any;
+  projects: any;
   thumbnail: Image | null;
   intro: any;
   description: any;
@@ -68,7 +69,7 @@ export function sortEvents(a: Event, b: Event) {
   return 0; // Keep original sort order if no data for sorting
 }
 
-export function processEvent(event: Event): Event {
+export function processEvent(event: Event, eventProject: any = null): Event {
   if (event.images?.data == null) {
     event.images = null;
   } else if (event.images.data) {
@@ -119,7 +120,11 @@ export function processEvent(event: Event): Event {
       )
     : undefined;
 
-  const project = event.projects ? event.projects.data[0].attributes : null;
+  const project = eventProject
+    ? eventProject
+    : event.projects
+    ? event.projects.data[0].attributes
+    : null;
 
   const fientaId = event.fienta_id
     ? event.fienta_id

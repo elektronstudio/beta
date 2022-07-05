@@ -101,7 +101,7 @@ export function processProject(project: Project): Project {
           },
         };
       }
-      return processEvent(event);
+      return processEvent(event, project);
     })
     .sort(sortEvents);
 
