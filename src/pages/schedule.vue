@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useProjects } from "@/utils";
+import { useProjects, l } from "@/utils";
 
 const { upcomingProjects } = useProjects();
 </script>
@@ -16,7 +16,13 @@ const { upcomingProjects } = useProjects();
             <ETitle
               el="h2"
               size="lg"
-              :title="project.title"
+              :title="
+                l(
+                  project.title,
+                  project.localizations.data[0].attributes.title ||
+                    project.title,
+                )
+              "
               class="projectTitle"
             />
             <!-- <pre>{{ project.upcomingEvents[0] }}</pre> -->
