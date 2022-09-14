@@ -51,13 +51,13 @@ const buttonText = computed(() => {
 
       <!-- @TODO: Add locale based conditionals -->
       <EContent
-        v-if="event.intro"
+        v-if="event?.intro"
         class="Description"
         size="lg"
         :content="
           l(
             event.intro,
-            '<p>' + event.localizations.data?.[0].attributes.intro + '</p>',
+            '<p>' + event.localizations.data?.[0]?.attributes.intro + '</p>',
           )
         "
       />
@@ -115,14 +115,7 @@ const buttonText = computed(() => {
       <EBox class="MainContent">
         <!-- @TODO: Add metadata -->
         <EDetailsList v-if="event.details" :details="event.details" />
-        <EContent
-          :content="
-            l(
-              event.description,
-              event.localizations.data?.[0].attributes.description,
-            )
-          "
-        />
+        <EContent :content="l(event.description, event.description)" />
       </EBox>
       <!-- <EBox
         v-if="event.upcomingEvents || event.press"

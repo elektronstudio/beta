@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { parseControls, userId, userName } from "@/utils";
+import { parseControls, userId, userName, useMessage } from "@/utils";
 import { debouncedWatch } from "@vueuse/core";
 import { computed } from "vue";
-import { useMessage, EFormRange } from "elektro";
 const { sendMessage } = useMessage();
 
 type Props = {

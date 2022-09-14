@@ -55,7 +55,7 @@ const emit = defineEmits<{
         </template>
       </footer>
     </aside>
-    <EImage v-if="event.images[0]" :sizes="event.images[0].sizes" />
+    <EImage v-if="event.images?.[0]" :sizes="event.images[0].sizes" />
   </EDialog>
 </template>
 

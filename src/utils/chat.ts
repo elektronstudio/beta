@@ -1,5 +1,5 @@
 import { computed, Ref, ref, watch } from "vue";
-import { useMessage } from "elektro";
+import { useMessage } from "@/utils";
 import type { MessageType } from "elektro";
 import { scrollToBottom, useTextarea } from "elektro";
 import { RemovableRef, useScroll } from "@vueuse/core";

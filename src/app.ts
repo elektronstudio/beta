@@ -16,7 +16,7 @@ config.fientaToken = import.meta.env.VITE_FIENTA_TOKEN as string;
 config.fientaTicketUrl = import.meta.env.VITE_FIENTA_TICKET_URL as string;
 
 plausible.enableAutoPageviews();
-initStats();
+// initStats();
 
 const router = createRouter({
   history: createWebHistory(),

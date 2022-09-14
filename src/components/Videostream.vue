@@ -11,8 +11,8 @@ import IconViewers from "~icons/radix-icons/eye-open";
 import IconEnterPip from "~icons/ph/picture-in-picture";
 import IconExitPip from "~icons/ph/picture-in-picture-fill";
 import { debouncedWatch, useFullscreen } from "@vueuse/core";
-import { breakpoints, useMessage, useVideostream } from "elektro";
-import { plausible, usePip, stats, statsSynced } from "@/utils";
+import { breakpoints, useVideostream } from "elektro";
+import { plausible, usePip, stats, statsSynced, useMessage } from "@/utils";
 
 const { sendMessage } = useMessage();
 const mobile = breakpoints.smaller("large");

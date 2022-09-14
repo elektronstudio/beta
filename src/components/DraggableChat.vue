@@ -8,7 +8,7 @@ import {
   useMagicKeys,
   useNow,
 } from "@vueuse/core";
-import { useMessage, safeJsonParse } from "elektro";
+import { safeJsonParse } from "elektro";
 import type { Message } from "elektro";
 import {
   userId,
@@ -17,6 +17,7 @@ import {
   userPosition,
   draggableChatState,
   remap,
+  useMessage,
 } from "@/utils";
 import { useRouter, useRoute } from "vue-router";
 import { differenceInSeconds } from "date-fns";

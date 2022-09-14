@@ -13,7 +13,10 @@ const { event_slug } = defineProps<Props>();
 const event = useEventBySlug(event_slug);
 
 // TODO: support multiple videos
-const stream = computed(() => event?.value?.videostreams[0]);
+const stream = computed(() => {
+  console.log(event?.value);
+  return event?.value?.videostreams?.[0];
+});
 const data = computed(() => {
   if (!event.value) {
     return null;

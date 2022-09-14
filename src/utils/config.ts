@@ -1,4 +1,5 @@
 export const config = {
+  wsUrl: import.meta.env.VITE_WS_URL || "",
   strapiUrl: import.meta.env.VITE_STRAPI_URL || "",
   strapiV4Url: import.meta.env.VITE_STRAPI_V4_URL || "",
   fientaUrl: import.meta.env.VITE_FIENTA_URL || "",

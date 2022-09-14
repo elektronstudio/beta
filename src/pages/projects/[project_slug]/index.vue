@@ -31,7 +31,7 @@ const project = useProjectBySlug(project_slug);
 
       <!-- @TODO: Add locale based conditionals -->
       <EContent
-        v-if="project.intro"
+        v-if="project?.intro"
         class="Description"
         size="lg"
         :content="project.intro"
@@ -48,7 +48,7 @@ const project = useProjectBySlug(project_slug);
         class="SideContent"
         el="aside"
       >
-        <template v-if="project.upcomingEvents">
+        <!-- <template v-if="project.upcomingEvents">
           <ETitle el="h3" size="lg" :title="l('Events', 'Üritused')" />
 
           <EventCard
@@ -57,7 +57,7 @@ const project = useProjectBySlug(project_slug);
             :project-thumbnail="project.thumbnail"
             layout="vertical"
           />
-        </template>
+        </template> -->
 
         <template v-if="project.pastEvents">
           <ETitle

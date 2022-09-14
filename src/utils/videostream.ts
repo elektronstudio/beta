@@ -9,8 +9,8 @@ const debounce = (fn: Function, ms = 300) => {
 };
 
 import { computed, Ref, ref } from "vue";
-import { useMessage, safeJsonParse } from "elektro";
-import type { Message } from "elektro";
+// import { useMessage, safeJsonParse } from "elektro";
+// import type { Message } from "elektro";
 import { config, replaceTokens, split } from ".";
 
 function formatStreamkey(streamkey = "") {
@@ -55,22 +55,22 @@ export const statsSynced = computed(() => {
   });
 });
 
-export function initStats() {
-  const { ws } = useMessage();
-  ws.addEventListener(
-    "message",
-    debounce(({ data }: any) => {
-      const message = JSON.parse(data);
-      if (message.type === "STATS") {
-        stats.value = processStats(message.value);
-      }
-      if (message.type === "STATS_SYNC") {
-        const m = message.value.split(":").map((s) => s.trim());
-        statsSync.value = { streamkey: m[0], sync: parseFloat(m[1]) || 1 };
-      }
-    }, 1000),
-  );
-}
+// export function initStats() {
+//   const { ws } = useMessage();
+//   ws.addEventListener(
+//     "message",
+//     debounce(({ data }: any) => {
+//       const message = JSON.parse(data);
+//       if (message.type === "STATS") {
+//         stats.value = processStats(message.value);
+//       }
+//       if (message.type === "STATS_SYNC") {
+//         const m = message.value.split(":").map((s) => s.trim());
+//         statsSync.value = { streamkey: m[0], sync: parseFloat(m[1]) || 1 };
+//       }
+//     }, 1000),
+//   );
+// }
 
 export function processStreamkey(streamkey = "") {
   const streamkeys = split(streamkey);
